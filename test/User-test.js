@@ -11,7 +11,6 @@ describe('User', function() {
   let user3;
   let user4;
   let user5;
-  let users;
 
   beforeEach(function() {
     user1 = {
@@ -59,7 +58,6 @@ describe('User', function() {
       "dailyStepGoal": 8000,
       "friends": [1, 2, 3, 4]
     };
-    users = [user1, user2, user3, user4, user5];
   });
 
   it.skip('should be a function', function() {

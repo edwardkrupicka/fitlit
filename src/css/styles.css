@@ -1,5 +1,31 @@
+* {
+  border: 2px solid red;
+}
+
 body, html {
   background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
   background-repeat: no-repeat;
   height: 100%;
+}
+
+.header-section {
+  display: flex;
+  height: 20vh;
+}
+
+.greeting,
+.fit-lit {
+  width: 50vw;
+}
+
+.main-user-container {
+  height: 80vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.content {
+  width: 40vw;
 }

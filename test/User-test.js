@@ -120,7 +120,7 @@ describe('User', function() {
     expect(userB.friends).to.deep.equal([2, 4, 5]);
   });
 
-  it.skip('should be able to return the user\'s first name', function() {
+  it('should be able to return the user\'s first name', function() {
     let userA = new User(user2);
     let resultA = userA.returnFirstName();
     expect(resultA).to.equal("Jarvis");

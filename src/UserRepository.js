@@ -8,10 +8,10 @@ class UserRepository {
   }
 
   averageStepGoal() {
-    let totalSteps = this.allUserData.reduce((total, user) => {
+    const totalSteps = this.allUserData.reduce((total, user) => {
       return total += user.dailyStepGoal;
     }, 0);
-    let totalUsers = this.allUserData.length;
+    const totalUsers = this.allUserData.length;
     return Math.round(totalSteps / totalUsers);
   }
 }

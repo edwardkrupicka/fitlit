@@ -13,3 +13,12 @@ console.log('This is the JavaScript entry file - your code begins here.');
 
 import userData from './data/users';
 import UserRepository from './UserRepository';
+
+const userGreeting = document.querySelector('#userGreeting');
+const userFullName = document.querySelector('#userFullName');
+const userEmail = document.querySelector('#userEmail');
+const userAddress = document.querySelector('#userAddress');
+const userStride = document.querySelector('#userStride');
+const userFriends = document.querySelector('#userFriends');
+const userStepGoal = document.querySelector('#userStepGoal');
+const averageStepGoal = document.querySelector('#averageStepGoal');

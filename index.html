@@ -11,7 +11,6 @@
     <section class="header-section">
       <section class="greeting">
         <h2>Greeting User</h2>
-        <section class="steps-graph"></section>
       </section>
       <section class="fit-lit">
         <h2>fitlit</h2>
@@ -24,9 +23,18 @@
           <figcaption>User Name goes here</figcaption>
         </figure>
       </section>
-      <section class="content user-steps">user-steps</section>
-      <section class="content user-sleep">user-sleep</section>
-      <section class="content user-hydration">user-hydration</section>
+      <section class="content user-steps">
+        <h3>Steps</h3>
+        <div class="step-graph">Graph</div>
+      </section>
+      <section class="content user-sleep">
+        <h3>Sleep</h3>
+        <div class="sleep-graph">Graph</div>
+      </section>
+      <section class="content user-hydration">
+        <h3>hydration</h3>
+        <div class="hydration-graph">Graph</div>
+      </section>
     </main>
 <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
     <script src="bundle.js"></script>

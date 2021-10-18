@@ -4,6 +4,7 @@ class UserRepository {
   }
 
   getUser(findId) {
+    // console.log(this.allUserData)
     return this.allUserData.find(user => user.id === findId);
   }
 

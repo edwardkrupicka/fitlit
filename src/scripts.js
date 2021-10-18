@@ -13,6 +13,11 @@ console.log('This is the JavaScript entry file - your code begins here.');
 
 import userData from './data/users';
 import UserRepository from './UserRepository';
+import User from './User'
+
+// Global
+const userRepo = new UserRepository(userData);
+const user = new User(userRepo.getUser(17));
 
 const userGreeting = document.querySelector('#userGreeting');
 const userFullName = document.querySelector('#userFullName');
@@ -22,3 +27,20 @@ const userStride = document.querySelector('#userStride');
 const userFriends = document.querySelector('#userFriends');
 const userStepGoal = document.querySelector('#userStepGoal');
 const averageStepGoal = document.querySelector('#averageStepGoal');
+
+userGreeting.innerText = `Greetings ${user.returnFirstName()}`;
+userFullName.innerText = user.name;
+userEmail.innerText = user.email;
+userAddress.innerText = user.address;
+userStride.innerText = user.strideLength;
+userStepGoal.innerText = user.dailyStepGoal;
+averageStepGoal.innerText = userRepo.averageStepGoal();
+userFriends.innerHTML = addFriends();
+
+function addFriends() {
+  let friendsList = user.friends;
+  friendsList = friendsList.map(friend => {
+    return `<li>${userRepo.getUser(friend).name}</li>`;
+  })
+  console.log(friendsList);
+}

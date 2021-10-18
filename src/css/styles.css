@@ -1,5 +1,59 @@
 body, html {
   background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
   background-repeat: no-repeat;
+  color: black;
   height: 100%;
+}
+
+body {
+  margin: auto;
+}
+
+.header-section {
+  display: flex;
+  height: 20vh;
+  border: 2px solid red;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+
+}
+
+.greeting,
+.fit-lit {
+  display: flex;
+  width: 40vw;
+  height: 100%;
+  border: 2px solid green;
+  justify-content: center;
+  align-items: center;
+
+}
+
+h2 {
+  width: 25vw;
+  height: 12vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  
+}
+
+.main-user-container {
+  height: 60vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  border: 2px solid red;
+
+}
+
+.content {
+  width: 40vw;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

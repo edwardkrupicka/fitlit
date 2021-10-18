@@ -35,12 +35,16 @@ userAddress.innerText = user.address;
 userStride.innerText = user.strideLength;
 userStepGoal.innerText = user.dailyStepGoal;
 averageStepGoal.innerText = userRepo.averageStepGoal();
-userFriends.innerHTML = addFriends();
+// userFriends.innerHTML = addFriends();
+userFriends.innerText = addFriends();
 
 function addFriends() {
   let friendsList = user.friends;
   friendsList = friendsList.map(friend => {
-    return `<li>${userRepo.getUser(friend).name}</li>`;
-  })
-  console.log(friendsList);
+    // return `<li>${userRepo.getUser(friend).name}</li>`;
+    return userRepo.getUser(friend).name;
+  }).join(', ');
+  // console.log(friendsList);
+  // const friendsNames = friendsList.join(', ');
+  return friendsList;
 }

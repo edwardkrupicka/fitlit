@@ -1,8 +1,12 @@
 body, html {
-  background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-  background-repeat: no-repeat;
   color: black;
   height: 100%;
+  background-color: #090909;
+    background-image:url('https://i.imgur.com/CqPfIEj.jpg');
+    background-attachment:fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Bebas Neue', cursive;
 }
 
 body {
@@ -56,4 +60,21 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 2vw 2vw 2vw 2vw;
+  border-radius: 30px;
+  background: #ff761fde;
+  font-size: 1.5em
+}
+
+.user-img {
+  width: 2vw;
+  height: 2vw;
+}
+
+figure {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
 }

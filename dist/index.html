@@ -2,6 +2,9 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <title>Activity Tracker</title>
   </head>
   <body>
@@ -16,13 +19,22 @@
     <main class="main-user-container">
       <section class="content user-profile">
         <figure>
-          <img src="./images/turing-logo.png" alt="turing logo">
+          <img class=user-img src="./images/turing-logo.png" alt="turing logo">
           <figcaption>User Name goes here</figcaption>
         </figure>
       </section>
-      <section class="content user-steps">user-steps</section>
-      <section class="content user-sleep">user-sleep</section>
-      <section class="content user-hydration">user-hydration</section>
+      <section class="content user-steps">
+        <h3>Steps</h3>
+        <div class="step-graph">Graph</div>
+      </section>
+      <section class="content user-sleep">
+        <h3>Sleep</h3>
+        <div class="sleep-graph">Graph</div>
+      </section>
+      <section class="content user-hydration">
+        <h3>hydration</h3>
+        <div class="hydration-graph">Graph</div>
+      </section>
     </main>
 <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
     <script src="bundle.js"></script>

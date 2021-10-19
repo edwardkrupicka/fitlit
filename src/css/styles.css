@@ -1,8 +1,8 @@
 body, html {
-  background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-  background-repeat: no-repeat;
   color: black;
   height: 100%;
+  background-color: #424242;
+  font-family: 'Bebas Neue', cursive;
 }
 
 body {
@@ -41,7 +41,7 @@ h2 {
 }
 
 .main-user-container {
-  height: 60vh;
+  height: 80vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -56,4 +56,39 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 2vw 2vw 2vw 2vw;
+  border-radius: 30px;
+  background: #ff761fde;
+  font-size: 1.5em
+}
+
+.user-img {
+  width: 2vw;
+  height: 2vw;
+}
+
+figure {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+}
+
+.step-graph,
+.sleep-graph,
+.hydration-graph {
+  background-color: white;
+  width: 30vw;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-steps,
+.user-sleep,
+.user-hydration {
+  display: flex;
+  flex-direction: column;
 }

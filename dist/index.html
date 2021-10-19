@@ -17,28 +17,33 @@
       </section>
     </section>
     <main class="main-user-container">
+      <section class="content user-steps">
+        <h3>Steps</h3>
+        <p>My Step Goal: <span id="userStepGoal"></span></p>
+        <p>Average Step Goal: <span id="averageStepGoal"></span></p>
+        <div class="step-graph">Graph</div>
+      </section>
       <section class="content user-profile">
         <figure>
-          <img class=user-img src="./images/turing-logo.png" alt="turing logo">
+          <img class=user-img src="https://cataas.com/cat" alt="turing logo">
           <figcaption id="userFullName">User Name goes here</figcaption>
           <p>Email: <span id="userEmail">email@example.org</span></p>
           <p>Address: <span id="userAddress">123 Street Road</span></p>
           <p>Stride Length: <span id="userStride">3.4</span></p>
-          <p>Friends: <span id="userFriends">John Doe, Lindsey Smith</span></p>
         </figure>
-      </section>
-      <section class="content user-steps">
-        <p id="userStepGoal"></p>
-        <p id="averageStepGoal"></p>
-        <div class="step-graph">Graph</div>
-      </section>
-      <section class="content user-sleep">
-        <h3>Sleep</h3>
-        <div class="sleep-graph">Graph</div>
       </section>
       <section class="content user-hydration">
         <h3>hydration</h3>
         <div class="hydration-graph">Graph</div>
+      </section>
+      <section class="content user-friends">
+        <h3>friends</h3>
+        <ul id="userFriends">
+        </ul>
+      </section>
+      <section class="content user-sleep">
+        <h3>Sleep</h3>
+        <div class="sleep-graph">Graph</div>
       </section>
     </main>
 <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->

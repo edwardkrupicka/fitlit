@@ -13,6 +13,10 @@ body {
   margin: auto;
 }
 
+p {
+  margin: 1vh;
+}
+
 .header-section {
   display: flex;
   height: 20vh;
@@ -46,27 +50,24 @@ h2 {
 .main-user-container {
   height: 80vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  border: 2px solid red;
+  justify-content: flex-start;
 }
 
 .content {
   width: 40vw;
-  border: 2px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2vw;
+  margin: 2vw 4.6vw;
   border-radius: 30px;
   background: #ff761fde;
   font-size: 1.5em
 }
 
 .user-img {
-  width: 2vw;
-  height: 2vw;
+  width: 12vw;
 }
 
 figure {
@@ -91,7 +92,8 @@ figure {
 
 .user-steps,
 .user-sleep,
-.user-hydration {
+.user-hydration,
+.user-friends {
   display: flex;
   flex-direction: column;
 }

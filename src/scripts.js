@@ -35,12 +35,12 @@ userAddress.innerText = user.address;
 userStride.innerText = user.strideLength;
 userStepGoal.innerText = user.dailyStepGoal;
 averageStepGoal.innerText = userRepo.averageStepGoal();
-userFriends.innerText = addFriends();
+userFriends.innerHTML = addFriends();
+
 
 function addFriends() {
   let friendsList = user.friends;
-  friendsList = friendsList.map(friend => {
-    return userRepo.getUser(friend).name;
-  }).join(', ');
-  return friendsList;
+  return friendsList.reduce((finalString, friend) => {
+    return finalString += `<li>${userRepo.getUser(friend).name}: Step Goal ${userRepo.getUser(friend).dailyStepGoal}</li>`
+  }, "");
 };

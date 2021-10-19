@@ -3,14 +3,17 @@ class Hydration {
     this.id = id;
     this.hydrationData = hydrationData.filter(data => data.userID === this.id);
   }
-  findAverageNumOunces() {
+  findAverageHydration() {
     const numOuncesArray = this.hydrationData.map(data => data.numOunces);
     const totalOunces = numOuncesArray.reduce((acc, ounces) => {
       return acc += ounces;
     }, 0);
-    console.log(totalOunces / numOuncesArray.length);
-    return totalOunces / numOuncesArray.length;
-    
+    return totalOunces / numOuncesArray.length;  
+  }
+
+  findDailyHydration(date) {
+    const foundDate = this.hydrationData.filter(data => data.date === date);
+    return foundDate[0].numOunces;
   }
 };
 

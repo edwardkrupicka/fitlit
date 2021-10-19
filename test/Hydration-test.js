@@ -25,20 +25,29 @@ describe('Hyrdration', () => {
 
   it('should be an instance of Hydration', () => {
     expect(hydration).to.be.an.instanceOf(Hydration);
-    console.log(hydration);
   });
 
   it('should take user id as an argument', () => {
     expect(hydration.id).to.equal(1);
+    expect(hydration2.id).to.equal(2);
   });
 
   it('should store hydration data', () => {
     expect(hydration.hydrationData).to.deep.equal(hydrationData.filter(data => data.userID === 1));
-    console.log(hydrationData.filter(data => data.userID === 1));
+    expect(hydration2.hydrationData).to.deep.equal(hydrationData.filter(data => data.userID === 2));
   });
 
   it('should be able to return average fluid ounces consumed per day for all time', () => {
-    expect(hydration.findAverageNumOunces()).to.equal(53);
-    expect(hydration2.findAverageNumOunces()).to.equal(87.5);
-  })
+    expect(hydration.findAverageHydration()).to.equal(53);
+    expect(hydration2.findAverageHydration()).to.equal(87.5);
+  });
+
+  it('should be able to return how many fluid ounces the user consumed for a specific day', () => {
+    expect(hydration.findDailyHydration('2019/06/15')).to.equal(37);
+    expect(hydration2.findDailyHydration('2019/06/15')).to.equal(75);
+  });
+
+  // it('should be able to return how many fluid ounces of water consumed each day over the course of 7 days', () => {
+  //   expect(hydration.findWeeklyHydration()).to.equal();
+  // });
 });

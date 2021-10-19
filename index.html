@@ -10,7 +10,7 @@
   <body>
     <section class="header-section">
       <section class="greeting">
-        <h2>Greeting User</h2>
+        <h2 id="userGreeting"></h2>
       </section>
       <section class="fit-lit">
         <h2>fitlit</h2>
@@ -20,11 +20,16 @@
       <section class="content user-profile">
         <figure>
           <img class=user-img src="./images/turing-logo.png" alt="turing logo">
-          <figcaption>User Name goes here</figcaption>
+          <figcaption id="userFullName">User Name goes here</figcaption>
+          <p>Email: <span id="userEmail">email@example.org</span></p>
+          <p>Address: <span id="userAddress">123 Street Road</span></p>
+          <p>Stride Length: <span id="userStride">3.4</span></p>
+          <p>Friends: <span id="userFriends">John Doe, Lindsey Smith</span></p>
         </figure>
       </section>
       <section class="content user-steps">
-        <h3>Steps</h3>
+        <p id="userStepGoal"></p>
+        <p id="averageStepGoal"></p>
         <div class="step-graph">Graph</div>
       </section>
       <section class="content user-sleep">

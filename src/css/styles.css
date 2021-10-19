@@ -1,7 +1,11 @@
 body, html {
   color: black;
   height: 100%;
-  background-color: #424242;
+  background-color: #090909;
+    background-image:url('https://i.imgur.com/CqPfIEj.jpg');
+    background-attachment:fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
   font-family: 'Bebas Neue', cursive;
 }
 
@@ -37,7 +41,6 @@ h2 {
   justify-content: center;
   align-items: center;
   border: 2px solid black;
-  
 }
 
 .main-user-container {
@@ -47,7 +50,6 @@ h2 {
   flex-wrap: wrap;
   justify-content: space-evenly;
   border: 2px solid red;
-
 }
 
 .content {
@@ -56,7 +58,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2vw 2vw 2vw 2vw;
+  margin: 2vw;
   border-radius: 30px;
   background: #ff761fde;
   font-size: 1.5em
@@ -73,6 +75,7 @@ figure {
   justify-content: space-evenly;
   width: 100%;
   height: 100%;
+  flex-direction: column;
 }
 
 .step-graph,

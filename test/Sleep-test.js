@@ -1,0 +1,62 @@
+import {expect} from 'chai';
+import Sleep from '../src/Sleep';
+
+describe('Sleep', function() {
+  let sleepData = [
+    {
+      "userID": 1,
+      "date": "2019/06/15",
+      "hoursSlept": 6.1,
+      "sleepQuality": 2.2
+    },
+    {
+      "userID": 2,
+      "date": "2019/06/15",
+      "hoursSlept": 7,
+      "sleepQuality": 4.7
+    },
+    {
+      "userID": 3,
+      "date": "2019/06/15",
+      "hoursSlept": 10.8,
+      "sleepQuality": 4.7
+    },
+    {
+      "userID": 1,
+      "date": "2019/06/16",
+      "hoursSlept": 4.1,
+      "sleepQuality": 3.8
+    },
+    {
+      "userID": 2,
+      "date": "2019/06/16",
+      "hoursSlept": 7.5,
+      "sleepQuality": 3.8
+    },
+    {
+      "userID": 3,
+      "date": "2019/06/16",
+      "hoursSlept": 10.7,
+      "sleepQuality": 3.4
+    }
+  ];
+  const sleep = new Sleep(sleepData);
+
+  it('should be a function', function() {
+    expect(Sleep).to.be.a('Function');
+  });
+
+  it('should be an instance of Sleep', function() {
+    expect(sleep).to.be.an.instanceOf(Sleep);
+  });
+
+  it('should store all sleep data', function() {
+    expect(sleep.allSleepData).to.deep.equal(sleepData);
+  });
+
+  it('should return the average hours slept per day when given a user\'s ID', function() {
+    const hoursSlept = sleep.getAverageHoursSlept(2);
+    // console.log(sleepData);
+    expect(hoursSlept).to.equal(7.25);
+  });
+});

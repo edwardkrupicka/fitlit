@@ -23,7 +23,7 @@ class Sleep {
     return avgUserSleepQuality;
   }
 
-  getHoursSlept(userId, date) {
+  getDailyHoursSlept(userId, date) {
     const hoursSlept = this.allSleepData.filter(user => {
       return user.userID === userId;
     }).find(user => {
@@ -32,13 +32,23 @@ class Sleep {
     return hoursSlept;
   }
 
-  getSleepQuality(userId, date) {
+  getDailySleepQuality(userId, date) {
     const sleepQuality = this.allSleepData.filter(user => {
       return user.userID === userId;
     }).find(user => {
       return user.date === date;
     }).sleepQuality;
     return sleepQuality;
+  }
+
+  calculateHoursSleptAWeek(userId, date) {
+    const hoursSleptInAWeek = this.allSleepData.filter((user) => {
+      return user.userID === userId;
+    })
+    const dateIndex = hoursSleptInAWeek.map((user) => {
+      return user.date
+    }).indexOf(date);
+    return hoursSleptInAWeek.slice(dateIndex, dateIndex + 7);
   }
 }
 

@@ -59,12 +59,9 @@ h2 {
   display: grid;
   grid-template-columns: 50% 50%;
   justify-content: flex-start;
-  /* align-items:flex-start */
 }
 
 .content {
-  /* width: 40vw; */
-  /* grid-template-columns: span 1; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -146,4 +143,10 @@ figure {
 
 .user-details {
  margin: 10px;
+}
+
+@media screen and (max-width: 700px) {
+  .main-user-container {
+    grid-template-columns: 100%;
+  }
 }

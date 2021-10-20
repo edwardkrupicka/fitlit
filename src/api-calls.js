@@ -7,7 +7,8 @@
 function getData(dataUrl, dataObjName) {
   const retrievedData = fetch(dataUrl)
   .then(req => req.json())
-  .then(data => data[dataObjName]);
+  .then(data => data[dataObjName])
+  .catch(err => console.log('error: ', err));
   return retrievedData;
 };
 

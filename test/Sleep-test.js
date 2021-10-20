@@ -65,7 +65,12 @@ describe('Sleep', function() {
   });
 
   it('should return how many hours a user slept on a specific day', function() {
-    const hoursSleptADay = sleep.getSpecificDayHoursSlept(1, "2019/06/16");
+    const hoursSleptADay = sleep.getHoursSlept(1, "2019/06/16");
     expect(hoursSleptADay).to.equal(4.1);
   });
+
+  it('should return a user\'s sleep quality on a specific day', function() {
+    const sleepQuality = sleep.getSleepQuality(3, "2019/06/15");
+    expect(sleepQuality).to.equal(4.7)
+  })
 });

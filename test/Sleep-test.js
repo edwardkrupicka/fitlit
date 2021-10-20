@@ -56,7 +56,11 @@ describe('Sleep', function() {
 
   it('should return the average hours slept per day when given a user\'s ID', function() {
     const hoursSlept = sleep.getAverageHoursSlept(2);
-    // console.log(sleepData);
     expect(hoursSlept).to.equal(7.25);
   });
+
+  it('should return the average sleep quality per day using a user\'s ID', function() {
+    const averageSleepQuality = sleep.getAverageSleepQuality(3);
+    expect(averageSleepQuality).to.equal(4.05);
+  })
 });

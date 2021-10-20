@@ -4,23 +4,32 @@ class Sleep {
   }
 
   getAverageHoursSlept(userId) {
-    const userSleep = this.allSleepData.filter(user => {
+    const usersSleep = this.allSleepData.filter(user => {
       return user.userID === userId;
     });
-    const averageHoursSlept = userSleep.reduce((avgHours, user) => {
+    const averageHoursSlept = usersSleep.reduce((avgHours, user) => {
       return avgHours += user.hoursSlept;
-    }, 0) / userSleep.length;
+    }, 0) / usersSleep.length;
     return averageHoursSlept;
   }
 
   getAverageSleepQuality(userId) {
-    const userSleepQuality = this.allSleepData.filter(user => {
+    const usersSleepQuality = this.allSleepData.filter(user => {
       return user.userID === userId;
     });
-    const avgUserSleepQuality = userSleepQuality.reduce((avgSleep, user) => {
+    const avgUserSleepQuality = usersSleepQuality.reduce((avgSleep, user) => {
       return avgSleep += user.sleepQuality;
-    }, 0) / userSleepQuality.length;
+    }, 0) / usersSleepQuality.length;
     return avgUserSleepQuality;
+  }
+
+  getSpecificDayHoursSlept(userId, date) {
+    const hoursSlept = this.allSleepData.filter(user => {
+      return user.userID === userId;
+    }).find(user => {
+      return user.date === date;
+    }).hoursSlept;
+    return hoursSlept;
   }
 }
 

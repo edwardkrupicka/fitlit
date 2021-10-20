@@ -15,6 +15,13 @@ class Hydration {
     const foundDate = this.hydrationData.filter(data => data.date === date);
     return foundDate[0].numOunces;
   }
+
+  findWeeklyHydration(startDate) {
+    const dates = this.hydrationData.map(data => data.date);
+    const startIndex = dates.indexOf(startDate);
+    const weeklyHydration = this.hydrationData.slice(startIndex, startIndex + 7);
+    return weeklyHydration;
+  }
 };
 
 

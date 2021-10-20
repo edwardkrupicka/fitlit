@@ -23,13 +23,22 @@ class Sleep {
     return avgUserSleepQuality;
   }
 
-  getSpecificDayHoursSlept(userId, date) {
+  getHoursSlept(userId, date) {
     const hoursSlept = this.allSleepData.filter(user => {
       return user.userID === userId;
     }).find(user => {
       return user.date === date;
     }).hoursSlept;
     return hoursSlept;
+  }
+
+  getSleepQuality(userId, date) {
+    const sleepQuality = this.allSleepData.filter(user => {
+      return user.userID === userId;
+    }).find(user => {
+      return user.date === date;
+    }).sleepQuality;
+    return sleepQuality;
   }
 }
 

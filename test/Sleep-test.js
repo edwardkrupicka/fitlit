@@ -72,5 +72,5 @@ describe('Sleep', function() {
   it('should return a user\'s sleep quality on a specific day', function() {
     const sleepQuality = sleep.getSleepQuality(3, "2019/06/15");
     expect(sleepQuality).to.equal(4.7)
-  })
+  });
 });

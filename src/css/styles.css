@@ -11,16 +11,28 @@ body, html {
 
 body {
   margin: auto;
+  width: 100%;
+}
+
+p {
+  margin: 3px;
+  font-size: 18px;
+}
+
+li {
+  font-size: 18px;
+}
+
+h3 {
+  margin: 10px;
 }
 
 .header-section {
+  border-radius: 0 0 20px 20px;
+  background-color: white;
   display: flex;
-  height: 20vh;
-  border: 2px solid red;
   justify-content: center;
-  align-items: center;
-  justify-content: space-evenly;
-
+  align-items: flex-start;
 }
 
 .greeting,
@@ -28,45 +40,39 @@ body {
   display: flex;
   width: 40vw;
   height: 100%;
-  border: 2px solid green;
   justify-content: center;
   align-items: center;
-
 }
 
 h2 {
   width: 25vw;
-  height: 12vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
 }
 
 .main-user-container {
-  height: 80vh;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  border: 2px solid red;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  justify-content: flex-start;
 }
 
 .content {
-  width: 40vw;
-  border: 2px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2vw;
+  margin: 25px;
   border-radius: 30px;
   background: #ff761fde;
   font-size: 1.5em
 }
 
 .user-img {
-  width: 2vw;
-  height: 2vw;
+  width: 12vw;
+}
+
+.friend-img {
+  width: 6vw;
 }
 
 figure {
@@ -91,7 +97,52 @@ figure {
 
 .user-steps,
 .user-sleep,
-.user-hydration {
+.user-hydration,
+.user-friends {
   display: flex;
   flex-direction: column;
+}
+
+.user-friend {
+  list-style-type: none;
+  padding: 0;
+}
+
+.user-name-greeting {
+  color: #ff761fde;
+  font-size: 48px;
+}
+
+.orange {
+  color: #ff761fde;
+}
+
+.greeting {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.greetings {
+  font-size: 18px;
+  margin: 2px;
+}
+
+.logo {
+  font-size: 56px;
+}
+
+.greeting h2 {
+  margin: 0;
+}
+
+.user-details {
+ margin: 10px;
+}
+
+@media screen and (max-width: 700px) {
+  .main-user-container {
+    grid-template-columns: 100%;
+  }
 }

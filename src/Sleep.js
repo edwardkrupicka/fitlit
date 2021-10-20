@@ -41,7 +41,7 @@ class Sleep {
     return sleepQuality;
   }
 
-  calculateHoursSleptAWeek(userId, date) {
+  calculateWeek(userId, date) {
     const hoursSleptInAWeek = this.allSleepData.filter((user) => {
       return user.userID === userId;
     })
@@ -49,6 +49,18 @@ class Sleep {
       return user.date
     }).indexOf(date);
     return hoursSleptInAWeek.slice(dateIndex, dateIndex + 7);
+  }
+
+  calculatehoursSleptWeek(userId, date) {
+    return this.calculateWeek(userId, date).map(e => {
+      return e.hoursSlept;
+    })
+  }
+
+  calculateSleepQualityWeek(userId, date) {
+    return this.calculateWeek(userId, date).map(e => {
+      return e.sleepQuality;
+    })
   }
 }
 

@@ -30,7 +30,7 @@ const averageStepGoal = document.querySelector('#averageStepGoal');
 function renderUser(userData) {
   const userRepo = new UserRepository(userData);
   const user = new User(userRepo.getUser(17));
-  userGreeting.innerText = `Greetings ${user.returnFirstName()}`;
+  userGreeting.innerText = user.returnFirstName();
   userFullName.innerText = user.name;
   userEmail.innerText = user.email;
   userAddress.innerText = user.address;
@@ -44,8 +44,8 @@ function renderUser(userData) {
 function addFriends(user, userRepo) {
   let friendsList = user.friends;
   return friendsList.reduce((finalString, friend) => {
-    return finalString += `<li>
-    <img class="user-img" src="https://cataas.com/cat">
+    return finalString += `<li class="user-friend">
+    <img class="friend-img" src="https://cataas.com/cat">
     ${userRepo.getUser(friend).name}: Step Goal ${userRepo.getUser(friend).dailyStepGoal}</li>`
   }, "");
 };

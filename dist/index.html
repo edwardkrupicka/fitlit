@@ -10,41 +10,49 @@
   <body>
     <section class="header-section">
       <section class="greeting">
-        <h2 id="userGreeting"></h2>
+        <h2 class="greetings">Greetings</h2>
+        <h2 class="user-name-greeting" id="userGreeting"></h2>
       </section>
-      <section class="fit-lit">
-        <h2>fitlit</h2>
+      <section class="greeting">
+        <h2 class="logo">Get <span class="orange">FitLit</span></h2>
       </section>
     </section>
     <main class="main-user-container">
+      <section class="column">
       <section class="content user-steps">
         <h3>Steps</h3>
         <p>My Step Goal: <span id="userStepGoal"></span></p>
         <p>Average Step Goal: <span id="averageStepGoal"></span></p>
         <div class="step-graph">Graph</div>
       </section>
-      <section class="content user-profile">
-        <figure>
-          <img class=user-img src="https://cataas.com/cat" alt="turing logo">
-          <figcaption id="userFullName">User Name goes here</figcaption>
-          <p>Email: <span id="userEmail">email@example.org</span></p>
-          <p>Address: <span id="userAddress">123 Street Road</span></p>
-          <p>Stride Length: <span id="userStride">3.4</span></p>
-        </figure>
-      </section>
       <section class="content user-hydration">
         <h3>hydration</h3>
         <div class="hydration-graph">Graph</div>
-      </section>
-      <section class="content user-friends">
-        <h3>friends</h3>
-        <ul id="userFriends">
-        </ul>
       </section>
       <section class="content user-sleep">
         <h3>Sleep</h3>
         <div class="sleep-graph">Graph</div>
       </section>
+    </section>
+    <section class="column">
+      <section class="content user-profile">
+        <figure>
+          <img class="user-img" src="https://cataas.com/cat" alt="turing logo">
+          <figcaption id="userFullName">User Name goes here</figcaption>
+          <section class="user-details">
+            <p>Email: <span id="userEmail">email@example.org</span></p>
+            <p>Address: <span id="userAddress">123 Street Road</span></p>
+            <p>Stride Length: <span id="userStride">3.4</span></p>
+          </section>
+        </figure>
+      </section>
+
+      <section class="content user-friends">
+        <h3>friends</h3>
+        <ul id="userFriends">
+        </ul>
+      </section>
+    </section>
     </main>
 <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
     <script src="bundle.js"></script>

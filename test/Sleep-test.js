@@ -52,15 +52,12 @@ describe('Sleep', function() {
   });
 
   it('should calculate the hours slept each day over the course of a week', function() {
-    const hoursSleptAWeek = sleep.calculateHoursSleptAWeek(3, "2019/06/16");
-    expect(hoursSleptAWeek).to.eql([
-      {userID: 3, date: '2019/06/16', hoursSlept: 10.7, sleepQuality: 3.4},
-      { userID: 3, date: '2019/06/17', hoursSlept: 5.3, sleepQuality: 4.9 },
-      { userID: 3, date: '2019/06/18', hoursSlept: 9.8, sleepQuality: 2.6 },
-      { userID: 3, date: '2019/06/19', hoursSlept: 7.2, sleepQuality: 3.4 },
-      { userID: 3, date: '2019/06/20', hoursSlept: 9.4, sleepQuality: 1.2 },
-      { userID: 3, date: '2019/06/21', hoursSlept: 8.9, sleepQuality: 3.7 },
-      { userID: 3, date: '2019/06/22', hoursSlept: 9.8, sleepQuality: 2.1 }
-    ]);
+    const hoursSleptAWeek = sleep.calculatehoursSleptWeek(3, "2019/06/16");
+    expect(hoursSleptAWeek).to.eql([ 10.7, 5.3, 9.8, 7.2, 9.4, 8.9, 9.8 ]);
   })
+
+  it('should calculate the sleep quality each day over the course of a week', function() {
+    const sleepQualityAWeek = sleep.calculateSleepQualityWeek(3, "2019/06/16");
+    expect(sleepQualityAWeek).to.eql([3.4, 4.9, 2.6, 3.4, 1.2, 3.7, 2.1]);
+  });
 });

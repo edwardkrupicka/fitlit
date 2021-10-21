@@ -34,6 +34,10 @@ const averageStepGoal = document.querySelector('#averageStepGoal');
 const dailyHydration = document.querySelector('#dailyHydration');
 const weeklyHydration = document.querySelector('#weeklyHydration');
 
+function getTodaysDate() {
+  return new Date().toISOString().slice(0, 10).replaceAll("-", "/").replaceAll("2021", "2019");
+};
+
 function initializeData(data) {
   const userRepo = new UserRepository(data[0]);
   const randomUserNum = Math.floor(Math.random() * 50);
@@ -63,6 +67,13 @@ function addFriends(user, userRepo) {
   }, "");
 };
 
-// function renderHydration(data) {
-  
-// }
+function renderHydration(data) {
+  let dailyOunces = data.findDailyHydration(getTodaysDate());
+  let weeklyOunces = data.findWeeklyHydration(getTodaysDate());
+  const reducedOunces = weeklyOunces.reduce((finalString, day) => {
+    return finalString += `<li class="weekly-hydration">
+    ${day.date}: ${day.numOunces} oz</li>`
+  }, "");
+  dailyHydration.innerText = dailyOunces;
+  weeklyHydration.innerHTML = reducedOunces; 
+}

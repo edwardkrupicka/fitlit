@@ -11,9 +11,8 @@ console.log('This is the JavaScript entry file - your code begins here.');
 
 // An example of how you tell webpack to use a JS file
 
-fetch('https://pacific-badlands-43237.herokuapp.com/api/v1/users')
-.then(req => req.json())
-.then(data => renderUser(data.userData));
+import fetchUserData from './api-calls';
+fetchUserData.then(data => renderUser(data));
 import UserRepository from './UserRepository';
 import User from './User';
 
@@ -31,7 +30,7 @@ const averageStepGoal = document.querySelector('#averageStepGoal');
 function renderUser(userData) {
   const userRepo = new UserRepository(userData);
   const user = new User(userRepo.getUser(17));
-  userGreeting.innerText = `Greetings ${user.returnFirstName()}`;
+  userGreeting.innerText = user.returnFirstName();
   userFullName.innerText = user.name;
   userEmail.innerText = user.email;
   userAddress.innerText = user.address;
@@ -45,6 +44,8 @@ function renderUser(userData) {
 function addFriends(user, userRepo) {
   let friendsList = user.friends;
   return friendsList.reduce((finalString, friend) => {
-    return finalString += `<li>${userRepo.getUser(friend).name}: Step Goal ${userRepo.getUser(friend).dailyStepGoal}</li>`
+    return finalString += `<li class="user-friend">
+    <img class="friend-img" src="https://cataas.com/cat">
+    ${userRepo.getUser(friend).name}: Step Goal ${userRepo.getUser(friend).dailyStepGoal}</li>`
   }, "");
 };

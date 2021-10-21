@@ -9,19 +9,19 @@ describe('Hyrdration', () => {
 
   beforeEach(() => {
     hydrationData = [
-      {"userID":1, "date":"2019/06/15", "numOunces":37}, 
-      {"userID":1,"date":"2019/06/16","numOunces":69}, 
-      {"userID":2, "date":"2019/06/15", "numOunces":75}, 
-      {"userID":2, "date":"2019/06/16", "numOunces":100},
-      {"userID":3, "date":"2019/06/15", "numOunces":10},
-      {"userID":3, "date":"2019/06/16", "numOunces":20}, 
-      {"userID":3, "date":"2019/06/17", "numOunces":56}, 
-      {"userID":3, "date":"2019/06/18", "numOunces":12}, 
-      {"userID":3, "date":"2019/06/19", "numOunces":75}, 
-      {"userID":3, "date":"2019/06/20", "numOunces":13}, 
-      {"userID":3, "date":"2019/06/21", "numOunces":36}, 
-      {"userID":3, "date":"2019/06/22", "numOunces":13}, 
-      {"userID":3, "date":"2019/06/23", "numOunces":72}, 
+      {"userID": 1, "date": "2019/06/15", "numOunces": 37},
+      {"userID": 1, "date": "2019/06/16", "numOunces": 69},
+      {"userID": 2, "date": "2019/06/15", "numOunces": 75},
+      {"userID": 2, "date": "2019/06/16", "numOunces": 100},
+      {"userID": 3, "date": "2019/06/15", "numOunces": 10},
+      {"userID": 3, "date": "2019/06/16", "numOunces": 20},
+      {"userID": 3, "date": "2019/06/17", "numOunces": 56},
+      {"userID": 3, "date": "2019/06/18", "numOunces": 12},
+      {"userID": 3, "date": "2019/06/19", "numOunces": 75},
+      {"userID": 3, "date": "2019/06/20", "numOunces": 13},
+      {"userID": 3, "date": "2019/06/21", "numOunces": 36},
+      {"userID": 3, "date": "2019/06/22", "numOunces": 13},
+      {"userID": 3, "date": "2019/06/23", "numOunces": 72},
     ];
 
     hydration = new Hydration(1, hydrationData);
@@ -60,14 +60,14 @@ describe('Hyrdration', () => {
   it('should be able to return how many fluid ounces of water consumed each day over the course of 7 days', () => {
     expect(hydration3.findWeeklyHydration('2019/06/16')).to.deep.equal(
       [
-      {"userID":3, "date":"2019/06/16", "numOunces":20}, 
-      {"userID":3, "date":"2019/06/17", "numOunces":56}, 
-      {"userID":3, "date":"2019/06/18", "numOunces":12}, 
-      {"userID":3, "date":"2019/06/19", "numOunces":75}, 
-      {"userID":3, "date":"2019/06/20", "numOunces":13}, 
-      {"userID":3, "date":"2019/06/21", "numOunces":36}, 
-      {"userID":3, "date":"2019/06/22", "numOunces":13}
-    ]
+        {"userID": 3, "date": "2019/06/16", "numOunces": 20},
+        {"userID": 3, "date": "2019/06/17", "numOunces": 56},
+        {"userID": 3, "date": "2019/06/18", "numOunces": 12},
+        {"userID": 3, "date": "2019/06/19", "numOunces": 75},
+        {"userID": 3, "date": "2019/06/20", "numOunces": 13},
+        {"userID": 3, "date": "2019/06/21", "numOunces": 36},
+        {"userID": 3, "date": "2019/06/22", "numOunces": 13}
+      ]
     );
   });
 });

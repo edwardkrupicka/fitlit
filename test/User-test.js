@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import User from '../src/User';
 
-describe('User', function() {
+describe('User', () =>  {
 
   // variable declarations for those used in beforeEach()
   let user1;
@@ -9,7 +9,7 @@ describe('User', function() {
   let userA;
   let userB;
 
-  beforeEach(function() {
+  beforeEach(() =>  {
     user1 = {
       "id": 1,
       "name": "Luisa Hane",
@@ -32,51 +32,51 @@ describe('User', function() {
     userB = new User(user2);
   });
 
-  it('should be a function', function() {
+  it('should be a function', () =>  {
     expect(User).to.be.a('function');
   });
 
-  it('should be an instance of User', function() {
+  it('should be an instance of User', () =>  {
     expect(userA).to.be.an.instanceof(User);
     expect(userB).to.be.an.instanceof(User);
   });
 
-  it('should store the user\'s id', function() {
+  it('should store the user\'s id', () =>  {
     expect(userA.id).to.equal(1);
     expect(userB.id).to.equal(2);
   });
 
-  it('should store the user\'s name', function() {
+  it('should store the user\'s name', () =>  {
     expect(userA.name).to.equal("Luisa Hane");
     expect(userB.name).to.equal("Jarvis Considine");
   });
 
-  it('should store the user\'s address', function() {
+  it('should store the user\'s address', () =>  {
     expect(userA.address).to.equal("15195 Nakia Tunnel, Erdmanport VA 19901-1697");
     expect(userB.address).to.equal("30086 Kathryn Port, Ciceroland NE 07273");
   });
 
-  it('should store the user\'s email', function() {
+  it('should store the user\'s email', () =>  {
     expect(userA.email).to.equal("Diana.Hayes1@hotmail.com");
     expect(userB.email).to.equal("Dimitri.Bechtelar11@gmail.com");
   });
 
-  it('should store the user\'s stride length', function() {
+  it('should store the user\'s stride length', () =>  {
     expect(userA.strideLength).to.equal(4.3);
     expect(userB.strideLength).to.equal(4.5);
   });
 
-  it('should store the user\'s daily step goal', function() {
+  it('should store the user\'s daily step goal', () =>  {
     expect(userA.dailyStepGoal).to.equal(10000);
     expect(userB.dailyStepGoal).to.equal(5000);
   });
 
-  it('should store the user\'s friends', function() {
+  it('should store the user\'s friends', () =>  {
     expect(userA.friends).to.deep.equal([2, 3, 4, 5]);
     expect(userB.friends).to.deep.equal([1, 4]);
   });
 
-  it('should be able to return the user\'s first name', function() {
+  it('should be able to return the user\'s first name', () =>  {
     let resultA = userA.returnFirstName();
     expect(resultA).to.equal("Luisa");
     let resultB = userB.returnFirstName();

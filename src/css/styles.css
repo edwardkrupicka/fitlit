@@ -141,6 +141,11 @@ figure {
  margin: 10px;
 }
 
+.sleep-week-item {
+  list-style-type: none;
+  padding: 0;
+}
+
 @media screen and (max-width: 700px) {
   .main-user-container {
     grid-template-columns: 100%;

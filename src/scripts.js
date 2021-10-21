@@ -19,6 +19,7 @@ import { allPromise } from './api-calls';
 allPromise.then(data => initializeData(data));
 import UserRepository from './UserRepository';
 import User from './User';
+import Sleep from './Sleep';
 
 // Global
 
@@ -30,12 +31,17 @@ const userStride = document.querySelector('#userStride');
 const userFriends = document.querySelector('#userFriends');
 const userStepGoal = document.querySelector('#userStepGoal');
 const averageStepGoal = document.querySelector('#averageStepGoal');
+const lastNightSleep = document.querySelector('#lastNightSleep');
+const lastWeekSleep = document.querySelector('#lastWeekSleep');
+const averageSleep = document.querySelector('#averageSleep');
+
 
 function initializeData(data) {
   const userRepo = new UserRepository(data[0]);
   const randomUserNum = Math.floor(Math.random() * 50);
   const user = new User(userRepo.getUser(randomUserNum));
   renderUser(user, userRepo);
+  calculateSleep(user, data[1]);
 }
 
 function renderUser(user, userRepo) {
@@ -48,6 +54,33 @@ function renderUser(user, userRepo) {
   averageStepGoal.innerText = userRepo.averageStepGoal();
   userFriends.innerHTML = addFriends(user, userRepo);
 };
+
+function calculateSleep(user, sleepData) {
+  const sleepInfo = new Sleep(sleepData);
+  const lastNightQuality = sleepInfo.getDailySleepQuality(user.id, getTodaysDate());
+  const lastNightDuration = sleepInfo.getDailyHoursSlept(user.id, getTodaysDate());
+  const lastWeekQuality = sleepInfo.calculateSleepQualityWeek(user.id, getTodaysDate());
+  const lastWeekDuration = sleepInfo.calculateHoursSleptWeek(user.id, getTodaysDate());
+  const averageQuality = sleepInfo.getAverageSleepQuality(user.id);
+  const averageDuration = sleepInfo.getAverageHoursSlept(user.id);
+  renderSleep(lastNightQuality, lastNightDuration, averageQuality, averageDuration);
+  renderWeekSleep(lastWeekQuality, lastWeekDuration)
+}
+
+function renderSleep(lastNightQuality, lastNightDuration, averageQuality, averageDuration) {
+  lastNightSleep.innerText = `${lastNightQuality}/5 quality & ${lastNightDuration} hours`;
+  averageSleep.innerText =`${averageQuality}/5 quality & ${averageDuration} hours`;
+}
+
+function renderWeekSleep(sleepWeekQuality, sleepWeekDuration) {
+  lastWeekSleep.innerHTML = sleepWeekQuality.reduce((allDays, day, index) => {
+    return allDays += `<li class="sleep-week-item">${day.quality}/5 quality and ${sleepWeekDuration[index].hours} hours on ${day.date}</li>`;
+  }, "");
+}
+
+function getTodaysDate() {
+  return new Date().toISOString().slice(0, 10).replaceAll("-", "/").replaceAll("2021", "2019");
+}
 
 function addFriends(user, userRepo) {
   let friendsList = user.friends;

@@ -19,6 +19,7 @@ import { allPromise } from './api-calls';
 allPromise.then(data => initializeData(data));
 import UserRepository from './UserRepository';
 import User from './User';
+import Hydration from './Hydration';
 
 // Global
 
@@ -30,12 +31,16 @@ const userStride = document.querySelector('#userStride');
 const userFriends = document.querySelector('#userFriends');
 const userStepGoal = document.querySelector('#userStepGoal');
 const averageStepGoal = document.querySelector('#averageStepGoal');
+const dailyHydration = document.querySelector('#dailyHydration');
+const weeklyHydration = document.querySelector('#weeklyHydration');
 
 function initializeData(data) {
   const userRepo = new UserRepository(data[0]);
   const randomUserNum = Math.floor(Math.random() * 50);
   const user = new User(userRepo.getUser(randomUserNum));
   renderUser(user, userRepo);
+  const hydration = new Hydration(user.id, data[3]);
+  renderHydration(hydration);
 }
 
 function renderUser(user, userRepo) {
@@ -57,3 +62,7 @@ function addFriends(user, userRepo) {
     ${userRepo.getUser(friend).name}: Step Goal ${userRepo.getUser(friend).dailyStepGoal}</li>`
   }, "");
 };
+
+// function renderHydration(data) {
+  
+// }

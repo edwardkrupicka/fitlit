@@ -19,7 +19,9 @@ import { allPromise } from './api-calls';
 allPromise.then(data => initializeData(data));
 import UserRepository from './UserRepository';
 import User from './User';
+import Hydration from './Hydration';
 import Sleep from './Sleep';
+
 
 // Global
 
@@ -31,16 +33,19 @@ const userStride = document.querySelector('#userStride');
 const userFriends = document.querySelector('#userFriends');
 const userStepGoal = document.querySelector('#userStepGoal');
 const averageStepGoal = document.querySelector('#averageStepGoal');
+const dailyHydration = document.querySelector('#dailyHydration');
+const weeklyHydration = document.querySelector('#weeklyHydration');
 const lastNightSleep = document.querySelector('#lastNightSleep');
 const lastWeekSleep = document.querySelector('#lastWeekSleep');
 const averageSleep = document.querySelector('#averageSleep');
-
 
 function initializeData(data) {
   const userRepo = new UserRepository(data[0]);
   const randomUserNum = Math.floor(Math.random() * 50);
   const user = new User(userRepo.getUser(randomUserNum));
   renderUser(user, userRepo);
+  const hydration = new Hydration(user.id, data[3]);
+  renderHydration(hydration);
   calculateSleep(user, data[1]);
 }
 
@@ -90,3 +95,14 @@ function addFriends(user, userRepo) {
     ${userRepo.getUser(friend).name}: Step Goal ${userRepo.getUser(friend).dailyStepGoal}</li>`
   }, "");
 };
+
+function renderHydration(data) {
+  let dailyOunces = data.findDailyHydration(getTodaysDate());
+  let weeklyOunces = data.findWeeklyHydration(getTodaysDate());
+  const reducedOunces = weeklyOunces.reduce((finalString, day) => {
+    return finalString += `<li class="weekly-hydration">
+    ${day.date}: ${day.numOunces} oz</li>`
+  }, "");
+  dailyHydration.innerText = dailyOunces;
+  weeklyHydration.innerHTML = reducedOunces; 
+}

@@ -19,7 +19,7 @@ class Hydration {
   findWeeklyHydration(startDate) {
     const dates = this.hydrationData.map(data => data.date);
     const startIndex = dates.indexOf(startDate);
-    const weeklyHydration = this.hydrationData.slice(startIndex, startIndex + 7);
+    const weeklyHydration = this.hydrationData.slice(startIndex - 6, startIndex + 1);
     return weeklyHydration;
   }
 };

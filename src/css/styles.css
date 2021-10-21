@@ -112,6 +112,14 @@ figure {
   color: #ff761fde;
   font-size: 48px;
 }
+.weekly-hydration {
+  padding: 0;
+}
+
+.weekly-hydration {
+  list-style-type: none;
+  /* margin-right: 4vw; */
+}
 
 .orange {
   color: #ff761fde;

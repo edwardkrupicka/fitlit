@@ -62,6 +62,13 @@ class Sleep {
       return e.sleepQuality;
     })
   }
+
+  getUsersAvgSleepQuality() {
+    const avgSleepQuality = ((this.allSleepData.reduce((total, user) => {
+      return total += user.sleepQuality;
+    }, 0) / this.allSleepData.length).toFixed(1));
+    return parseFloat(avgSleepQuality);
+  }
 }
 
 export default Sleep;

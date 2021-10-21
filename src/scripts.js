@@ -11,8 +11,11 @@ console.log('This is the JavaScript entry file - your code begins here.');
 
 // An example of how you tell webpack to use a JS file
 
-import fetchUserData from './api-calls';
-fetchUserData.then(data => renderUser(data));
+// import fetchUserData from './api-calls';
+// fetchUserData.then(data => renderUser(data));
+import { gotUserData, gotSleepData, gotActivityData, gotHydrationData } from './api-calls';
+gotUserData.then(data => renderUser(data));
+
 import UserRepository from './UserRepository';
 import User from './User';
 
@@ -29,7 +32,8 @@ const averageStepGoal = document.querySelector('#averageStepGoal');
 
 function renderUser(userData) {
   const userRepo = new UserRepository(userData);
-  const user = new User(userRepo.getUser(17));
+  const randomUserNum = Math.floor(Math.random() * 50);
+  const user = new User(userRepo.getUser(randomUserNum));
   userGreeting.innerText = user.returnFirstName();
   userFullName.innerText = user.name;
   userEmail.innerText = user.email;
@@ -38,8 +42,7 @@ function renderUser(userData) {
   userStepGoal.innerText = user.dailyStepGoal;
   averageStepGoal.innerText = userRepo.averageStepGoal();
   userFriends.innerHTML = addFriends(user, userRepo);
-}
-
+};
 
 function addFriends(user, userRepo) {
   let friendsList = user.friends;

@@ -40,24 +40,24 @@ describe('User Repository', () => {
   ];
   const userRepo = new UserRepository(userData);
 
-  it('should be a function', function() {
+  it('should be a function', () =>  {
     expect(UserRepository).to.be.a('function');
   });
 
-  it('should be an instance of UserRepository', function() {
+  it('should be an instance of UserRepository', () =>  {
     expect(userRepo).to.be.an.instanceOf(UserRepository);
   })
 
-  it('should store all user data', function() {
+  it('should store all user data', () =>  {
     expect(userRepo.allUserData).to.equal(userData);
   });
 
-  it('should return a user data when given an id', function() {
+  it('should return a user data when given an id', () =>  {
     const selectedUser = userRepo.getUser(2);
     expect(selectedUser).to.eql(userData[1]);
   });
 
-  it('should be able to return average steps of all users', function() {
+  it('should be able to return average steps of all users', () =>  {
     const averageGoal = userRepo.averageStepGoal();
     expect(averageGoal).to.equal(6667);
   });

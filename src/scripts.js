@@ -32,7 +32,6 @@ const averageStepGoal = document.querySelector('#averageStepGoal');
 
 function renderUser(userData) {
   const userRepo = new UserRepository(userData);
-  // const user = new User(userRepo.getUser(17));
   const randomUserNum = Math.floor(Math.random() * 50);
   const user = new User(userRepo.getUser(randomUserNum));
   userGreeting.innerText = `Greetings ${user.returnFirstName()}`;

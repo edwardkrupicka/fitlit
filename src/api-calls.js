@@ -17,9 +17,9 @@ const gotSleepData = getData('https://pacific-badlands-43237.herokuapp.com/api/v
 const gotActivityData = getData('https://pacific-badlands-43237.herokuapp.com/api/v1/activity', 'activityData');
 const gotHydrationData = getData('https://pacific-badlands-43237.herokuapp.com/api/v1/hydration', 'hydrationData');
 
-console.log(gotUserData);
-console.log(gotSleepData);
-console.log(gotActivityData);
-console.log(gotHydrationData);
+// console.log(gotUserData);
+// console.log(gotSleepData);
+// console.log(gotActivityData);
+// console.log(gotHydrationData);
 
 export { gotUserData, gotSleepData, gotActivityData, gotHydrationData };

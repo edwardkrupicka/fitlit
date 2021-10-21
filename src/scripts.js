@@ -13,9 +13,10 @@ console.log('This is the JavaScript entry file - your code begins here.');
 
 // import fetchUserData from './api-calls';
 // fetchUserData.then(data => renderUser(data));
-import { gotUserData, gotSleepData, gotActivityData, gotHydrationData } from './api-calls';
-gotUserData.then(data => renderUser(data));
-
+// import { gotUserData, gotSleepData, gotActivityData, gotHydrationData } from './api-calls';
+// gotUserData.then(data => initializeData(data));
+import { allPromise } from './api-calls';
+allPromise.then(data => initializeData(data));
 import UserRepository from './UserRepository';
 import User from './User';
 
@@ -30,10 +31,14 @@ const userFriends = document.querySelector('#userFriends');
 const userStepGoal = document.querySelector('#userStepGoal');
 const averageStepGoal = document.querySelector('#averageStepGoal');
 
-function renderUser(userData) {
-  const userRepo = new UserRepository(userData);
+function initializeData(data) {
+  const userRepo = new UserRepository(data[0]);
   const randomUserNum = Math.floor(Math.random() * 50);
   const user = new User(userRepo.getUser(randomUserNum));
+  renderUser(user, userRepo);
+}
+
+function renderUser(user, userRepo) {
   userGreeting.innerText = user.returnFirstName();
   userFullName.innerText = user.name;
   userEmail.innerText = user.email;

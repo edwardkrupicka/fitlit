@@ -33,7 +33,7 @@ describe('Sleep', () => {
 
   it('should return the average hours slept per day when given a user\'s ID', () => {
     const hoursSlept = sleep.getAverageHoursSlept(2);
-    expect(hoursSlept).to.equal(7.25);
+    expect(hoursSlept).to.equal(7.3);
   });
 
   it('should return the average sleep quality per day using a user\'s ID', () => {
@@ -52,13 +52,27 @@ describe('Sleep', () => {
   });
 
   it('should calculate the hours slept each day over the course of a week', () => {
-    const hoursSleptAWeek = sleep.calculatehoursSleptWeek(3, "2019/06/16");
-    expect(hoursSleptAWeek).to.eql([ 10.7, 5.3, 9.8, 7.2, 9.4, 8.9, 9.8 ]);
-  })
+    const hoursSleptAWeek = sleep.calculateHoursSleptWeek(3, "2019/06/23");
+    expect(hoursSleptAWeek).to.eql([
+      {"date": "2019/06/17", "hours": 5.3 },
+      {"date": "2019/06/18", "hours": 9.8},
+      {"date": "2019/06/19", "hours": 7.2},
+      {"date": "2019/06/20", "hours": 9.4},
+      {"date": "2019/06/21", "hours": 8.9},
+      {"date": "2019/06/22", "hours": 9.8},
+      {"date": "2019/06/23", "hours": 4.7}]);
+  });
 
   it('should calculate the sleep quality each day over the course of a week', () => {
-    const sleepQualityAWeek = sleep.calculateSleepQualityWeek(3, "2019/06/16");
-    expect(sleepQualityAWeek).to.eql([3.4, 4.9, 2.6, 3.4, 1.2, 3.7, 2.1]);
+    const sleepQualityAWeek = sleep.calculateSleepQualityWeek(3, "2019/06/23");
+    expect(sleepQualityAWeek).to.eql([
+      {"date": "2019/06/17", "quality": 4.9},
+      {"date": "2019/06/18", "quality": 2.6},
+      {"date": "2019/06/19", "quality": 3.4},
+      {"date": "2019/06/20", "quality": 1.2},
+      {"date": "2019/06/21", "quality": 3.7},
+      {"date": "2019/06/22", "quality": 2.1},
+      {"date": "2019/06/23", "quality": 3.9}]);
   });
 
   it('should return the average sleep quality for all users', () => {

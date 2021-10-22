@@ -22,7 +22,7 @@ class Hydration {
     const weeklyHydration = this.hydrationData.slice(startIndex - 6, startIndex + 1);
     return weeklyHydration;
   }
-};
+}
 
 
 export default Hydration;

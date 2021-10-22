@@ -13,6 +13,6 @@ class User {
     let names = this.name.split(' ');
     return names[0];
   }
-};
+}
 
 export default User;

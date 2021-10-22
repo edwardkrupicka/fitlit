@@ -53,7 +53,7 @@ function renderUser(user, userRepo) {
   userStepGoal.innerText = user.dailyStepGoal;
   averageStepGoal.innerText = userRepo.averageStepGoal();
   userFriends.innerHTML = addFriends(user, userRepo);
-};
+}
 
 function calculateSleep(user, sleepData) {
   const sleepInfo = new Sleep(sleepData);
@@ -69,7 +69,7 @@ function calculateSleep(user, sleepData) {
 
 function renderSleep(lastNightQuality, lastNightDuration, averageQuality, averageDuration) {
   lastNightSleep.innerText = `${lastNightQuality}/5 quality & ${lastNightDuration} hours`;
-  averageSleep.innerText =`${averageQuality}/5 quality & ${averageDuration} hours`;
+  averageSleep.innerText = `${averageQuality}/5 quality & ${averageDuration} hours`;
 }
 
 function renderWeekSleep(sleepWeekQuality, sleepWeekDuration) {
@@ -89,7 +89,7 @@ function addFriends(user, userRepo) {
     <img class="friend-img" src="https://cataas.com/cat">
     ${userRepo.getUser(friend).name}: Step Goal ${userRepo.getUser(friend).dailyStepGoal}</li>`
   }, "");
-};
+}
 
 function renderHydration(data) {
   let dailyOunces = data.findDailyHydration(getTodaysDate());

@@ -1,8 +1,3 @@
-// const fetchUserData = fetch('https://pacific-badlands-43237.herokuapp.com/api/v1/users')
-// .then(req => req.json())
-// .then(data => data.userData);
-
-// export default fetchUserData;
 
 function getData(dataUrl, dataObjName) {
   const retrievedData = fetch(dataUrl)
@@ -19,10 +14,6 @@ const gotHydrationData = getData('https://pacific-badlands-43237.herokuapp.com/a
 
 const allPromise = Promise.all([gotUserData, gotSleepData, gotActivityData, gotHydrationData]).then(data => {
   return data;
-})
-// console.log(gotUserData);
-// console.log(gotSleepData);
-// console.log(gotActivityData);
-// console.log(gotHydrationData);
+});
+
 export { allPromise }
-// export { gotUserData, gotSleepData, gotActivityData, gotHydrationData };

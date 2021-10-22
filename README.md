@@ -1,82 +1,52 @@
-# FitLit Starter Kit
+# 🔥 FITLIT 🔥
 
-The details of this project are outline in [this project spec](http://frontend.turing.io/projects/fitlit.html).
+#### A Front End Development Project by:
+- [Joan Rasmussen](https://github.com/raz-joan)
+- [John Kiernan](https://github.com/jkiernan12)
+- [Ricardo Tovar](https://github.com/JRicardoT)
+- [Edward Krupicka](https://github.com/edwardkrupicka)
 
-## Setup
+#### Project Manager : Nik Seif 
 
-1. Within your group, decide on one person to have the project repository (repo) on their GitHub account. Then, that person should fork this repo - on the top right corner of this page, click the **Fork** button.
-1. Both memebers of the group should clone down the _forked_ repo. Since you don't want to name your project "activity-tracker-starter", you can use an optional argument when you run git clone (you replace the [...] with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
-1. Once you have cloned the repo, change into the directory and install the project dependencies. Run `npm install` to install project dependencies.
-1. Run `npm start` in the terminal to see the HTML page (you should see some boilerplate HTML displayed on the page)
-1. Make sure both members of your team are collaborators on the forked repo.
+### Description
+This application fetches data on 50 users and their daily metrics for hydration, steps, and sleep. This data is then displayed on the dashboard, where they can also see their friends' daily step goal.
 
-## Testing
+### Goals
+The goals of this project were to:
+- Implement ES6 classes that communicate to each other as needed.
+- Use object and array prototype methods to perform data manipulation.
+- Create a dashboard that is easy to use and displays information in a clear way.
+- Write modular, reusable code that follows SRP (Single Responsibility Principle).
+- Implement a robust testing suite using TDD.
+- Make network requests to retrieve data.
 
-There is no boilerplate for testing in this starter-kit repo. You will need to set this up yourself. However, if you ran `npm install`, then the tooling you need to start testing is already installed (`mocha` and `chai`).
+### Running FITLIT
+- Clone the repo down to your machine. 
+- Open the root folder in your terminal and enter `npm install` to install the dependecies 
+- In your browser enter localhost:8080 in the search bar
+- In your terminal run `npm start`. Go back to your browser and FITLIT should appear.
 
-## Linting Your Code
+### Visual of Functionality:
+![2021-10-22 14 22 52](https://user-images.githubusercontent.com/86930028/138518403-513e54fc-8692-4175-b219-ecd4db499bd4.gif)
 
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit, but that's ok - the linter is still running successfully.
+### Challenges
+ - Implementing fetch api
+ - Using ES6 and iterator methods in our JS
+ - Importing the fetched data to our JS file
 
-Your linter will look only at the JavaScript files you have within the `src` and the `test` directories.
+ ### Wins!
+ - All of the challenges were conquered!
+ - The design of the website!
+ - The team coming together and working smoothly!
+ - Also the team finishing early!
 
-## Data Model
+### Technologies Used:
+- Javascript
+- HTML & CSS
+- Node & NPM
 
-**Users**
+### Future Goals
+- Use Chart.js
+- Add some fancy CSS properties
 
-```
-[
-  {
-    "id": [number],
-    "name": [string],
-    "address": [string],
-    "email": [string],
-    "strideLength": [number - feet],
-    "dailyStepGoal": [number - steps],
-    "friends": [array - one-way connection to other user(s)]
-  },
-  ...more user data
-]
-```
-
-**Activity**
-
-```
-[
-  {
-    "userID": [number],
-    "date": [string YYYY/MM/DD],
-    "numSteps": [number - steps],
-    "minutesActive": [number - minutes],
-    "flightsOfStairs": [number - flights]
-  },
-  ...more activity data
-]
-```
-
-**Hydration**
-
-```
-[
-  {
-    "userID": [number],
-    "date": [string YYYY/MM/DD],
-    "numOunces": [number - ounces]
-  },
-  ...more hydration data
-]
-```
-
-**Sleep**
-
-```
-[
-  {
-    "userID": [number],
-    "date": [string YYYY/MM/DD],
-    "hoursSlept": [number - hours],
-    "sleepQuality": [number - unitless]
-  },
-  ...more sleep data
-]
-```
+### Rubric: https://frontend.turing.edu/projects/Fitlit-part-one.html

@@ -11,17 +11,12 @@ console.log('This is the JavaScript entry file - your code begins here.');
 
 // An example of how you tell webpack to use a JS file
 
-// import fetchUserData from './api-calls';
-// fetchUserData.then(data => renderUser(data));
-// import { gotUserData, gotSleepData, gotActivityData, gotHydrationData } from './api-calls';
-// gotUserData.then(data => initializeData(data));
 import { allPromise } from './api-calls';
 allPromise.then(data => initializeData(data));
 import UserRepository from './UserRepository';
 import User from './User';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
-
 
 // Global
 
@@ -104,5 +99,5 @@ function renderHydration(data) {
     ${day.date}: ${day.numOunces} oz</li>`
   }, "");
   dailyHydration.innerText = dailyOunces;
-  weeklyHydration.innerHTML = reducedOunces; 
+  weeklyHydration.innerHTML = reducedOunces;
 }

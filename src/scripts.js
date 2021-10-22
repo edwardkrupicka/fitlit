@@ -10,7 +10,7 @@ import './images/turing-logo.png'
 console.log('This is the JavaScript entry file - your code begins here.');
 
 // An example of how you tell webpack to use a JS file
-
+import Chart from 'chart.js/auto';
 import { allPromise } from './api-calls';
 allPromise.then(data => initializeData(data));
 import UserRepository from './UserRepository';
@@ -33,6 +33,9 @@ const weeklyHydration = document.querySelector('#weeklyHydration');
 const lastNightSleep = document.querySelector('#lastNightSleep');
 const lastWeekSleep = document.querySelector('#lastWeekSleep');
 const averageSleep = document.querySelector('#averageSleep');
+const sleepChart = document.querySelector('#sleepChart');
+const sleepChartHours = document.querySelector('#sleepChartHours');
+const hydrationChart = document.querySelector('#hydrationChart');
 
 function initializeData(data) {
   const userRepo = new UserRepository(data[0]);
@@ -64,7 +67,7 @@ function calculateSleep(user, sleepData) {
   const averageQuality = sleepInfo.getAverageSleepQuality(user.id);
   const averageDuration = sleepInfo.getAverageHoursSlept(user.id);
   renderSleep(lastNightQuality, lastNightDuration, averageQuality, averageDuration);
-  renderWeekSleep(lastWeekQuality, lastWeekDuration)
+  renderWeekSleep(lastWeekQuality, lastWeekDuration);
 }
 
 function renderSleep(lastNightQuality, lastNightDuration, averageQuality, averageDuration) {
@@ -73,9 +76,14 @@ function renderSleep(lastNightQuality, lastNightDuration, averageQuality, averag
 }
 
 function renderWeekSleep(sleepWeekQuality, sleepWeekDuration) {
-  lastWeekSleep.innerHTML = sleepWeekQuality.reduce((allDays, day, index) => {
-    return allDays += `<li class="sleep-week-item">${day.quality}/5 quality and ${sleepWeekDuration[index].hours} hours on ${day.date}</li>`;
-  }, "");
+  const sleepQualityDays = sleepWeekQuality.map(day => day.quality);
+  const sleepDates = sleepWeekQuality.map(day => day.date);
+  const sleepDurationDays = sleepWeekDuration.map(day => day.hours);
+  renderChart(sleepChart, "Quality of Sleep", sleepDates, sleepQualityDays);
+  renderChart(sleepChartHours, "Hours of Sleep", sleepDates, sleepDurationDays); 
+  // lastWeekSleep.innerHTML = sleepWeekQuality.reduce((allDays, day, index) => {
+  //   return allDays += `<li class="sleep-week-item">${day.quality}/5 quality and ${sleepWeekDuration[index].hours} hours on ${day.date}</li>`;
+  // }, "");
 }
 
 function getTodaysDate() {
@@ -94,10 +102,43 @@ function addFriends(user, userRepo) {
 function renderHydration(data) {
   let dailyOunces = data.findDailyHydration(getTodaysDate());
   let weeklyOunces = data.findWeeklyHydration(getTodaysDate());
-  const reducedOunces = weeklyOunces.reduce((finalString, day) => {
-    return finalString += `<li class="weekly-hydration">
-    ${day.date}: ${day.numOunces} oz</li>`
-  }, "");
+  const hydrationDates = weeklyOunces.map(day => day.date);
+  const hydrationAmountDay = weeklyOunces.map(day => day.numOunces);
+  console.log(weeklyOunces);
+  renderChart(hydrationChart, "Weekly Hydration", hydrationDates, hydrationAmountDay);
+  // const reducedOunces = weeklyOunces.reduce((finalString, day) => {
+  //   return finalString += `<li class="weekly-hydration">
+  //   ${day.date}: ${day.numOunces} oz</li>`
+  // }, "");
   dailyHydration.innerText = dailyOunces;
-  weeklyHydration.innerHTML = reducedOunces;
+  // weeklyHydration.innerHTML = reducedOunces;
+}
+
+function renderChart(domElement, title, labels, data) {
+  new Chart(domElement, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            data: data,
+            backgroundColor: [ '#ff761fde' ]
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+          title: {
+              display: true,
+              text: title,
+              font: {
+                size: 22
+              }
+          }
+      }
+    }
+  });
 }

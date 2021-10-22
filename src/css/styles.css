@@ -27,6 +27,12 @@ h3 {
   margin: 10px;
 }
 
+canvas {
+  background-color: white;
+  margin: 8px;
+  border-radius: 6px;
+}
+
 .header-section {
   border-radius: 0 0 20px 20px;
   background-color: white;

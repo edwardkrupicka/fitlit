@@ -35,14 +35,12 @@ const lastWeekSleep = document.querySelector('#lastWeekSleep');
 const averageSleep = document.querySelector('#averageSleep');
 const hydrationChart = document.querySelector('#hydrationChart');
 const sleepChart = document.querySelector('#sleepChart');
-const userChart = document.querySelector('#userChart');
 
 function initializeData(data) {
   const userRepo = new UserRepository(data[0]);
   const randomUserNum = Math.floor(Math.random() * 50);
   const user = new User(userRepo.getUser(randomUserNum));
   renderUser(user, userRepo);
-  radarUserData(data, user, userRepo);
   const hydration = new Hydration(user.id, data[3]);
   renderHydration(hydration);
   calculateSleep(user, data[1]);
@@ -57,35 +55,6 @@ function renderUser(user, userRepo) {
   userStepGoal.innerText = user.dailyStepGoal;
   averageStepGoal.innerText = userRepo.averageStepGoal();
   userFriends.innerHTML = addFriends(user, userRepo);
-}
-
-function radarUserData(data, user, userRepo) {
-  const sleepInfo = new Sleep(data[1]);
-  const userHoursAvg = sleepInfo.getAverageHoursSlept(user.id);
-  const userQualAvg = sleepInfo.getAverageSleepQuality(user.id);
-  const usersQualAvg = sleepInfo.getUsersAvgSleepQuality();
-  const usersHoursAvg = parseFloat((sleepInfo.allSleepData.reduce((total, user) => {
-    return total += user.sleepQuality
-  }, 0) / sleepInfo.allSleepData.length).toFixed(1));
-  // friends out of 50, steps compared to user avg, hyrdration compared to all user data, sleep quality avg compared to all users avg, sleep quamtity avg compared to all users avg
-  const userRadarLabels = ['Friends', 'Steps', 'Hydration', 'Sleep Quality', 'Sleep Quantity'];
-  const avgUserFriends = (userRepo.allUserData.reduce((avgNum, user) => {
-    return avgNum += user.friends.length;
-  }, 0)) / 50;
-  const userFriends = Math.ceil(user.friends.length / avgUserFriends * 100);
-  const userSteps = Math.ceil((user.dailyStepGoal / userRepo.averageStepGoal()) * 100);
-  const userHSleep = Math.ceil(userHoursAvg / usersHoursAvg * 100);
-  const userQSleep = Math.ceil(userQualAvg / usersQualAvg * 100);
-  const userHydration = 50;
-  const userMetrics = [userFriends, userSteps, userHydration, userQSleep, userHSleep];
-  const finalMetrics = userMetrics.map((num) => {
-    if (num > 100) {
-      num = 100}
-    return num;
-  });
-  console.log(userFriends, userSteps, userHSleep, userQSleep, userHydration)
-  console.log(finalMetrics)
-  createRadar(userRadarLabels, finalMetrics);
 }
 
 function calculateSleep(user, sleepData) {
@@ -107,16 +76,9 @@ function renderSleep(lastNightQuality, lastNightDuration, averageQuality, averag
 
 function renderWeekSleep(sleepWeekQuality, sleepWeekDuration) {
   const weekDates = sleepWeekQuality.map(day => day.date);
-  console.log(weekDates)
   const weekQuality = sleepWeekQuality.map(day => day.quality);
-  console.log(weekQuality)
   const weekQuantity = sleepWeekDuration.map(day => day.hours);
-  console.log(weekQuantity)
   makeDoubleChart(sleepChart, 'Daily Hours Slept', 'Daily Sleep Quality', weekDates, weekQuantity, weekQuality);
-  // lastWeekSleep.innerHTML = sleepWeekQuality.reduce((allDays, day, index) => {
-  //   return allDays += `<li class="sleep-week-item">${day.quality}/5 quality and ${sleepWeekDuration[index].hours} hours on ${day.date}</li>`;
-  // }, "");
-
 }
 
 function getTodaysDate() {
@@ -127,26 +89,21 @@ function addFriends(user, userRepo) {
   let friendsList = user.friends;
   return friendsList.reduce((finalString, friend) => {
     return finalString += `<li class="user-friend">
-    <img class="friend-img" src="https://www.abbeysurestart.com/wp-content/uploads/2021/03/blank-profile.png">
+    <img class="friend-img" src="https://cataas.com/cat">
     ${userRepo.getUser(friend).name}: Step Goal ${userRepo.getUser(friend).dailyStepGoal}</li>`
   }, "");
 }
 
 function renderHydration(data) {
-  let dailyOunces = data.findDailyHydration(getTodaysDate());
-  let weeklyOunces = data.findWeeklyHydration(getTodaysDate());
-  // const reducedOunces = weeklyOunces.reduce((finalString, day) => {
-  //   return finalString += `<li class="weekly-hydration">
-  //   ${day.date}: ${day.numOunces} oz</li>`
-  // }, "");
+  const dailyOunces = data.findDailyHydration(getTodaysDate());
+  const weeklyOunces = data.findWeeklyHydration(getTodaysDate());
   dailyHydration.innerText = dailyOunces;
-  // weeklyHydration.innerHTML = reducedOunces;
   const weekOunces = weeklyOunces.map(day => day.numOunces);
   const weekDates = weeklyOunces.map(day => day.date);
-  makeChart(hydrationChart, 'Daily Number of Ounces', weekDates, weekOunces);
+  makeSingleChart(hydrationChart, 'Daily Number of Ounces', weekDates, weekOunces);
 }
 
-function makeChart(htmlElement, chartName, xLabels, data) {
+function makeSingleChart(htmlElement, chartName, xLabels, data) {
 var myChart = new Chart(htmlElement, {
     type: 'bar',
     data: {
@@ -186,70 +143,25 @@ var myChart = new Chart(htmlElement, {
 
 function makeDoubleChart(htmlElement, quantityLabel, qualityLabel, xLabels, quantityData, qualityData) {
 var otherChart = new Chart(htmlElement, {
-    // type: 'scatter',
     data: {
         datasets: [{
             type: 'bar',
             label: qualityLabel,
             data: qualityData,
-            // fill: false,
             backgroundColor: 'white',
             borderColor: '#6875ed',
+            borderWidth: 2
           }, {
             type: 'bar',
             label: quantityLabel,
             data: quantityData,
             backgroundColor: '#ced1ed',
             borderColor: '#6875ed',
-            borderWidth: 1
+            borderWidth: 2
         }],
         labels: xLabels
     },
     options: {
-      plugins: {
-        legend: {
-          labels: {
-            color: "black",
-          }
-        }
-      },
-        scales: {
-            y: {
-              ticks: {
-                color: "black",
-              },
-              beginAtZero: true
-            },
-            x: {
-              ticks: {
-                color: "black",
-              }
-            }
-        }
-    }
-});
-}
-
-// createRadar(userChart, userRadarLabels, finalMetrics);
-function createRadar(labels, data) {
-var myChart = new Chart(userChart, {
-    type: 'radar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: "User Avg compared to All Users Avg",
-            data: data,
-            fill: true,
-            backgroundColor: '#ced1ed',
-            borderColor: '#6875ed',
-        }]
-    },
-    options: {
-      elements: {
-        line: {
-          borderWidth: 3
-        }
-      },
       plugins: {
         legend: {
           labels: {

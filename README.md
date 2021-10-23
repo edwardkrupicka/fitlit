@@ -39,14 +39,15 @@ The goals of this project were to:
  - The design of the website!
  - The team coming together and working smoothly!
  - Also the team finishing early!
+ - Created Charts using Chart.js
 
 ### Technologies Used:
 - Javascript
 - HTML & CSS
 - Node & NPM
+- Chart.js
 
 ### Future Goals
-- Use Chart.js
 - Add some fancy CSS properties
 
 ### Rubric: https://frontend.turing.edu/projects/Fitlit-part-one.html

@@ -10,7 +10,7 @@ import './images/turing-logo.png'
 console.log('This is the JavaScript entry file - your code begins here.');
 
 // An example of how you tell webpack to use a JS file
-
+import Chart from 'chart.js/auto';
 import { allPromise } from './api-calls';
 allPromise.then(data => initializeData(data));
 import UserRepository from './UserRepository';
@@ -33,6 +33,8 @@ const weeklyHydration = document.querySelector('#weeklyHydration');
 const lastNightSleep = document.querySelector('#lastNightSleep');
 const lastWeekSleep = document.querySelector('#lastWeekSleep');
 const averageSleep = document.querySelector('#averageSleep');
+const hydrationChart = document.querySelector('#hydrationChart');
+const sleepChart = document.querySelector('#sleepChart');
 
 function initializeData(data) {
   const userRepo = new UserRepository(data[0]);
@@ -73,9 +75,10 @@ function renderSleep(lastNightQuality, lastNightDuration, averageQuality, averag
 }
 
 function renderWeekSleep(sleepWeekQuality, sleepWeekDuration) {
-  lastWeekSleep.innerHTML = sleepWeekQuality.reduce((allDays, day, index) => {
-    return allDays += `<li class="sleep-week-item">${day.quality}/5 quality and ${sleepWeekDuration[index].hours} hours on ${day.date}</li>`;
-  }, "");
+  const weekDates = sleepWeekQuality.map(day => day.date);
+  const weekQuality = sleepWeekQuality.map(day => day.quality);
+  const weekQuantity = sleepWeekDuration.map(day => day.hours);
+  makeDoubleChart(sleepChart, 'Daily Hours Slept', 'Daily Sleep Quality', weekDates, weekQuantity, weekQuality);
 }
 
 function getTodaysDate() {
@@ -92,12 +95,93 @@ function addFriends(user, userRepo) {
 }
 
 function renderHydration(data) {
-  let dailyOunces = data.findDailyHydration(getTodaysDate());
-  let weeklyOunces = data.findWeeklyHydration(getTodaysDate());
-  const reducedOunces = weeklyOunces.reduce((finalString, day) => {
-    return finalString += `<li class="weekly-hydration">
-    ${day.date}: ${day.numOunces} oz</li>`
-  }, "");
+  const dailyOunces = data.findDailyHydration(getTodaysDate());
+  const weeklyOunces = data.findWeeklyHydration(getTodaysDate());
   dailyHydration.innerText = dailyOunces;
-  weeklyHydration.innerHTML = reducedOunces;
+  const weekOunces = weeklyOunces.map(day => day.numOunces);
+  const weekDates = weeklyOunces.map(day => day.date);
+  makeSingleChart(hydrationChart, 'Daily Number of Ounces', weekDates, weekOunces);
+}
+
+function makeSingleChart(htmlElement, chartName, xLabels, data) {
+var myChart = new Chart(htmlElement, {
+    type: 'bar',
+    data: {
+        labels: xLabels,
+        datasets: [{
+            label: chartName,
+            data: data,
+            backgroundColor: '#ced1ed',
+            borderColor: '#6875ed',
+            borderWidth: 2
+        }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          labels: {
+            color: "black",
+          }
+        }
+      },
+        scales: {
+            y: {
+              ticks: {
+                color: "black",
+              },
+              beginAtZero: true
+            },
+            x: {
+              ticks: {
+                color: "black",
+              }
+            }
+        }
+    }
+});
+}
+
+function makeDoubleChart(htmlElement, quantityLabel, qualityLabel, xLabels, quantityData, qualityData) {
+var otherChart = new Chart(htmlElement, {
+    data: {
+        datasets: [{
+            type: 'bar',
+            label: qualityLabel,
+            data: qualityData,
+            backgroundColor: 'white',
+            borderColor: '#6875ed',
+            borderWidth: 2
+          }, {
+            type: 'bar',
+            label: quantityLabel,
+            data: quantityData,
+            backgroundColor: '#ced1ed',
+            borderColor: '#6875ed',
+            borderWidth: 2
+        }],
+        labels: xLabels
+    },
+    options: {
+      plugins: {
+        legend: {
+          labels: {
+            color: "black",
+          }
+        }
+      },
+        scales: {
+            y: {
+              ticks: {
+                color: "black",
+              },
+              beginAtZero: true
+            },
+            x: {
+              ticks: {
+                color: "black",
+              }
+            }
+        }
+    }
+});
 }

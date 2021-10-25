@@ -1,11 +1,10 @@
 body, html {
-  color: black;
-  height: 100%;
-  background-color: #090909;
-  background-image:url('https://i.imgur.com/CqPfIEj.jpg');
-  background-attachment:fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
+  color:rgb(232, 232, 232);
+  height: 100vh;
+  width: 100%;
+  background: rgb(131,58,180);
+  background: linear-gradient(146deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+  background-attachment: fixed;
   font-family: 'Bebas Neue', cursive;
 }
 
@@ -28,10 +27,8 @@ h3 {
 }
 
 .header-section {
-  border-radius: 0 0 20px 20px;
-  background-color: white;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: flex-start;
 }
 
@@ -49,6 +46,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  color:rgb(232, 232, 232);
 }
 
 .main-user-container {
@@ -62,9 +60,11 @@ h2 {
   justify-content: center;
   align-items: center;
   margin: 25px;
-  border-radius: 30px;
-  background: #ff761fde;
-  font-size: 1.5em
+  border-radius: 15px;
+  background: rgb(87, 87, 87);
+  color: rgb(232, 232, 232);
+  font-size: 1.5em;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
 .user-img {
@@ -113,7 +113,7 @@ figure {
 }
 
 .user-name-greeting {
-  color: #ff761fde;
+  color: rgb(255, 114, 53);
   font-size: 48px;
 }
 .weekly-hydration {
@@ -126,7 +126,7 @@ figure {
 }
 
 .orange {
-  color: #ff761fde;
+  color: rgb(255, 114, 53);
 }
 
 .greeting {
@@ -161,5 +161,8 @@ figure {
 @media screen and (max-width: 700px) {
   .main-user-container {
     grid-template-columns: 100%;
+  }
+  .user-column {
+    order: 2;
   }
 }

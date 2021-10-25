@@ -27,7 +27,14 @@ The goals of this project were to:
 - In your terminal run `npm start`. Go back to your browser and FITLIT should appear.
 
 ### Visual of Functionality:
-![2021-10-22 14 22 52](https://user-images.githubusercontent.com/86930028/138518403-513e54fc-8692-4175-b219-ecd4db499bd4.gif)
+
+#### Desktop Dashboard
+<img src="https://user-images.githubusercontent.com/86930028/138772057-b7d01b09-83a8-48ba-87f6-a673784e9ae1.gif" alt="Desktop Dashboard" width="400"/>
+
+
+#### Responsive Dashboard
+<img src="https://user-images.githubusercontent.com/86930028/138772364-564f1cd0-0328-47d6-9b70-a1d9e073a271.gif" alt="Responsive Dashboard" width="400"/>
+
 
 ### Challenges
  - Implementing fetch api

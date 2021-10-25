@@ -175,7 +175,7 @@ var otherChart = new Chart(htmlElement, {
         scales: {
             y1: {
               ticks: {
-                color: "rgb(254, 138, 254)",
+                color: "rgb(255, 129, 83)",
               },
               beginAtZero: true,
               type: 'linear',
@@ -185,7 +185,7 @@ var otherChart = new Chart(htmlElement, {
             },
             y2: {
               ticks: {
-                color: "rgb(255, 129, 83)",
+                color: "rgb(254, 138, 254)",
               },
               beginAtZero: true,
               type: 'linear',

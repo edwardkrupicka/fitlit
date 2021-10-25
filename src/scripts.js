@@ -111,8 +111,8 @@ var myChart = new Chart(htmlElement, {
         datasets: [{
             label: chartName,
             data: data,
-            backgroundColor: '#ced1ed',
-            borderColor: '#6875ed',
+            backgroundColor: 'rgb(187, 92, 255)',
+            borderColor: 'rgb(232, 232, 232)',
             borderWidth: 2
         }]
     },
@@ -120,20 +120,20 @@ var myChart = new Chart(htmlElement, {
       plugins: {
         legend: {
           labels: {
-            color: "black",
+            color: "rgb(232, 232, 232)",
           }
         }
       },
         scales: {
             y: {
               ticks: {
-                color: "black",
+                color: "rgb(232, 232, 232)",
               },
               beginAtZero: true
             },
             x: {
               ticks: {
-                color: "black",
+                color: "rgb(232, 232, 232)",
               }
             }
         }
@@ -148,16 +148,19 @@ var otherChart = new Chart(htmlElement, {
             type: 'bar',
             label: qualityLabel,
             data: qualityData,
-            backgroundColor: 'white',
-            borderColor: '#6875ed',
-            borderWidth: 2
+            backgroundColor: 'rgb(255, 87, 27)',
+            borderColor: 'rgb(232, 232, 232)',
+            borderWidth: 2,
+            yAxisID: 'y1'
+
           }, {
             type: 'bar',
             label: quantityLabel,
             data: quantityData,
-            backgroundColor: '#ced1ed',
-            borderColor: '#6875ed',
-            borderWidth: 2
+            backgroundColor: 'rgb(187, 92, 255)',
+            borderColor: 'rgb(232, 232, 232)',
+            borderWidth: 2, 
+            yAxisID: 'y2'
         }],
         labels: xLabels
     },
@@ -165,21 +168,37 @@ var otherChart = new Chart(htmlElement, {
       plugins: {
         legend: {
           labels: {
-            color: "black",
+            color: "rgb(232, 232, 232)",
           }
         }
       },
         scales: {
-            y: {
+            y1: {
               ticks: {
-                color: "black",
+                color: "rgb(254, 138, 254)",
               },
-              beginAtZero: true
+              beginAtZero: true,
+              type: 'linear',
+              position: 'left',
+              title: {text: 'Sleep Quality',
+              display: true, color: 'rgb(232, 232, 232)'}
+            },
+            y2: {
+              ticks: {
+                color: "rgb(255, 129, 83)",
+              },
+              beginAtZero: true,
+              type: 'linear',
+              position: 'right',
+              title: {text: 'Hours Slept',
+              display: true, color: 'rgb(232, 232, 232)'}
             },
             x: {
               ticks: {
-                color: "black",
-              }
+                color: "rgb(232, 232, 232)",
+              },
+              title: {text: 'Recent Week',
+              display: true, color: 'rgb(232, 232, 232)'}
             }
         }
     }

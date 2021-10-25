@@ -1,5 +1,8 @@
 # 🔥 FITLIT 🔥
 
+#### Deployed link
+- [Deployed link](https://raz-joan.github.io/fitlit/)
+
 #### A Front End Development Project by:
 - [Joan Rasmussen](https://github.com/raz-joan)
 - [John Kiernan](https://github.com/jkiernan12)

@@ -78,7 +78,7 @@ function renderWeekSleep(sleepWeekQuality, sleepWeekDuration) {
   const weekDates = sleepWeekQuality.map(day => day.date);
   const weekQuality = sleepWeekQuality.map(day => day.quality);
   const weekQuantity = sleepWeekDuration.map(day => day.hours);
-  makeDoubleChart(sleepChart, 'Daily Hours Slept', 'Daily Sleep Quality', weekDates, weekQuantity, weekQuality);
+  makeDoubleChart(sleepChart, 'Daily Hours Slept', 'Daily Sleep Quality out of 5', weekDates, weekQuantity, weekQuality);
 }
 
 function getTodaysDate() {
@@ -89,7 +89,7 @@ function addFriends(user, userRepo) {
   let friendsList = user.friends;
   return friendsList.reduce((finalString, friend) => {
     return finalString += `<li class="user-friend">
-    <img class="friend-img" src="https://cataas.com/cat">
+    <img class="friend-img" src="https://www.abbeysurestart.com/wp-content/uploads/2021/03/blank-profile.png" alt="User Image">
     ${userRepo.getUser(friend).name}: Step Goal ${userRepo.getUser(friend).dailyStepGoal}</li>`
   }, "");
 }

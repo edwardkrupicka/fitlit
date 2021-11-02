@@ -67,7 +67,6 @@ class Activity {
 
   getAverageActivityByDate(date, type) {
     const currentDay = this.allActivityData.filter(activity => activity.date === date);
-    console.log(currentDay)
     const sum = currentDay.reduce((total, activity) => {
       return activity[type] += total;
     }, 0);

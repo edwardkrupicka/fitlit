@@ -1,6 +1,7 @@
 class Activity {
   constructor(id, activityData, userData) {
     this.id = id;
+    this.allActivityData = activityData;
     this.activityData = activityData.filter(data => data.userID === this.id);
     this.userData = userData.find(user => user.id === this.id);
   }
@@ -17,7 +18,7 @@ class Activity {
       } else {
         return false;
       }
-    })
+    });
   }
 
   getMiles(date) {
@@ -64,13 +65,13 @@ class Activity {
     }, this.activityData[0].flightsOfStairs)
   }
 
-  getAverageActivityByDate(start, end, type) {
-    const dates = this.getActiveDateRange(Date.parse(start), Date.parse(end));
-    console.log(dates);
-    const sum = dates.reduce((total, activity) => {
+  getAverageActivityByDate(date, type) {
+    const currentDay = this.allActivityData.filter(activity => activity.date === date);
+    console.log(currentDay)
+    const sum = currentDay.reduce((total, activity) => {
       return activity[type] += total;
     }, 0);
-    return Math.round(sum / dates.length);
+    return Math.round(sum / currentDay.length);
   }
 
 }

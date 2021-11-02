@@ -61,8 +61,8 @@ describe("Activity", () => {
   });
 
   it('should find the average steps, stairs and active minutes for a date range', () => {
-    expect(activity3.getAverageActivityByDate("2019/06/17", "2019/06/21", "numSteps")).to.equal(4330);
-    expect(activity3.getAverageActivityByDate("2019/06/17", "2019/06/21", "flightsOfStairs")).to.equal(7);
-    expect(activity3.getAverageActivityByDate("2019/06/17", "2019/06/21", "minutesActive")).to.equal(164);
+    expect(activity3.getAverageActivityByDate("2019/06/15", "numSteps")).to.equal(2145);
+    expect(activity3.getAverageActivityByDate("2019/06/15", "minutesActive")).to.equal(62);
+    expect(activity3.getAverageActivityByDate("2019/06/15", "flightsOfStairs")).to.equal(2);
   })
 })

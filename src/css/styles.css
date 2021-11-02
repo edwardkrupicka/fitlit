@@ -64,7 +64,7 @@ h2 {
   background: rgb(87, 87, 87);
   color: rgb(232, 232, 232);
   font-size: 1.5em;
-  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  perspective: 1000px;
 }
 
 .user-img {
@@ -89,13 +89,14 @@ figure {
 .hydration-graph {
   background-color: white;
   width: 30vw;
-  height: 20vh;
+  height: 40vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .graph {
+  height: 90%;
   width: 80%;
 }
 
@@ -165,4 +166,60 @@ figure {
   .user-column {
     order: 2;
   }
+}
+
+.user-hydration {
+  height: 55vh;
+  background-color: transparent;
+}
+
+.user-sleep {
+  height: 80%;
+  background-color: transparent;
+}
+
+.user-steps {
+  height: 30%;
+  background-color: transparent;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.user-steps:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.user-hydration:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.user-sleep:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(87, 87, 87);
+}
+
+.card-back {
+  background-color: rgb(87, 87, 87);
+  color: white;
+  transform: rotateY(180deg);
 }

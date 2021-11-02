@@ -5,6 +5,21 @@ class Activity {
     this.userData = userData.find(user => user.id === this.id);
   }
 
+  getActiveDay(date) {
+    return this.activityData.find(activity => activity.date === date);
+  }
+
+  getActiveDateRange(start, end) {
+    return this.activityData.filter(activity => {
+      const activityDate = Date.parse(activity.date);
+      if (activityDate >= start && activityDate <= end) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+  }
+
   getMiles(date) {
     const currentDay = this.activityData.find(day => day.date === date);
     const userStride = this.userData.strideLength;
@@ -12,25 +27,51 @@ class Activity {
   }
   
   getDayActiveMins(date) {
-    return this.activityData.find(activity => activity.date === date).minutesActive;
+    return this.getActiveDay(date).minutesActive;
   }
-  
+
   getWeekAverageMins(date) {
     const startDate = Date.parse(date);
-    const endDate = startDate + (86400000 * 7);
-    const activeDays = this.activityData.filter(activity => {
-      const activityDate = Date.parse(activity.date);
-      if (activityDate >= startDate && activityDate < endDate) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    const endDate = startDate + (86400000 * 6);
+    const activeDays = this.getActiveDateRange(startDate, endDate);
     const totalMins = activeDays.map(activity => activity.minutesActive)
     .reduce((total, activity) => {
       return total += activity;
     }, 0)
     return Math.round(totalMins / activeDays.length);
   }
+
+  checkSteps(date) {
+    return this.getActiveDay(date).numSteps >= this.userData.dailyStepGoal;
+  }
+
+  findWinStepDays() {
+    return this.activityData.filter(day => {
+      if (this.checkSteps(day.date)) {
+        return true;
+      } else {
+        return false;
+      }
+    }).map(day => day.date);
+  }
+
+  findBestSteps() {
+    return this.activityData.reduce((best, activity) => {
+      if (activity.flightsOfStairs > best) {
+        best = activity.flightsOfStairs;
+      }
+      return best;
+    }, this.activityData[0].flightsOfStairs)
+  }
+
+  getAverageActivityByDate(start, end, type) {
+    const dates = this.getActiveDateRange(Date.parse(start), Date.parse(end));
+    console.log(dates);
+    const sum = dates.reduce((total, activity) => {
+      return activity[type] += total;
+    }, 0);
+    return Math.round(sum / dates.length);
+  }
+
 }
   export default Activity;

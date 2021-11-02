@@ -53,16 +53,16 @@ describe("Activity", () => {
   });
 
   it('should find all the days they exceeded their step goal', () => {
-    expect(activity3.findWinStepDays().to.deep.equal(["2019/06/20", "2019/06/21"]));
+    expect(activity3.findWinStepDays()).to.deep.equal(["2019/06/20", "2019/06/21"]);
   });
 
   it('should find their all-time stair climbing record', () => {
-    expect(activity3.findBestSteps().to.deep.equal(13));
+    expect(activity3.findBestSteps()).to.deep.equal(13);
   });
 
   it('should find the average steps, stairs and active minutes for a date range', () => {
-    expect(activity3.getAverageActivityByDate("2019/06/17", "2019/06/21", "numSteps").to.equal(4330));
-    expect(activity3.getAverageActivityByDate("2019/06/17", "2019/06/21", "flightsOfStaris").to.equal(7));
-    expect(activity3.getAverageActivityByDate("2019/06/17", "2019/06/21", "minutesActive").to.equal(164));
+    expect(activity3.getAverageActivityByDate("2019/06/17", "2019/06/21", "numSteps")).to.equal(4330);
+    expect(activity3.getAverageActivityByDate("2019/06/17", "2019/06/21", "flightsOfStairs")).to.equal(7);
+    expect(activity3.getAverageActivityByDate("2019/06/17", "2019/06/21", "minutesActive")).to.equal(164);
   })
 })

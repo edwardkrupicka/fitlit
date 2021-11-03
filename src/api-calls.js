@@ -7,13 +7,32 @@ function getData(dataUrl, dataObjName) {
   return retrievedData;
 }
 
-const gotUserData = getData('https://pacific-badlands-43237.herokuapp.com/api/v1/users', 'userData');
-const gotSleepData = getData('https://pacific-badlands-43237.herokuapp.com/api/v1/sleep', 'sleepData');
-const gotActivityData = getData('https://pacific-badlands-43237.herokuapp.com/api/v1/activity', 'activityData');
-const gotHydrationData = getData('https://pacific-badlands-43237.herokuapp.com/api/v1/hydration', 'hydrationData');
+const gotUserData = getData('http://localhost:3001/api/v1/users', 'userData');
+const gotSleepData = getData('http://localhost:3001/api/v1/sleep', 'sleepData');
+const gotActivityData = getData('http://localhost:3001/api/v1/activity', 'activityData');
+const gotHydrationData = getData('http://localhost:3001/api/v1/hydration', 'hydrationData');
 
 const allPromise = Promise.all([gotUserData, gotSleepData, gotActivityData, gotHydrationData]).then(data => {
   return data;
 });
 
-export { allPromise }
+const example = { userID: 50, date: '2021/06/15' , hoursSlept: 7.5 , sleepQuality: 5 };
+
+function postData(dataUrl, newData) {
+  const sentData = fetch(dataUrl, {
+    method: "POST",
+    body: JSON.stringify(newData),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    // .then(data => {
+    //   console.log(data)
+
+    // })
+    // .catch(err => console.log('error!', err));
+}
+
+postData('http://localhost:3001/api/v1/sleep', example);
+export { allPromise, postData }

@@ -36,13 +36,19 @@ const averageSleep = document.querySelector('#averageSleep');
 const hydrationChart = document.querySelector('#hydrationChart');
 const sleepChart = document.querySelector('#sleepChart');
 const sleepButton = document.querySelector('#sleepButton');
+const sleepQuality = document.querySelector('#sleepQuality');
+const sleepQuantity = document.querySelector('#sleepQuantity');
+const sleepDate = document.querySelector('#sleepDate');
+const sleepResponse = document.querySelector('#sleepResponse');
 
 // event listeners
 sleepButton.addEventListener('click', addSleepData);
 
-function addSleepData() {
+function addSleepData(event) {
   // prevent default
+  event.preventDefault();
   // store input to variables
+
   // convert date to correct format
   // create object from these variables
   // pass object to postSleep()

@@ -11,8 +11,7 @@ class UserRepository {
     const totalSteps = this.allUserData.reduce((total, user) => {
       return total += user.dailyStepGoal;
     }, 0);
-    const totalUsers = this.allUserData.length;
-    return Math.round(totalSteps / totalUsers);
+    return Math.round(totalSteps / this.allUserData.length);
   }
 }
 

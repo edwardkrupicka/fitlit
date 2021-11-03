@@ -43,7 +43,8 @@ function initializeData(data) {
   renderUser(user, userRepo);
   const hydration = new Hydration(user.id, data[3]);
   renderHydration(hydration);
-  calculateSleep(user, data[1]);
+  const sleep = new Sleep(user.id, data[1])
+  calculateSleep(sleep);
 }
 
 function renderUser(user, userRepo) {
@@ -57,14 +58,13 @@ function renderUser(user, userRepo) {
   userFriends.innerHTML = addFriends(user, userRepo);
 }
 
-function calculateSleep(user, sleepData) {
-  const sleepInfo = new Sleep(sleepData);
-  const lastNightQuality = sleepInfo.getDailySleepQuality(user.id, getTodaysDate());
-  const lastNightDuration = sleepInfo.getDailyHoursSlept(user.id, getTodaysDate());
-  const lastWeekQuality = sleepInfo.calculateSleepQualityWeek(user.id, getTodaysDate());
-  const lastWeekDuration = sleepInfo.calculateHoursSleptWeek(user.id, getTodaysDate());
-  const averageQuality = sleepInfo.getAverageSleepQuality(user.id);
-  const averageDuration = sleepInfo.getAverageHoursSlept(user.id);
+function calculateSleep(data) {
+  const lastNightQuality = data.getDailySleepQuality(getTodaysDate());
+  const lastNightDuration = data.getDailyHoursSlept(getTodaysDate());
+  const lastWeekQuality = data.calculateSleepQualityWeek(getTodaysDate());
+  const lastWeekDuration = data.calculateHoursSleptWeek(getTodaysDate());
+  const averageQuality = data.getAverageSleepQuality();
+  const averageDuration = data.getAverageHoursSlept();
   renderSleep(lastNightQuality, lastNightDuration, averageQuality, averageDuration);
   renderWeekSleep(lastWeekQuality, lastWeekDuration)
 }

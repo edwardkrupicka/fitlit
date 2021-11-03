@@ -4,16 +4,14 @@ class Hydration {
     this.hydrationData = hydrationData.filter(data => data.userID === this.id);
   }
   findAverageHydration() {
-    const numOuncesArray = this.hydrationData.map(data => data.numOunces);
-    const totalOunces = numOuncesArray.reduce((acc, ounces) => {
-      return acc += ounces;
+    const totalOunces = this.hydrationData.reduce((acc, hydration) => {
+      return acc += hydration.numOunces;
     }, 0);
-    return totalOunces / numOuncesArray.length;  
+    return totalOunces / this.hydrationData.length;  
   }
 
   findDailyHydration(date) {
-    const foundDate = this.hydrationData.filter(data => data.date === date);
-    return foundDate[0].numOunces;
+    return this.hydrationData.find(data => data.date === date).numOunces;
   }
 
   findWeeklyHydration(startDate) {

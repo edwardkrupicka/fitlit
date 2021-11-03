@@ -1,58 +1,45 @@
 class Sleep {
-  constructor(sleepData) {
-    this.allSleepData = sleepData;
+  constructor(userId, allSleepData) {
+    this.id = userId;
+    this.allSleepData = allSleepData;
+    this.sleepData = allSleepData.filter(data => data.userID === this.id);
   }
 
-  getAverageHoursSlept(userId) {
-    const usersSleep = this.allSleepData.filter(user => {
-      return user.userID === userId;
-    });
-    const averageHoursSlept = usersSleep.reduce((avgHours, user) => {
+  getAverageHoursSlept() {
+    const averageHoursSlept = this.sleepData.reduce((avgHours, user) => {
       return avgHours += user.hoursSlept;
-    }, 0) / usersSleep.length;
+    }, 0) / this.sleepData.length;
     return parseFloat(averageHoursSlept.toFixed(1));
   }
 
-  getAverageSleepQuality(userId) {
-    const usersSleepQuality = this.allSleepData.filter(user => {
-      return user.userID === userId;
-    });
-    const avgUserSleepQuality = usersSleepQuality.reduce((avgSleep, user) => {
+  getAverageSleepQuality() {
+    const avgUserSleepQuality = this.sleepData.reduce((avgSleep, user) => {
       return avgSleep += user.sleepQuality;
-    }, 0) / usersSleepQuality.length;
+    }, 0) / this.sleepData.length;
     return parseFloat(avgUserSleepQuality.toFixed(1));
   }
 
-  getDailyHoursSlept(userId, date) {
-    const hoursSlept = this.allSleepData.filter(user => {
-      return user.userID === userId;
-    }).find(user => {
+  getDailyHoursSlept(date) {
+    return this.sleepData.find(user => {
       return user.date === date;
     }).hoursSlept;
-    return hoursSlept;
   }
 
-  getDailySleepQuality(userId, date) {
-    const sleepQuality = this.allSleepData.filter(user => {
-      return user.userID === userId;
-    }).find(user => {
+  getDailySleepQuality(date) {
+    return this.sleepData.find(user => {
       return user.date === date;
     }).sleepQuality;
-    return sleepQuality;
   }
 
-  calculateWeek(userId, date) {
-    const hoursSleptInAWeek = this.allSleepData.filter((user) => {
-      return user.userID === userId;
-    })
-    const dateIndex = hoursSleptInAWeek.map((user) => {
-      return user.date
+  calculateWeek(date) {
+    const dateIndex = this.sleepData.map((user) => {
+      return user.date;
     }).indexOf(date);
-    return hoursSleptInAWeek.slice(dateIndex - 6, dateIndex + 1);
+    return this.sleepData.slice(dateIndex - 6, dateIndex + 1);
   }
 
-  calculateHoursSleptWeek(userId, date) {
-    return this.calculateWeek(userId, date).map(e => {
+  calculateHoursSleptWeek(date) {
+    return this.calculateWeek(date).map(e => {
       return {
         hours: e.hoursSlept,
         date: e.date
@@ -60,8 +47,8 @@ class Sleep {
     })
   }
 
-  calculateSleepQualityWeek(userId, date) {
-    return this.calculateWeek(userId, date).map(e => {
+  calculateSleepQualityWeek(date) {
+    return this.calculateWeek(date).map(e => {
       return {
         quality: e.sleepQuality,
         date: e.date

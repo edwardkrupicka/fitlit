@@ -40,22 +40,62 @@ const sleepQuality = document.querySelector('#sleepQuality');
 const sleepQuantity = document.querySelector('#sleepQuantity');
 const sleepDate = document.querySelector('#sleepDate');
 const sleepResponse = document.querySelector('#sleepResponse');
+const sleepForm = document.querySelector('#sleepForm');
 
 // event listeners
-sleepButton.addEventListener('click', addSleepData);
+sleepButton.addEventListener('click', checkForSleepInputs);
 
-function addSleepData(event) {
-  // prevent default
+// functions
+function checkForSleepInputs(event) {
   event.preventDefault();
-  // store input to variables
+  if (sleepQuality.value === '' || sleepQuantity.value === '' || sleepDate.value === '') {
+    console.log('PASSED the check for NO sleep inputs!')
+    sleepResponse.innerText = `Please fill in the form correctly`;
+    sleepResponse.classList.remove('hidden');
+    setTimeout(hideSleepResponse, 1500);
+  } else {
+    console.log('passed the check for sleep inputs! NOT EMPTY')
+    addSleepData()
+  }
+};
 
+function addSleepData() {
+  // prevent default
+  // event.preventDefault();
+  // store input to variables
+  const sleepQual = parseFloat(sleepQuality.value);
+  const sleepQuan = parseFloat(sleepQuantity.value);
+  const date = sleepDate.value.split('-').join('/');
   // convert date to correct format
+  console.log(date);
   // create object from these variables
+  const userInput = { userID: userId, date: date , hoursSlept: sleepQuan , sleepQuality: sleepQual };
   // pass object to postSleep()
+  const postedData = postSleep(userInput);
+  postedData.then((data) => {
+    console.log(data);
+    sleepResponse.innerText = 'Your sleep data was successfully uploaded!';
+    sleepResponse.classList.remove('hidden');
+    sleepForm.classList.add('hidden');
+    setTimeout(hideSleepResponse, 2500);
+    });
+  console.log(postedData);
   // --> receive data and display message on DOM - unhide <p>
   // --> setTimeout for rehide of <p> and reset of form
   // --> else display error <p> to user (request a re-input and re-submit)
   // --> setTimeout for rehide of <p> and reset of form
+}
+
+// function hideResponse(element, form) {
+//   element.classList.add('hidden');
+//   form.classList.remove('hidden');
+//   form.reset();
+// }
+
+function hideSleepResponse() {
+  sleepResponse.classList.add('hidden');
+  sleepForm.classList.remove('hidden');
+  sleepForm.reset();
 }
 
 function initializeData(data) {
@@ -67,7 +107,7 @@ function initializeData(data) {
   renderHydration(hydration);
   calculateSleep(user, data[1]);
   userId = user.id;
-  console.log('id', userId);
+  console.log('id', userId); // NEED TO REMOVE THIS!!
 }
 
 function renderUser(user, userRepo) {

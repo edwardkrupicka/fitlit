@@ -58,6 +58,20 @@
           </div>
           <div class="card-back">
             <h1>BEDTIME</h1>
+            <form class="sleep-form">
+              <div>
+                <label for="quality">Rate Your Quality of sleep (1-5):</label>
+                <input type="number" id="quality" name="tentacles" min="0" step="0.5" max="5" required>
+              </div>
+              <div>
+                <label for="quantity">Submit Your Hours of Sleep (0-12):</label>
+                <input type="number" id="quantity" name="tentacles" min="0" step="0.5" max="12" required>
+              </div>
+              <label>Start date:</label>
+              <input type="date" min="2018-01-01" required>
+              <button id="sleepButton">Submit</button>
+            </form>
+            <p class="hidden">Your sleep has been successfully updated</p>
           </div>
         </div>
       </section>
@@ -80,6 +94,23 @@
         </ul>
       </section>
     </section>
+    <!-- <fieldset class="upload-duration">
+      <legend>Duration</legend>
+      <div class="inline-inputs marginless">
+      <div class="input-field input-field-joined validation-wrapper">
+      <label for="activity_elapsed_time_hours"><abbr title="hours">hr</abbr>
+      </label><input type="number" value="01" placeholder="1" name="activity[elapsed_time_hours]" id="activity_elapsed_time_hours">
+      </div>
+      <div class="input-field input-field-joined validation-wrapper">
+      <label for="activity_elapsed_time_minutes"><abbr title="minutes">min</abbr>
+      </label><input type="number" value="00" placeholder="00" aria-required="true" name="activity[elapsed_time_minutes]" id="activity_elapsed_time_minutes">
+      </div>
+      <div class="input-field input-field-joined validation-wrapper">
+      <label for="activity_elapsed_time_seconds"><abbr title="seconds">s</abbr>
+      </label><input type="number" value="00" placeholder="00" name="activity[elapsed_time_seconds]" id="activity_elapsed_time_seconds">
+      </div>
+      </div>
+      </fieldset> -->
     </main>
 <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
     <script src="bundle.js"></script>

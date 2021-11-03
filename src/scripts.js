@@ -11,23 +11,12 @@ console.log('This is the JavaScript entry file - your code begins here.');
 
 // An example of how you tell webpack to use a JS file
 import Chart from 'chart.js/auto';
-import { allPromise, postData } from './api-calls';
+import { allPromise, postSleep } from './api-calls';
 allPromise.then(data => initializeData(data));
 import UserRepository from './UserRepository';
 import User from './User';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
-
-// importing sleep data 
-// postSleep(url, newData)
-// .then(data => {
-//   console.log(data)
-//   // function to post data and give success message
-// })
-// .catch(err => console.log('error!', err));
-
-// // function to post data and give success message
-// // function to give error message
 
 // Global
 let userId;
@@ -46,10 +35,22 @@ const lastWeekSleep = document.querySelector('#lastWeekSleep');
 const averageSleep = document.querySelector('#averageSleep');
 const hydrationChart = document.querySelector('#hydrationChart');
 const sleepChart = document.querySelector('#sleepChart');
-const sleepButton = document.querySelector('#sleepButton')
+const sleepButton = document.querySelector('#sleepButton');
 
 // event listeners
-sleepButton.addEventListener('click',)
+sleepButton.addEventListener('click', addSleepData);
+
+function addSleepData() {
+  // prevent default
+  // store input to variables
+  // convert date to correct format
+  // create object from these variables
+  // pass object to postSleep()
+  // --> receive data and display message on DOM - unhide <p>
+  // --> setTimeout for rehide of <p> and reset of form
+  // --> else display error <p> to user (request a re-input and re-submit)
+  // --> setTimeout for rehide of <p> and reset of form
+}
 
 function initializeData(data) {
   const userRepo = new UserRepository(data[0]);
@@ -176,7 +177,7 @@ var otherChart = new Chart(htmlElement, {
             data: quantityData,
             backgroundColor: 'rgb(187, 92, 255)',
             borderColor: 'rgb(232, 232, 232)',
-            borderWidth: 2, 
+            borderWidth: 2,
             yAxisID: 'y2'
         }],
         labels: xLabels

@@ -16,10 +16,8 @@ const allPromise = Promise.all([gotUserData, gotSleepData, gotActivityData, gotH
   return data;
 });
 
-const example = { userID: 50, date: '2021/06/15' , hoursSlept: 7.5 , sleepQuality: 5 };
-
-function postData(dataUrl, newData) {
-  const sentData = fetch(dataUrl, {
+function postSleep(newData) {
+  const postedData = fetch('http://localhost:3001/api/v1/sleep', {
     method: "POST",
     body: JSON.stringify(newData),
     headers: {
@@ -27,12 +25,26 @@ function postData(dataUrl, newData) {
     }
   })
     .then(response => response.json())
-    // .then(data => {
-    //   console.log(data)
-
-    // })
-    // .catch(err => console.log('error!', err));
+    .catch(err => console.log('error!', err));
+  return postedData;
 }
+// const example = { userID: 50, date: '2021/06/15' , hoursSlept: 7.5 , sleepQuality: 5 };
 
-postData('http://localhost:3001/api/v1/sleep', example);
-export { allPromise, postData }
+// function postData(dataUrl, newData) {
+//   const sentData = fetch(dataUrl, {
+//     method: "POST",
+//     body: JSON.stringify(newData),
+//     headers: {
+//       "Content-Type": "application/json"
+//     }
+//   })
+//     .then(response => response.json())
+//     .then(data => {
+//       console.log(data)
+//
+//     })
+//     .catch(err => console.log('error!', err));
+// }
+
+// postData('http://localhost:3001/api/v1/sleep', example);
+export { allPromise, postSleep }

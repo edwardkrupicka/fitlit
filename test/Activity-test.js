@@ -6,7 +6,6 @@ import { userData, activityData } from '../test/Activity-test-data';
 
 describe("Activity", () => {
   let activity1, activity2, activity3, user1, user2, user3, userRepo;
-  console.log(userData)
   beforeEach(() => {
     user1 = new User(userData[0]);
     user2 = new User(userData[1]);

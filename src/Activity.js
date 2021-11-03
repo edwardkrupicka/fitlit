@@ -1,8 +1,10 @@
-class Activity {
+import UserStats from './UserStats';
+
+class Activity extends UserStats {
   constructor(id, activityData, userData) {
-    this.id = id;
+    super(id, activityData);
     this.allActivityData = activityData;
-    this.activityData = activityData.filter(data => data.userID === this.id);
+    this.activityData = this.filteredData;
     this.userData = userData.find(user => user.id === this.id);
   }
 

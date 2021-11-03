@@ -1,8 +1,11 @@
-class Hydration {
+import UserStats from './UserStats';
+
+class Hydration extends UserStats {
   constructor(id, hydrationData) {
-    this.id = id;
-    this.hydrationData = hydrationData.filter(data => data.userID === this.id);
+    super(id, hydrationData)
+    this.hydrationData = this.filteredData; 
   }
+  
   findAverageHydration() {
     const totalOunces = this.hydrationData.reduce((acc, hydration) => {
       return acc += hydration.numOunces;

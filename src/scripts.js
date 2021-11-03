@@ -11,15 +11,26 @@ console.log('This is the JavaScript entry file - your code begins here.');
 
 // An example of how you tell webpack to use a JS file
 import Chart from 'chart.js/auto';
-import { allPromise } from './api-calls';
+import { allPromise, postData } from './api-calls';
 allPromise.then(data => initializeData(data));
 import UserRepository from './UserRepository';
 import User from './User';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 
-// Global
+// importing sleep data 
+// postSleep(url, newData)
+// .then(data => {
+//   console.log(data)
+//   // function to post data and give success message
+// })
+// .catch(err => console.log('error!', err));
 
+// // function to post data and give success message
+// // function to give error message
+
+// Global
+let userId;
 const userGreeting = document.querySelector('#userGreeting');
 const userFullName = document.querySelector('#userFullName');
 const userEmail = document.querySelector('#userEmail');
@@ -35,6 +46,10 @@ const lastWeekSleep = document.querySelector('#lastWeekSleep');
 const averageSleep = document.querySelector('#averageSleep');
 const hydrationChart = document.querySelector('#hydrationChart');
 const sleepChart = document.querySelector('#sleepChart');
+const sleepButton = document.querySelector('#sleepButton')
+
+// event listeners
+sleepButton.addEventListener('click',)
 
 function initializeData(data) {
   const userRepo = new UserRepository(data[0]);
@@ -44,6 +59,8 @@ function initializeData(data) {
   const hydration = new Hydration(user.id, data[3]);
   renderHydration(hydration);
   calculateSleep(user, data[1]);
+  userId = user.id;
+  console.log('id', userId);
 }
 
 function renderUser(user, userRepo) {

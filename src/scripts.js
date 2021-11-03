@@ -11,7 +11,7 @@ console.log('This is the JavaScript entry file - your code begins here.');
 
 // An example of how you tell webpack to use a JS file
 import Chart from 'chart.js/auto';
-import { allPromise, postSleep } from './api-calls';
+import { allPromise, postData } from './api-calls';
 allPromise.then(data => initializeData(data));
 import UserRepository from './UserRepository';
 import User from './User';
@@ -48,54 +48,41 @@ sleepButton.addEventListener('click', checkForSleepInputs);
 // functions
 function checkForSleepInputs(event) {
   event.preventDefault();
-  if (sleepQuality.value === '' || sleepQuantity.value === '' || sleepDate.value === '') {
-    console.log('PASSED the check for NO sleep inputs!')
+  if (!sleepQuality.value || !sleepQuantity.value || !sleepDate.value) {
     sleepResponse.innerText = `Please fill in the form correctly`;
     sleepResponse.classList.remove('hidden');
-    setTimeout(hideSleepResponse, 1500);
+    setTimeout(() => {
+      hideResponse(sleepResponse, sleepForm);
+    }, 1500);
   } else {
-    console.log('passed the check for sleep inputs! NOT EMPTY')
     addSleepData()
   }
 };
 
 function addSleepData() {
-  // prevent default
-  // event.preventDefault();
-  // store input to variables
   const sleepQual = parseFloat(sleepQuality.value);
   const sleepQuan = parseFloat(sleepQuantity.value);
   const date = sleepDate.value.split('-').join('/');
-  // convert date to correct format
-  console.log(date);
-  // create object from these variables
+
   const userInput = { userID: userId, date: date , hoursSlept: sleepQuan , sleepQuality: sleepQual };
-  // pass object to postSleep()
-  const postedData = postSleep(userInput);
+
+  const postedData = postData('http://localhost:3001/api/v1/sleep', userInput);
   postedData.then((data) => {
-    console.log(data);
+    // console.log(data);
     sleepResponse.innerText = 'Your sleep data was successfully uploaded!';
     sleepResponse.classList.remove('hidden');
     sleepForm.classList.add('hidden');
-    setTimeout(hideSleepResponse, 2500);
+    setTimeout(() => {
+      hideResponse(sleepResponse, sleepForm);
+    }, 2500);
     });
-  console.log(postedData);
-  // --> receive data and display message on DOM - unhide <p>
-  // --> setTimeout for rehide of <p> and reset of form
-  // --> else display error <p> to user (request a re-input and re-submit)
-  // --> setTimeout for rehide of <p> and reset of form
+  // console.log(postedData);
 }
 
-// function hideResponse(element, form) {
-//   element.classList.add('hidden');
-//   form.classList.remove('hidden');
-//   form.reset();
-// }
-
-function hideSleepResponse() {
-  sleepResponse.classList.add('hidden');
-  sleepForm.classList.remove('hidden');
-  sleepForm.reset();
+function hideResponse(element, form) {
+  element.classList.add('hidden');
+  form.classList.remove('hidden');
+  form.reset();
 }
 
 function initializeData(data) {
@@ -107,7 +94,7 @@ function initializeData(data) {
   renderHydration(hydration);
   calculateSleep(user, data[1]);
   userId = user.id;
-  console.log('id', userId); // NEED TO REMOVE THIS!!
+  // console.log('id', userId); // NEED TO REMOVE THIS!!
 }
 
 function renderUser(user, userRepo) {

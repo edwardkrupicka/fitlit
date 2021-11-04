@@ -55,9 +55,10 @@ function checkForSleepInputs(event) {
       hideResponse(sleepResponse, sleepForm);
     }, 1500);
   } else {
-    addSleepData()
+    addSleepData();
   }
-};
+}
+
 
 function addSleepData() {
   const sleepQual = parseFloat(sleepQuality.value);
@@ -75,7 +76,8 @@ function addSleepData() {
     setTimeout(() => {
       hideResponse(sleepResponse, sleepForm);
     }, 2500);
-    });
+  });
+  // fix indentation
   // console.log(postedData);
 }
 

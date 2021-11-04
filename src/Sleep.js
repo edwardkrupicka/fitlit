@@ -3,7 +3,6 @@ import UserStats from './UserStats';
 class Sleep extends UserStats {
   constructor(id, dataset) {
     super(id, dataset);
-    this.allSleepData = this.allDataset;
   }
 
   getAverageHoursSlept() {
@@ -24,15 +23,8 @@ class Sleep extends UserStats {
     return this.filteredData.find(user => user.date === date).sleepQuality;
   }
 
-  calculateWeek(date) {
-    const dateIndex = this.filteredData.map((user) => {
-      return user.date;
-    }).indexOf(date);
-    return this.filteredData.slice(dateIndex - 6, dateIndex + 1);
-  }
-
   calculateHoursSleptWeek(date) {
-    return this.calculateWeek(date).map(e => {
+    return this.getWeekRange(this.filteredData, date).map(e => {
       return {
         hours: e.hoursSlept,
         date: e.date
@@ -41,7 +33,7 @@ class Sleep extends UserStats {
   }
 
   calculateSleepQualityWeek(date) {
-    return this.calculateWeek(date).map(e => {
+    return this.getWeekRange(this.filteredData, date).map(e => {
       return {
         quality: e.sleepQuality,
         date: e.date
@@ -50,9 +42,7 @@ class Sleep extends UserStats {
   }
 
   getUsersAvgSleepQuality() {
-    const avgSleepQuality = ((this.allSleepData.reduce((total, user) => {
-      return total += user.sleepQuality;
-    }, 0) / this.allSleepData.length).toFixed(1));
+    const avgSleepQuality = this.getAverage(this.allDataset, "sleepQuality").toFixed(1);
     return parseFloat(avgSleepQuality);
   }
 }

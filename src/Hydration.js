@@ -2,28 +2,20 @@ import UserStats from './UserStats';
 
 class Hydration extends UserStats {
   constructor(id, hydrationData) {
-    super(id, hydrationData)
-    this.hydrationData = this.filteredData; 
+    super(id, hydrationData);
   }
   
   findAverageHydration() {
-    const totalOunces = this.hydrationData.reduce((acc, hydration) => {
-      return acc += hydration.numOunces;
-    }, 0);
-    return totalOunces / this.hydrationData.length;  
+    return this.getAverage(this.filteredData, "numOunces"); 
   }
 
   findDailyHydration(date) {
-    return this.hydrationData.find(data => data.date === date).numOunces;
+    return this.getDayData(this.filteredData, date).numOunces;
   }
 
   findWeeklyHydration(startDate) {
-    const dates = this.hydrationData.map(data => data.date);
-    const startIndex = dates.indexOf(startDate);
-    const weeklyHydration = this.hydrationData.slice(startIndex - 6, startIndex + 1);
-    return weeklyHydration;
+    return this.getWeekRange(this.filteredData, startDate);
   }
 }
-
 
 export default Hydration;

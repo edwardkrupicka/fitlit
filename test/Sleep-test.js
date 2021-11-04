@@ -33,7 +33,7 @@ describe('Sleep', () => {
   });
 
   it('should store all sleep data', () => {
-    expect(sleep1.allSleepData).to.deep.equal(sleepData);
+    expect(sleep1.allDataset).to.deep.equal(sleepData);
   });
 
   it('should return the average hours slept per day when given a user\'s ID', () => {

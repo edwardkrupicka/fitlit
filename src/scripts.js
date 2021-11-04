@@ -87,6 +87,39 @@ function addSleepData() {
   // console.log(postedData);
 }
 
+function checkForHydrationInputs(event) {
+  event.preventDefault();
+  if (!hydrationOunces.value || !hydrationDate.value) {
+    hydrationResponse.innerText = `Please fill in the form correctly`;
+    hydrationResponse.classList.remove('hidden');
+    setTimeout(() => {
+      hideResponse(hydrationResponse, hydrationForm);
+    }, 1500);
+  } else {
+    addHydrationData();
+  }
+}
+
+
+function addHydrationData() {
+  const numOunces = parseFloat(hydrationOunces.value);
+  const date = hydrationDate.value.split('-').join('/');
+
+  const userInput = { userID: userId, date, numOunces };
+
+  const postedData = postData('http://localhost:3001/api/v1/hydration', userInput);
+  postedData.then((data) => {
+    console.log(data);
+    hydrationResponse.innerText = 'Your hydration data was successfully uploaded!';
+    hydrationResponse.classList.remove('hidden');
+    hydrationForm.classList.add('hidden');
+    setTimeout(() => {
+      hideResponse(hydrationResponse, hydrationForm);
+    }, 2500);
+  });
+  console.log(postedData);
+}
+
 function hideResponse(element, form) {
   element.classList.add('hidden');
   form.classList.remove('hidden');

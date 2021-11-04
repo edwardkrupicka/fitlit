@@ -49,6 +49,7 @@ const hydrationForm = document.querySelector('#hydrationForm');
 
 // event listeners
 sleepButton.addEventListener('click', checkForSleepInputs);
+hydrationButton.addEventListener('click', checkForHydrationInputs);
 
 // functions
 function checkForSleepInputs(event) {
@@ -70,7 +71,7 @@ function addSleepData() {
   const sleepQuan = parseFloat(sleepQuantity.value);
   const date = sleepDate.value.split('-').join('/');
 
-  const userInput = { userID: userId, date: date , hoursSlept: sleepQuan , sleepQuality: sleepQual };
+  const userInput = { userID: userId, date , hoursSlept: sleepQuan , sleepQuality: sleepQual };
 
   const postedData = postData('http://localhost:3001/api/v1/sleep', userInput);
   postedData.then((data) => {

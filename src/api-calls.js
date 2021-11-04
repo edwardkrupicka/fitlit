@@ -7,14 +7,15 @@ function getData(dataUrl, dataObjName) {
   return retrievedData;
 }
 
-const gotUserData = getData('http://localhost:3001/api/v1/users', 'userData');
-const gotSleepData = getData('http://localhost:3001/api/v1/sleep', 'sleepData');
-const gotActivityData = getData('http://localhost:3001/api/v1/activity', 'activityData');
-const gotHydrationData = getData('http://localhost:3001/api/v1/hydration', 'hydrationData');
-
-const allPromise = Promise.all([gotUserData, gotSleepData, gotActivityData, gotHydrationData]).then(data => {
-  return data;
-});
+function getAllData() {
+  const gotUserData = getData('http://localhost:3001/api/v1/users', 'userData');
+  const gotSleepData = getData('http://localhost:3001/api/v1/sleep', 'sleepData');
+  const gotActivityData = getData('http://localhost:3001/api/v1/activity', 'activityData');
+  const gotHydrationData = getData('http://localhost:3001/api/v1/hydration', 'hydrationData');
+  const allPromise = Promise.all([gotUserData, gotSleepData, gotActivityData, gotHydrationData]).then(data => {
+    return data;
+  });
+}
 
 function postData(url, newData) {
   const postedData = fetch(url, {
@@ -42,4 +43,4 @@ function postData(url, newData) {
 //   return postedData;
 // }
 
-export { allPromise, postData }
+export { postData, getAllData }

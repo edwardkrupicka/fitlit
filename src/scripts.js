@@ -11,8 +11,8 @@ console.log('This is the JavaScript entry file - your code begins here.');
 
 // An example of how you tell webpack to use a JS file
 import Chart from 'chart.js/auto';
-import { allPromise, postData } from './api-calls';
-allPromise.then(data => initializeData(data));
+import { getAllData, postData } from './api-calls';
+// allPromise.then(data => initializeData(data));
 import UserRepository from './UserRepository';
 import User from './User';
 import Hydration from './Hydration';

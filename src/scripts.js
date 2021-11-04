@@ -41,6 +41,11 @@ const sleepQuantity = document.querySelector('#sleepQuantity');
 const sleepDate = document.querySelector('#sleepDate');
 const sleepResponse = document.querySelector('#sleepResponse');
 const sleepForm = document.querySelector('#sleepForm');
+const hydrationButton = document.querySelector('#hydrationButton');
+const hydrationOunces = document.querySelector('#hydrationOunces');
+const hydrationDate = document.querySelector('#hydrationDate');
+const hydrationResponse = document.querySelector('#hydrationResponse');
+const hydrationForm = document.querySelector('#hydrationForm');
 
 // event listeners
 sleepButton.addEventListener('click', checkForSleepInputs);

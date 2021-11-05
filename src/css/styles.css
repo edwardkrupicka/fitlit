@@ -1,3 +1,4 @@
+
 body, html {
   color:rgb(232, 232, 232);
   height: 100vh;
@@ -13,17 +14,17 @@ body {
   width: 100%;
 }
 
+h3 {
+  margin: 1px;
+  height: 4%;
+}
+
 p {
-  margin: 3px;
-  font-size: 18px;
+  height: 2%;
 }
 
 li {
   font-size: 18px;
-}
-
-h3 {
-  margin: 10px;
 }
 
 .header-section {
@@ -96,9 +97,9 @@ figure {
 }
 
 .graph {
-  height: 90%;
-  width: 80%;
-}
+  height: 76%;
+  position: relative;
+} 
 
 .user-steps,
 .user-sleep,
@@ -106,6 +107,7 @@ figure {
 .user-friends {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .user-friend {
@@ -169,17 +171,17 @@ figure {
 }
 
 .user-hydration {
-  height: 55vh;
+  height: 50%;
   background-color: transparent;
 }
 
 .user-sleep {
-  height: 80%;
+  height: 40vh;
   background-color: transparent;
 }
 
 .user-steps {
-  height: 30%;
+  height: 15vh;
   background-color: transparent;
 }
 
@@ -190,6 +192,7 @@ figure {
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
+  display: flex;
 }
 
 .user-steps:hover .card-inner {
@@ -206,16 +209,14 @@ figure {
 
 .card-front, .card-back {
   position: absolute;
-  width: 100%;
   height: 100%;
+  width: 100%;
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
   border-radius: 15px;
+  background-color: rgb(87, 87, 87);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(87, 87, 87);
 }
 
 .card-back {
@@ -223,3 +224,17 @@ figure {
   color: white;
   transform: rotateY(180deg);
 }
+
+/* .steps {
+  margin: 0px, 0px, 1px, 0px;
+  height: 10px;
+}
+
+.step-goal {
+  margin: 0px, 0px, 1px, 0px;
+  height: 20px;
+}
+
+.avg-step-goal {
+  margin: 0px, 
+} */

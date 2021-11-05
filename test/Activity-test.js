@@ -6,7 +6,6 @@ import { userData, activityData } from '../test/Activity-test-data';
 
 describe("Activity", () => {
   let activity1, activity2, activity3, user1, user2, user3, userRepo;
-  console.log(userData)
   beforeEach(() => {
     user1 = new User(userData[0]);
     user2 = new User(userData[1]);
@@ -31,8 +30,8 @@ describe("Activity", () => {
   });
 
   it('should store activity data', () => {
-    expect(activity1.activityData).to.deep.equal(activityData.filter(data => data.userID === 1));
-    expect(activity3.activityData).to.deep.equal(activityData.filter(data => data.userID === 3));
+    expect(activity1.filteredData).to.deep.equal(activityData.filter(data => data.userID === 1));
+    expect(activity3.filteredData).to.deep.equal(activityData.filter(data => data.userID === 3));
   });
 
   it('should return total miles walked for a given day', () => {
@@ -44,7 +43,7 @@ describe("Activity", () => {
   });
 
   it('should return average mins per week per day', () => {
-    expect(activity3.getWeekAverageMins("2019/06/15")).to.equal(140);
+    expect(activity3.getWeekAverageMins("2019/06/21")).to.equal(140);
   });
 
   it('should check if they reached their step goal', () => {

@@ -43,8 +43,8 @@ describe('Hyrdration', () => {
   });
 
   it('should store hydration data', () => {
-    expect(hydration.hydrationData).to.deep.equal(hydrationData.filter(data => data.userID === 1));
-    expect(hydration2.hydrationData).to.deep.equal(hydrationData.filter(data => data.userID === 2));
+    expect(hydration.filteredData).to.deep.equal(hydrationData.filter(data => data.userID === 1));
+    expect(hydration2.filteredData).to.deep.equal(hydrationData.filter(data => data.userID === 2));
   });
 
   it('should be able to return average fluid ounces consumed per day for all time', () => {

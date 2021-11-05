@@ -3,7 +3,10 @@ function getData(dataUrl, dataObjName) {
   const retrievedData = fetch(dataUrl)
     .then(req => req.json())
     .then(data => data[dataObjName])
-    .catch(err => console.log('error: ', err));
+    .catch(err => {
+      console.log('error: ', err)
+      // showError(err);
+    });
   return retrievedData;
 }
 
@@ -13,8 +16,10 @@ function getAllData() {
   const gotActivityData = getData('http://localhost:3001/api/v1/activity', 'activityData');
   const gotHydrationData = getData('http://localhost:3001/api/v1/hydration', 'hydrationData');
   const allPromise = Promise.all([gotUserData, gotSleepData, gotActivityData, gotHydrationData]).then(data => {
+    // console.log(data)
     return data;
   });
+  return allPromise;
 }
 
 function postData(url, newData) {

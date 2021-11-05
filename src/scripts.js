@@ -20,6 +20,7 @@ import Sleep from './Sleep';
 
 // Global
 let userId;
+// let currentChart;
 const userGreeting = document.querySelector('#userGreeting');
 const userFullName = document.querySelector('#userFullName');
 const userEmail = document.querySelector('#userEmail');
@@ -48,14 +49,32 @@ const hydrationResponse = document.querySelector('#hydrationResponse');
 const hydrationForm = document.querySelector('#hydrationForm');
 
 // event listeners
+window.addEventListener('load', displayData);
 sleepButton.addEventListener('click', checkForSleepInputs);
 hydrationButton.addEventListener('click', checkForHydrationInputs);
 
 // functions
+function displayData() {
+  const randomUserNum = Math.floor(Math.random() * 50);
+  getAllData().then(data => {
+    initializeData(data, randomUserNum);
+  })
+  // .catch(err => showError(err));
+  // console.log(allData);
+}
+
+// const showError = (err) => {
+//   if (err.message === "Failed to fetch") {
+//     sleepResponse.innerText = `Hey something went wrong check your connection`
+//   } else {
+//     sleepResponse.innerText = `${err.message}`
+//   }
+// }
+
 function checkForSleepInputs(event) {
   event.preventDefault();
   if (!sleepQuality.value || !sleepQuantity.value || !sleepDate.value) {
-    sleepResponse.innerText = `Please fill in the form correctly`;
+    // sleepResponse.innerText = `Please fill in the form correctly`;
     sleepResponse.classList.remove('hidden');
     setTimeout(() => {
       hideResponse(sleepResponse, sleepForm);
@@ -83,6 +102,9 @@ function addSleepData() {
       hideResponse(sleepResponse, sleepForm);
     }, 2500);
   });
+  getAllData().then(data => {
+    initializeData(data, userId);
+  })
   // fix indentation
   // console.log(postedData);
 }
@@ -118,6 +140,12 @@ function addHydrationData() {
     }, 2500);
   });
   console.log(postedData);
+  getAllData().then(data => {
+    // currentChart.destroy();
+    // addData(currentChart, data);
+    initializeData(data, userId);
+    // renderHydration(data);
+  })
 }
 
 function hideResponse(element, form) {
@@ -126,10 +154,11 @@ function hideResponse(element, form) {
   form.reset();
 }
 
-function initializeData(data) {
+function initializeData(data, idNumber) {
+  console.log("data:", data)
   const userRepo = new UserRepository(data[0]);
-  const randomUserNum = Math.floor(Math.random() * 50);
-  const user = new User(userRepo.getUser(randomUserNum));
+  // const randomUserNum = Math.floor(Math.random() * 50);
+  const user = new User(userRepo.getUser(idNumber));
   renderUser(user, userRepo);
   const hydration = new Hydration(user.id, data[3]);
   renderHydration(hydration);
@@ -231,6 +260,7 @@ var myChart = new Chart(htmlElement, {
         }
     }
 });
+// currentChart = myChart;
 }
 
 function makeDoubleChart(htmlElement, quantityLabel, qualityLabel, xLabels, quantityData, qualityData) {

@@ -117,6 +117,8 @@ var myChart = new Chart(htmlElement, {
         }]
     },
     options: {
+      responsive: true, 
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           labels: {
@@ -164,7 +166,9 @@ var otherChart = new Chart(htmlElement, {
         }],
         labels: xLabels
     },
-    options: {
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           labels: {

@@ -1,28 +1,21 @@
-class Hydration {
+import UserStats from './UserStats';
+
+class Hydration extends UserStats {
   constructor(id, hydrationData) {
-    this.id = id;
-    this.hydrationData = hydrationData.filter(data => data.userID === this.id);
+    super(id, hydrationData);
   }
+  
   findAverageHydration() {
-    const numOuncesArray = this.hydrationData.map(data => data.numOunces);
-    const totalOunces = numOuncesArray.reduce((acc, ounces) => {
-      return acc += ounces;
-    }, 0);
-    return totalOunces / numOuncesArray.length;  
+    return this.getAverage(this.filteredData, "numOunces"); 
   }
 
   findDailyHydration(date) {
-    const foundDate = this.hydrationData.filter(data => data.date === date);
-    return foundDate[0].numOunces;
+    return this.getDayData(this.filteredData, date).numOunces;
   }
 
   findWeeklyHydration(startDate) {
-    const dates = this.hydrationData.map(data => data.date);
-    const startIndex = dates.indexOf(startDate);
-    const weeklyHydration = this.hydrationData.slice(startIndex - 6, startIndex + 1);
-    return weeklyHydration;
+    return this.getWeekRange(this.filteredData, startDate);
   }
 }
-
 
 export default Hydration;

@@ -1,0 +1,209 @@
+@use "_mixins.scss" as *;
+@use "_variables.scss" as *;
+// @use "_normalize.scss";
+body, html {
+  color:$off-white;
+  height: 100vh;
+  width: 100%;
+  background: rgb(131,58,180);
+  background: linear-gradient(146deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+  background-attachment: fixed;
+  font-family: 'Bebas Neue', cursive;
+}
+
+body {
+  margin: auto;
+  width: 100%;
+}
+
+p {
+  margin: 3px;
+  font-size: 18px;
+}
+
+li {
+  font-size: 18px;
+}
+
+h3 {
+  margin: 10px;
+}
+
+.header-section {
+  @include flex(space-evenly, flex-start);
+}
+
+.greeting,
+.fit-lit {
+  @include flex(center, center);
+  width: 40vw;
+  height: 100%;
+}
+
+h2 {
+  @include flex(center, center);
+  width: 25vw;
+  color:$off-white;
+}
+
+.main-user-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  justify-content: flex-start;
+}
+
+.content {
+  @include flex(center, center);
+  margin: 25px;
+  border-radius: 15px;
+  background: $gray;
+  color: $off-white;
+  font-size: 1.5em;
+  perspective: 1000px;
+}
+
+.user-img {
+  width: 12vw;
+}
+
+.friend-img {
+  width: 6vw;
+}
+
+figure {
+  @include flex(space-evenly, center, column);
+  width: 100%;
+  height: 100%;
+}
+
+.step-graph,
+.sleep-graph,
+.hydration-graph {
+  background-color: $white;
+  width: 30vw;
+  height: 40vh;
+  @include flex(center, center);
+}
+
+.graph {
+  height: 90%;
+  width: 80%;
+}
+
+.user-steps,
+.user-sleep,
+.user-hydration,
+.user-friends {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-friend {
+  list-style-type: none;
+  padding: 0;
+}
+
+.user-name-greeting {
+  color: $orange;
+  font-size: 48px;
+}
+.weekly-hydration {
+  padding: 0;
+}
+
+.weekly-hydration {
+  list-style-type: none;
+  /* margin-right: 4vw; */
+}
+
+.orange {
+  color: $orange;
+}
+
+.greeting {
+  @include flex(flex-start, center, column);
+}
+
+.greetings {
+  font-size: 18px;
+  margin: 2px;
+}
+
+.logo {
+  font-size: 56px;
+}
+
+.greeting h2 {
+  margin: 0;
+}
+
+.user-details {
+ margin: 10px;
+}
+
+.sleep-week-item {
+  list-style-type: none;
+  padding: 0;
+}
+
+@media screen and (max-width: 700px) {
+  .main-user-container {
+    grid-template-columns: 100%;
+  }
+  .user-column {
+    order: 2;
+  }
+}
+
+.user-hydration {
+  height: 55vh;
+  background-color: transparent;
+}
+
+.user-sleep {
+  height: 80%;
+  background-color: transparent;
+}
+
+.user-steps {
+  height: 30%;
+  background-color: transparent;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.user-steps:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.user-hydration:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.user-sleep:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+  border-radius: 15px;
+  @include flex(center, center, column);
+  background-color: $gray;
+}
+
+.card-back {
+  background-color: $gray;
+  color: $white;
+  transform: rotateY(180deg);
+}

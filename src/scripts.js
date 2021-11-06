@@ -2,7 +2,7 @@
 // Do not delete or rename this file ********
 
 // An example of how you tell webpack to use a CSS file
-import './css/styles.css';
+import './css/styles.scss';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
@@ -162,9 +162,8 @@ function initializeData(data, idNumber) {
   renderUser(user, userRepo);
   const hydration = new Hydration(user.id, data[3]);
   renderHydration(hydration);
-  calculateSleep(user, data[1]);
-  userId = user.id;
-  // console.log('id', userId); // NEED TO REMOVE THIS!!
+  const sleep = new Sleep(user.id, data[1])
+  calculateSleep(sleep);
 }
 
 function renderUser(user, userRepo) {
@@ -178,14 +177,13 @@ function renderUser(user, userRepo) {
   userFriends.innerHTML = addFriends(user, userRepo);
 }
 
-function calculateSleep(user, sleepData) {
-  const sleepInfo = new Sleep(sleepData);
-  const lastNightQuality = sleepInfo.getDailySleepQuality(user.id, getTodaysDate());
-  const lastNightDuration = sleepInfo.getDailyHoursSlept(user.id, getTodaysDate());
-  const lastWeekQuality = sleepInfo.calculateSleepQualityWeek(user.id, getTodaysDate());
-  const lastWeekDuration = sleepInfo.calculateHoursSleptWeek(user.id, getTodaysDate());
-  const averageQuality = sleepInfo.getAverageSleepQuality(user.id);
-  const averageDuration = sleepInfo.getAverageHoursSlept(user.id);
+function calculateSleep(data) {
+  const lastNightQuality = data.getDailySleepQuality(getTodaysDate());
+  const lastNightDuration = data.getDailyHoursSlept(getTodaysDate());
+  const lastWeekQuality = data.calculateSleepQualityWeek(getTodaysDate());
+  const lastWeekDuration = data.calculateHoursSleptWeek(getTodaysDate());
+  const averageQuality = data.getAverageSleepQuality();
+  const averageDuration = data.getAverageHoursSlept();
   renderSleep(lastNightQuality, lastNightDuration, averageQuality, averageDuration);
   renderWeekSleep(lastWeekQuality, lastWeekDuration)
 }

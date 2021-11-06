@@ -22,6 +22,17 @@ let domUpdates = {
     element.classList.add('hidden');
     form.classList.remove('hidden');
     form.reset();
+  },
+
+  renderUser(user, userRepo) {
+    userGreeting.innerText = user.returnFirstName();
+    userFullName.innerText = user.name;
+    userEmail.innerText = user.email;
+    userAddress.innerText = user.address;
+    userStride.innerText = user.strideLength;
+    userStepGoal.innerText = user.dailyStepGoal;
+    averageStepGoal.innerText = userRepo.averageStepGoal();
+    userFriends.innerHTML = this.addFriends(user, userRepo);
   }
 
 }

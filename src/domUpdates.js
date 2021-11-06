@@ -18,7 +18,12 @@ const hydrationChart = document.querySelector('#hydrationChart');
 const dailyHydration = document.querySelector('#dailyHydration');
 
 let domUpdates = {
-  
+  hideResponse(element, form) {
+    element.classList.add('hidden');
+    form.classList.remove('hidden');
+    form.reset();
+  }
+
 }
 
 export default  domUpdates;

@@ -1,4 +1,5 @@
 import { makeSingleChart, makeDoubleChart } from './charts.js';
+import getTodaysDate from './scripts.js';
 // ~~~~~used to render user and user data~~~~~
 const userGreeting = document.querySelector('#userGreeting');
 const userFullName = document.querySelector('#userFullName');
@@ -57,8 +58,8 @@ let domUpdates = {
   },
 
   renderHydration(data) {
-    const dailyOunces = data.findDailyHydration(this.getTodaysDate());
-    const weeklyOunces = data.findWeeklyHydration(this.getTodaysDate());
+    const dailyOunces = data.findDailyHydration(getTodaysDate());
+    const weeklyOunces = data.findWeeklyHydration(getTodaysDate());
     dailyHydration.innerText = dailyOunces;
     const weekOunces = weeklyOunces.map(day => day.numOunces);
     const weekDates = weeklyOunces.map(day => day.date);

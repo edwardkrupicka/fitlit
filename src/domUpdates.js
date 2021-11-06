@@ -54,6 +54,15 @@ let domUpdates = {
     const weekQuality = sleepWeekQuality.map(day => day.quality);
     const weekQuantity = sleepWeekDuration.map(day => day.hours);
     return makeDoubleChart(sleepChart, 'Daily Hours Slept', 'Daily Sleep Quality out of 5', weekDates, weekQuantity, weekQuality);
+  },
+
+  renderHydration(data) {
+    const dailyOunces = data.findDailyHydration(this.getTodaysDate());
+    const weeklyOunces = data.findWeeklyHydration(this.getTodaysDate());
+    dailyHydration.innerText = dailyOunces;
+    const weekOunces = weeklyOunces.map(day => day.numOunces);
+    const weekDates = weeklyOunces.map(day => day.date);
+    return makeSingleChart(hydrationChart, 'Daily Number of Ounces', weekDates, weekOunces);
   }
 }
 

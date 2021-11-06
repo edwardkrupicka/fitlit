@@ -3,17 +3,49 @@ function getData(dataUrl, dataObjName) {
   const retrievedData = fetch(dataUrl)
     .then(req => req.json())
     .then(data => data[dataObjName])
-    .catch(err => console.log('error: ', err));
+    .catch(err => {
+      console.log('error: ', err)
+      // showError(err);
+    });
   return retrievedData;
 }
 
-const gotUserData = getData('https://pacific-badlands-43237.herokuapp.com/api/v1/users', 'userData');
-const gotSleepData = getData('https://pacific-badlands-43237.herokuapp.com/api/v1/sleep', 'sleepData');
-const gotActivityData = getData('https://pacific-badlands-43237.herokuapp.com/api/v1/activity', 'activityData');
-const gotHydrationData = getData('https://pacific-badlands-43237.herokuapp.com/api/v1/hydration', 'hydrationData');
+function getAllData() {
+  const gotUserData = getData('http://localhost:3001/api/v1/users', 'userData');
+  const gotSleepData = getData('http://localhost:3001/api/v1/sleep', 'sleepData');
+  const gotActivityData = getData('http://localhost:3001/api/v1/activity', 'activityData');
+  const gotHydrationData = getData('http://localhost:3001/api/v1/hydration', 'hydrationData');
+  const allPromise = Promise.all([gotUserData, gotSleepData, gotActivityData, gotHydrationData]).then(data => {
+    // console.log(data)
+    return data;
+  });
+  return allPromise;
+}
 
-const allPromise = Promise.all([gotUserData, gotSleepData, gotActivityData, gotHydrationData]).then(data => {
-  return data;
-});
+function postData(url, newData) {
+  const postedData = fetch(url, {
+    method: "POST",
+    body: JSON.stringify(newData),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .catch(err => console.log('error!', err));
+  return postedData;
+}
 
-export { allPromise }
+// function postSleep(newData) {
+//   const postedData = fetch('http://localhost:3001/api/v1/sleep', {
+//     method: "POST",
+//     body: JSON.stringify(newData),
+//     headers: {
+//       "Content-Type": "application/json"
+//     }
+//   })
+//     .then(response => response.json())
+//     .catch(err => console.log('error!', err));
+//   return postedData;
+// }
+
+export { postData, getAllData }

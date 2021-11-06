@@ -11,15 +11,16 @@ console.log('This is the JavaScript entry file - your code begins here.');
 
 // An example of how you tell webpack to use a JS file
 import Chart from 'chart.js/auto';
-import { allPromise } from './api-calls';
-allPromise.then(data => initializeData(data));
+import { getAllData, postData } from './api-calls';
+// allPromise.then(data => initializeData(data));
 import UserRepository from './UserRepository';
 import User from './User';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 
 // Global
-
+let userId;
+// let currentChart;
 const userGreeting = document.querySelector('#userGreeting');
 const userFullName = document.querySelector('#userFullName');
 const userEmail = document.querySelector('#userEmail');
@@ -35,11 +36,129 @@ const lastWeekSleep = document.querySelector('#lastWeekSleep');
 const averageSleep = document.querySelector('#averageSleep');
 const hydrationChart = document.querySelector('#hydrationChart');
 const sleepChart = document.querySelector('#sleepChart');
+const sleepButton = document.querySelector('#sleepButton');
+const sleepQuality = document.querySelector('#sleepQuality');
+const sleepQuantity = document.querySelector('#sleepQuantity');
+const sleepDate = document.querySelector('#sleepDate');
+const sleepResponse = document.querySelector('#sleepResponse');
+const sleepForm = document.querySelector('#sleepForm');
+const hydrationButton = document.querySelector('#hydrationButton');
+const hydrationOunces = document.querySelector('#hydrationOunces');
+const hydrationDate = document.querySelector('#hydrationDate');
+const hydrationResponse = document.querySelector('#hydrationResponse');
+const hydrationForm = document.querySelector('#hydrationForm');
 
-function initializeData(data) {
-  const userRepo = new UserRepository(data[0]);
+// event listeners
+window.addEventListener('load', displayData);
+sleepButton.addEventListener('click', checkForSleepInputs);
+hydrationButton.addEventListener('click', checkForHydrationInputs);
+
+// functions
+function displayData() {
   const randomUserNum = Math.floor(Math.random() * 50);
-  const user = new User(userRepo.getUser(randomUserNum));
+  getAllData().then(data => {
+    initializeData(data, randomUserNum);
+  })
+  // .catch(err => showError(err));
+  // console.log(allData);
+}
+
+// const showError = (err) => {
+//   if (err.message === "Failed to fetch") {
+//     sleepResponse.innerText = `Hey something went wrong check your connection`
+//   } else {
+//     sleepResponse.innerText = `${err.message}`
+//   }
+// }
+
+function checkForSleepInputs(event) {
+  event.preventDefault();
+  if (!sleepQuality.value || !sleepQuantity.value || !sleepDate.value) {
+    // sleepResponse.innerText = `Please fill in the form correctly`;
+    sleepResponse.classList.remove('hidden');
+    setTimeout(() => {
+      hideResponse(sleepResponse, sleepForm);
+    }, 1500);
+  } else {
+    addSleepData();
+  }
+}
+
+
+function addSleepData() {
+  const sleepQual = parseFloat(sleepQuality.value);
+  const sleepQuan = parseFloat(sleepQuantity.value);
+  const date = sleepDate.value.split('-').join('/');
+
+  const userInput = { userID: userId, date , hoursSlept: sleepQuan , sleepQuality: sleepQual };
+
+  const postedData = postData('http://localhost:3001/api/v1/sleep', userInput);
+  postedData.then((data) => {
+    // console.log(data);
+    sleepResponse.innerText = 'Your sleep data was successfully uploaded!';
+    sleepResponse.classList.remove('hidden');
+    sleepForm.classList.add('hidden');
+    setTimeout(() => {
+      hideResponse(sleepResponse, sleepForm);
+    }, 2500);
+  });
+  getAllData().then(data => {
+    initializeData(data, userId);
+  })
+  // fix indentation
+  // console.log(postedData);
+}
+
+function checkForHydrationInputs(event) {
+  event.preventDefault();
+  if (!hydrationOunces.value || !hydrationDate.value) {
+    hydrationResponse.innerText = `Please fill in the form correctly`;
+    hydrationResponse.classList.remove('hidden');
+    setTimeout(() => {
+      hideResponse(hydrationResponse, hydrationForm);
+    }, 1500);
+  } else {
+    addHydrationData();
+  }
+}
+
+
+function addHydrationData() {
+  const numOunces = parseFloat(hydrationOunces.value);
+  const date = hydrationDate.value.split('-').join('/');
+
+  const userInput = { userID: userId, date, numOunces };
+
+  const postedData = postData('http://localhost:3001/api/v1/hydration', userInput);
+  postedData.then((data) => {
+    console.log(data);
+    hydrationResponse.innerText = 'Your hydration data was successfully uploaded!';
+    hydrationResponse.classList.remove('hidden');
+    hydrationForm.classList.add('hidden');
+    setTimeout(() => {
+      hideResponse(hydrationResponse, hydrationForm);
+    }, 2500);
+  });
+  console.log(postedData);
+  getAllData().then(data => {
+    // currentChart.destroy();
+    // addData(currentChart, data);
+    initializeData(data, userId);
+    // renderHydration(data);
+  })
+}
+
+function hideResponse(element, form) {
+  element.classList.add('hidden');
+  form.classList.remove('hidden');
+  form.reset();
+}
+
+function initializeData(data, idNumber) {
+  console.log("data:", data)
+  const userRepo = new UserRepository(data[0]);
+  // const randomUserNum = Math.floor(Math.random() * 50);
+  const user = new User(userRepo.getUser(idNumber));
   renderUser(user, userRepo);
   const hydration = new Hydration(user.id, data[3]);
   renderHydration(hydration);
@@ -139,6 +258,7 @@ var myChart = new Chart(htmlElement, {
         }
     }
 });
+// currentChart = myChart;
 }
 
 function makeDoubleChart(htmlElement, quantityLabel, qualityLabel, xLabels, quantityData, qualityData) {
@@ -159,7 +279,7 @@ var otherChart = new Chart(htmlElement, {
             data: quantityData,
             backgroundColor: 'rgb(187, 92, 255)',
             borderColor: 'rgb(232, 232, 232)',
-            borderWidth: 2, 
+            borderWidth: 2,
             yAxisID: 'y2'
         }],
         labels: xLabels

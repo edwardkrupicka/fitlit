@@ -1,10 +1,18 @@
+import {connectionErr, checkStatus} from "./error-handling.js";
 
 function getData(dataUrl, dataObjName) {
   const retrievedData = fetch(dataUrl)
-    .then(req => req.json())
+    .then(res => {
+      checkStatus(res, `There was an error connecting to ${dataUrl}.`)
+      return res.json();
+    })
     .then(data => data[dataObjName])
     .catch(err => {
-      console.log('error: ', err)
+      if (err.message === "Failed to fetch") {
+        connectionErr(err, "Couldn't connect to database.")
+      } else {
+        connectionErr(err);
+      }
     });
   return retrievedData;
 }
@@ -27,8 +35,11 @@ function postData(url, newData) {
       "Content-Type": "application/json"
     }
   })
-    .then(response => response.json())
-    .catch(err => console.log('error!', err));
+  .then(response => {
+    checkStatus(response);
+    return response.json();
+  })
+  .catch(err => connectionErr(err));
   return postedData;
 }
 

@@ -51,12 +51,38 @@ const hydrationDate = document.querySelector('#hydrationDate');
 const hydrationResponse = document.querySelector('#hydrationResponse');
 const hydrationForm = document.querySelector('#hydrationForm');
 
+const stepSwivelButton = document.querySelector('#stepSwivelButton');
+const sleepSwivelButton = document.querySelector('#sleepSwivelButton');
+const hydrationSwivelButton = document.querySelector('#hydrationSwivelButton');
+const stepCardInner = document.querySelector('#stepCardInner');
+const sleepCardInner = document.querySelector('#sleepCardInner');
+const hydrationCardInner = document.querySelector('#hydrationCardInner');
+const stepUnswivelButton = document.querySelector('#stepUnswivelButton');
+const sleepUnswivelButton = document.querySelector('#sleepUnswivelButton');
+const hydrationUnswivelButton = document.querySelector('#hydrationUnswivelButton');
+
 // event listeners
 window.addEventListener('load', displayData);
 sleepButton.addEventListener('click', checkForSleepInputs);
 hydrationButton.addEventListener('click', checkForHydrationInputs);
+stepSwivelButton.addEventListener('click', toggleSwivel);
+sleepSwivelButton.addEventListener('click', toggleSwivel);
+hydrationSwivelButton.addEventListener('click', toggleSwivel);
+stepUnswivelButton.addEventListener('click', toggleSwivel);
+sleepUnswivelButton.addEventListener('click', toggleSwivel);
+hydrationUnswivelButton.addEventListener('click', toggleSwivel);
 
 // functions
+function toggleSwivel(event) {
+  if (event.target === sleepSwivelButton || event.target === sleepUnswivelButton) {
+    sleepCardInner.classList.toggle('swivel');
+  } else if (event.target === hydrationSwivelButton || event.target === hydrationUnswivelButton) {
+    hydrationCardInner.classList.toggle('swivel');
+  } else if (event.target === stepSwivelButton || event.target === stepUnswivelButton) {
+    stepCardInner.classList.toggle('swivel');
+  }
+}
+
 function displayData() {
   const randomUserNum = Math.floor(Math.random() * 50);
   getAllData().then(data => {

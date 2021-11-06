@@ -77,7 +77,6 @@ function checkForSleepInputs(event) {
   }
 }
 
-
 function addSleepData() {
   const sleepQual = parseFloat(sleepQuality.value);
   const sleepQuan = parseFloat(sleepQuantity.value);
@@ -173,7 +172,7 @@ function renderUser(user, userRepo) {
 function calculateSleep(data) {
   const lastNightQuality = data.getDailySleepQuality(getTodaysDate());
   const lastNightDuration = data.getDailyHoursSlept(getTodaysDate());
-  const lastWeekQuality = data.calculateSleepQualityWeek(getTodaysDate());
+  let lastWeekQuality = data.calculateSleepQualityWeek(getTodaysDate());
   const lastWeekDuration = data.calculateHoursSleptWeek(getTodaysDate());
   const averageQuality = data.getAverageSleepQuality();
   const averageDuration = data.getAverageHoursSlept();

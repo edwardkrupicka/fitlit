@@ -19,6 +19,7 @@ function getAllData() {
 }
 
 function postData(url, newData) {
+  console.log(newData.date)
   const postedData = fetch(url, {
     method: "POST",
     body: JSON.stringify(newData),

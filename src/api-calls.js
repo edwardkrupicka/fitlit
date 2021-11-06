@@ -5,7 +5,6 @@ function getData(dataUrl, dataObjName) {
     .then(data => data[dataObjName])
     .catch(err => {
       console.log('error: ', err)
-      // showError(err);
     });
   return retrievedData;
 }
@@ -15,10 +14,7 @@ function getAllData() {
   const gotSleepData = getData('http://localhost:3001/api/v1/sleep', 'sleepData');
   const gotActivityData = getData('http://localhost:3001/api/v1/activity', 'activityData');
   const gotHydrationData = getData('http://localhost:3001/api/v1/hydration', 'hydrationData');
-  const allPromise = Promise.all([gotUserData, gotSleepData, gotActivityData, gotHydrationData]).then(data => {
-    // console.log(data)
-    return data;
-  });
+  const allPromise = Promise.all([gotUserData, gotSleepData, gotActivityData, gotHydrationData]).then(data => data);
   return allPromise;
 }
 
@@ -34,18 +30,5 @@ function postData(url, newData) {
     .catch(err => console.log('error!', err));
   return postedData;
 }
-
-// function postSleep(newData) {
-//   const postedData = fetch('http://localhost:3001/api/v1/sleep', {
-//     method: "POST",
-//     body: JSON.stringify(newData),
-//     headers: {
-//       "Content-Type": "application/json"
-//     }
-//   })
-//     .then(response => response.json())
-//     .catch(err => console.log('error!', err));
-//   return postedData;
-// }
 
 export { postData, getAllData }

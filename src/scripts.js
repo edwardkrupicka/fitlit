@@ -116,43 +116,28 @@ function addHydrationData() {
     hydrationResponse.classList.remove('hidden');
     hydrationForm.classList.add('hidden');
     setTimeout(() => {
-      hideResponse(hydrationResponse, hydrationForm);
+      domUpdates.hideResponse(hydrationResponse, hydrationForm);
     }, 2500);
   });
 
   getAllData().then(data => {
     const hydration = new Hydration(userId, data[3]);
     hydrationDataChart.destroy();
-    renderHydration(hydration);
+    // assigning the value of hydration chart a 
+    // second time to be able to input data more than once
+    hydrationDataChart = domUpdates.renderHydration(hydration);
   });
-}
-
-function hideResponse(element, form) {
-  element.classList.add('hidden');
-  form.classList.remove('hidden');
-  form.reset();
 }
 
 function initializeData(data, idNumber) {
   const userRepo = new UserRepository(data[0]);
   const user = new User(userRepo.getUser(idNumber));
-  renderUser(user, userRepo);
+  domUpdates.renderUser(user, userRepo);
   const hydration = new Hydration(user.id, data[3]);
-  renderHydration(hydration);
+  hydrationDataChart = domUpdates.renderHydration(hydration);
   const sleep = new Sleep(user.id, data[1]);
   calculateSleep(sleep);
   userId = user.id;
-}
-
-function renderUser(user, userRepo) {
-  userGreeting.innerText = user.returnFirstName();
-  userFullName.innerText = user.name;
-  userEmail.innerText = user.email;
-  userAddress.innerText = user.address;
-  userStride.innerText = user.strideLength;
-  userStepGoal.innerText = user.dailyStepGoal;
-  averageStepGoal.innerText = userRepo.averageStepGoal();
-  userFriends.innerHTML = addFriends(user, userRepo);
 }
 
 function calculateSleep(data) {
@@ -162,40 +147,11 @@ function calculateSleep(data) {
   const lastWeekDuration = data.calculateHoursSleptWeek(getTodaysDate());
   const averageQuality = data.getAverageSleepQuality();
   const averageDuration = data.getAverageHoursSlept();
-  renderSleep(lastNightQuality, lastNightDuration, averageQuality, averageDuration);
-  renderWeekSleep(lastWeekQuality, lastWeekDuration)
+  domUpdates.renderSleep(lastNightQuality, lastNightDuration, averageQuality, averageDuration);
+  sleepDataChart = domUpdates.renderWeekSleep(lastWeekQuality, lastWeekDuration)
 }
-
-function renderSleep(lastNightQuality, lastNightDuration, averageQuality, averageDuration) {
-  lastNightSleep.innerText = `${lastNightQuality}/5 quality & ${lastNightDuration} hours`;
-  averageSleep.innerText = `${averageQuality}/5 quality & ${averageDuration} hours`;
-}
-
-function renderWeekSleep(sleepWeekQuality, sleepWeekDuration) {
-  const weekDates = sleepWeekQuality.map(day => day.date);
-  const weekQuality = sleepWeekQuality.map(day => day.quality);
-  const weekQuantity = sleepWeekDuration.map(day => day.hours);
-  sleepDataChart = makeDoubleChart(sleepChart, 'Daily Hours Slept', 'Daily Sleep Quality out of 5', weekDates, weekQuantity, weekQuality);
-}
-
 function getTodaysDate() {
   return new Date().toISOString().slice(0, 10).replaceAll("-", "/").replaceAll("2021", "2019");
 }
 
-function addFriends(user, userRepo) {
-  let friendsList = user.friends;
-  return friendsList.reduce((finalString, friend) => {
-    return finalString += `<li class="user-friend">
-    <img class="friend-img" src="https://www.abbeysurestart.com/wp-content/uploads/2021/03/blank-profile.png" alt="User Image">
-    ${userRepo.getUser(friend).name}: Step Goal ${userRepo.getUser(friend).dailyStepGoal}</li>`
-  }, "");
-}
-
-function renderHydration(data) {
-  const dailyOunces = data.findDailyHydration(getTodaysDate());
-  const weeklyOunces = data.findWeeklyHydration(getTodaysDate());
-  dailyHydration.innerText = dailyOunces;
-  const weekOunces = weeklyOunces.map(day => day.numOunces);
-  const weekDates = weeklyOunces.map(day => day.date);
-  hydrationDataChart = makeSingleChart(hydrationChart, 'Daily Number of Ounces', weekDates, weekOunces);
-}
+export default getTodaysDate;

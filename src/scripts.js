@@ -7,19 +7,22 @@ import './css/styles.scss';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
-console.log('This is the JavaScript entry file - your code begins here.');
+// console.log('This is the JavaScript entry file - your code begins here.');
 
 // An example of how you tell webpack to use a JS file
-import Chart from 'chart.js/auto';
 import { getAllData, postData } from './api-calls';
-// allPromise.then(data => initializeData(data));
 import UserRepository from './UserRepository';
 import User from './User';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
+import { makeSingleChart, makeDoubleChart } from './charts.js';
 
 // Global
 let userId;
+let sleepDataChart;
+let hydrationDataChart;
+let activityDataChart;
+
 // let currentChart;
 const userGreeting = document.querySelector('#userGreeting');
 const userFullName = document.querySelector('#userFullName');
@@ -58,23 +61,13 @@ function displayData() {
   const randomUserNum = Math.floor(Math.random() * 50);
   getAllData().then(data => {
     initializeData(data, randomUserNum);
-  })
-  // .catch(err => showError(err));
-  // console.log(allData);
+  });
 }
-
-// const showError = (err) => {
-//   if (err.message === "Failed to fetch") {
-//     sleepResponse.innerText = `Hey something went wrong check your connection`
-//   } else {
-//     sleepResponse.innerText = `${err.message}`
-//   }
-// }
 
 function checkForSleepInputs(event) {
   event.preventDefault();
   if (!sleepQuality.value || !sleepQuantity.value || !sleepDate.value) {
-    // sleepResponse.innerText = `Please fill in the form correctly`;
+    sleepResponse.innerText = `Please fill in the form correctly`;
     sleepResponse.classList.remove('hidden');
     setTimeout(() => {
       hideResponse(sleepResponse, sleepForm);
@@ -84,7 +77,6 @@ function checkForSleepInputs(event) {
   }
 }
 
-
 function addSleepData() {
   const sleepQual = parseFloat(sleepQuality.value);
   const sleepQuan = parseFloat(sleepQuantity.value);
@@ -93,8 +85,9 @@ function addSleepData() {
   const userInput = { userID: userId, date , hoursSlept: sleepQuan , sleepQuality: sleepQual };
 
   const postedData = postData('http://localhost:3001/api/v1/sleep', userInput);
+
   postedData.then((data) => {
-    // console.log(data);
+    console.log(data);
     sleepResponse.innerText = 'Your sleep data was successfully uploaded!';
     sleepResponse.classList.remove('hidden');
     sleepForm.classList.add('hidden');
@@ -102,11 +95,12 @@ function addSleepData() {
       hideResponse(sleepResponse, sleepForm);
     }, 2500);
   });
+
   getAllData().then(data => {
-    initializeData(data, userId);
-  })
-  // fix indentation
-  // console.log(postedData);
+    const sleep = new Sleep(userId, data[1]);
+    sleepDataChart.destroy();
+    calculateSleep(sleep);
+  });
 }
 
 function checkForHydrationInputs(event) {
@@ -122,7 +116,6 @@ function checkForHydrationInputs(event) {
   }
 }
 
-
 function addHydrationData() {
   const numOunces = parseFloat(hydrationOunces.value);
   const date = hydrationDate.value.split('-').join('/');
@@ -130,6 +123,7 @@ function addHydrationData() {
   const userInput = { userID: userId, date, numOunces };
 
   const postedData = postData('http://localhost:3001/api/v1/hydration', userInput);
+
   postedData.then((data) => {
     console.log(data);
     hydrationResponse.innerText = 'Your hydration data was successfully uploaded!';
@@ -139,13 +133,12 @@ function addHydrationData() {
       hideResponse(hydrationResponse, hydrationForm);
     }, 2500);
   });
-  console.log(postedData);
+
   getAllData().then(data => {
-    // currentChart.destroy();
-    // addData(currentChart, data);
-    initializeData(data, userId);
-    // renderHydration(data);
-  })
+    const hydration = new Hydration(userId, data[3]);
+    hydrationDataChart.destroy();
+    renderHydration(hydration);
+  });
 }
 
 function hideResponse(element, form) {
@@ -155,15 +148,14 @@ function hideResponse(element, form) {
 }
 
 function initializeData(data, idNumber) {
-  console.log("data:", data)
   const userRepo = new UserRepository(data[0]);
-  // const randomUserNum = Math.floor(Math.random() * 50);
   const user = new User(userRepo.getUser(idNumber));
   renderUser(user, userRepo);
   const hydration = new Hydration(user.id, data[3]);
   renderHydration(hydration);
-  const sleep = new Sleep(user.id, data[1])
+  const sleep = new Sleep(user.id, data[1]);
   calculateSleep(sleep);
+  userId = user.id;
 }
 
 function renderUser(user, userRepo) {
@@ -180,7 +172,7 @@ function renderUser(user, userRepo) {
 function calculateSleep(data) {
   const lastNightQuality = data.getDailySleepQuality(getTodaysDate());
   const lastNightDuration = data.getDailyHoursSlept(getTodaysDate());
-  const lastWeekQuality = data.calculateSleepQualityWeek(getTodaysDate());
+  let lastWeekQuality = data.calculateSleepQualityWeek(getTodaysDate());
   const lastWeekDuration = data.calculateHoursSleptWeek(getTodaysDate());
   const averageQuality = data.getAverageSleepQuality();
   const averageDuration = data.getAverageHoursSlept();
@@ -197,7 +189,7 @@ function renderWeekSleep(sleepWeekQuality, sleepWeekDuration) {
   const weekDates = sleepWeekQuality.map(day => day.date);
   const weekQuality = sleepWeekQuality.map(day => day.quality);
   const weekQuantity = sleepWeekDuration.map(day => day.hours);
-  makeDoubleChart(sleepChart, 'Daily Hours Slept', 'Daily Sleep Quality out of 5', weekDates, weekQuantity, weekQuality);
+  sleepDataChart = makeDoubleChart(sleepChart, 'Daily Hours Slept', 'Daily Sleep Quality out of 5', weekDates, weekQuantity, weekQuality);
 }
 
 function getTodaysDate() {
@@ -219,108 +211,5 @@ function renderHydration(data) {
   dailyHydration.innerText = dailyOunces;
   const weekOunces = weeklyOunces.map(day => day.numOunces);
   const weekDates = weeklyOunces.map(day => day.date);
-  makeSingleChart(hydrationChart, 'Daily Number of Ounces', weekDates, weekOunces);
-}
-
-function makeSingleChart(htmlElement, chartName, xLabels, data) {
-var myChart = new Chart(htmlElement, {
-    type: 'bar',
-    data: {
-        labels: xLabels,
-        datasets: [{
-            label: chartName,
-            data: data,
-            backgroundColor: 'rgb(187, 92, 255)',
-            borderColor: 'rgb(232, 232, 232)',
-            borderWidth: 2
-        }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          labels: {
-            color: "rgb(232, 232, 232)",
-          }
-        }
-      },
-        scales: {
-            y: {
-              ticks: {
-                color: "rgb(232, 232, 232)",
-              },
-              beginAtZero: true
-            },
-            x: {
-              ticks: {
-                color: "rgb(232, 232, 232)",
-              }
-            }
-        }
-    }
-});
-// currentChart = myChart;
-}
-
-function makeDoubleChart(htmlElement, quantityLabel, qualityLabel, xLabels, quantityData, qualityData) {
-var otherChart = new Chart(htmlElement, {
-    data: {
-        datasets: [{
-            type: 'bar',
-            label: qualityLabel,
-            data: qualityData,
-            backgroundColor: 'rgb(255, 87, 27)',
-            borderColor: 'rgb(232, 232, 232)',
-            borderWidth: 2,
-            yAxisID: 'y1'
-
-          }, {
-            type: 'bar',
-            label: quantityLabel,
-            data: quantityData,
-            backgroundColor: 'rgb(187, 92, 255)',
-            borderColor: 'rgb(232, 232, 232)',
-            borderWidth: 2,
-            yAxisID: 'y2'
-        }],
-        labels: xLabels
-    },
-    options: {
-      plugins: {
-        legend: {
-          labels: {
-            color: "rgb(232, 232, 232)",
-          }
-        }
-      },
-        scales: {
-            y1: {
-              ticks: {
-                color: "rgb(255, 129, 83)",
-              },
-              beginAtZero: true,
-              type: 'linear',
-              position: 'left',
-              title: {text: 'Sleep Quality',
-              display: true, color: 'rgb(232, 232, 232)'}
-            },
-            y2: {
-              ticks: {
-                color: "rgb(254, 138, 254)",
-              },
-              beginAtZero: true,
-              type: 'linear',
-              position: 'right',
-              title: {text: 'Hours Slept',
-              display: true, color: 'rgb(232, 232, 232)'}
-            },
-            x: {
-              ticks: {
-                color: "rgb(232, 232, 232)",
-              },
-              title: {text: 'Recent Week',
-              display: true, color: 'rgb(232, 232, 232)'}
-            }
-        }
-    }
-});
+  hydrationDataChart = makeSingleChart(hydrationChart, 'Daily Number of Ounces', weekDates, weekOunces);
 }

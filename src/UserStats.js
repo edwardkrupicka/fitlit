@@ -21,12 +21,13 @@ class UserStats {
 
   getWeekRange(data, end) {
     const endDate = Date.parse(end);
-    const startDate = endDate - (86400000 * 6);
+    const startDate = endDate - (86400000 * 7);
     return data.filter(element => {
       const elementDate = Date.parse(element.date);
       return (elementDate >= startDate && elementDate <= endDate);
     });
   }
+
 }
 
 export default UserStats;

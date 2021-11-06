@@ -33,6 +33,15 @@ let domUpdates = {
     userStepGoal.innerText = user.dailyStepGoal;
     averageStepGoal.innerText = userRepo.averageStepGoal();
     userFriends.innerHTML = this.addFriends(user, userRepo);
+  },
+
+  addFriends(user, userRepo) {
+    let friendsList = user.friends;
+    return friendsList.reduce((finalString, friend) => {
+      return finalString += `<li class="user-friend">
+      <img class="friend-img" src="https://www.abbeysurestart.com/wp-content/uploads/2021/03/blank-profile.png" alt="User Image">
+      ${userRepo.getUser(friend).name}: Step Goal ${userRepo.getUser(friend).dailyStepGoal}</li>`
+    }, "");
   }
 
 }

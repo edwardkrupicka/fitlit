@@ -42,8 +42,19 @@ let domUpdates = {
       <img class="friend-img" src="https://www.abbeysurestart.com/wp-content/uploads/2021/03/blank-profile.png" alt="User Image">
       ${userRepo.getUser(friend).name}: Step Goal ${userRepo.getUser(friend).dailyStepGoal}</li>`
     }, "");
-  }
+  },
 
+  renderSleep(lastNightQuality, lastNightDuration, averageQuality, averageDuration) {
+    lastNightSleep.innerText = `${lastNightQuality}/5 quality & ${lastNightDuration} hours`;
+    averageSleep.innerText = `${averageQuality}/5 quality & ${averageDuration} hours`;
+  },
+
+  renderWeekSleep(sleepWeekQuality, sleepWeekDuration) {
+    const weekDates = sleepWeekQuality.map(day => day.date);
+    const weekQuality = sleepWeekQuality.map(day => day.quality);
+    const weekQuantity = sleepWeekDuration.map(day => day.hours);
+    return makeDoubleChart(sleepChart, 'Daily Hours Slept', 'Daily Sleep Quality out of 5', weekDates, weekQuantity, weekQuality);
+  }
 }
 
 export default  domUpdates;

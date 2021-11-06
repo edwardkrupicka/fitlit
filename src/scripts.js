@@ -15,7 +15,7 @@ import UserRepository from './UserRepository';
 import User from './User';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
-import { makeSingleChart, makeDoubleChart } from './charts.js';
+import domUpdates from './domUpdates'
 
 // Global
 let userId;

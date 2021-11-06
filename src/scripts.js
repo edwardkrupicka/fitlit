@@ -56,7 +56,7 @@ function checkForSleepInputs(event) {
     sleepResponse.innerText = `Please fill in the form correctly`;
     sleepResponse.classList.remove('hidden');
     setTimeout(() => {
-      hideResponse(sleepResponse, sleepForm);
+      domUpdates.hideResponse(sleepResponse, sleepForm);
     }, 1500);
   } else {
     addSleepData();
@@ -78,7 +78,7 @@ function addSleepData() {
     sleepResponse.classList.remove('hidden');
     sleepForm.classList.add('hidden');
     setTimeout(() => {
-      hideResponse(sleepResponse, sleepForm);
+      domUpdates.hideResponse(sleepResponse, sleepForm);
     }, 2500);
   });
 
@@ -95,7 +95,7 @@ function checkForHydrationInputs(event) {
     hydrationResponse.innerText = `Please fill in the form correctly`;
     hydrationResponse.classList.remove('hidden');
     setTimeout(() => {
-      hideResponse(hydrationResponse, hydrationForm);
+      domUpdates.hideResponse(hydrationResponse, hydrationForm);
     }, 1500);
   } else {
     addHydrationData();

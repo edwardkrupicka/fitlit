@@ -4,6 +4,7 @@ class Activity extends UserStats {
   constructor(id, activityData, userData) {
     super(id, activityData);
     this.userData = userData.find(user => user.id === this.id);
+    this.allUserData = userData;
   }
 
   getActiveDateRange(start, end) {
@@ -44,6 +45,10 @@ class Activity extends UserStats {
   getAverageActivityByDate(date, type) {
     const currentDay = this.getAllDayData(this.allDataset, date);
     return Math.round(this.getAverage(currentDay, type))
+  }
+
+  getStairs(date) {
+    return this.getDayData(this.filteredData, date).flightsOfStairs;
   }
 }
   export default Activity;

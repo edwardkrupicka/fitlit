@@ -1,3 +1,34 @@
+let stepActivityDataChart, minutesActivityDataChart;
+const latestSteps = document.querySelector("#latestSteps");
+const todayActiveMinutes = document.querySelector("#todayActiveMinutes");
+const distanceWalked = document.querySelector("#distanceWalked");
+const flightsClimbed = document.querySelector("#flightsClimbed");
+const allLatestSteps = document.querySelector("#allLatestSteps");
+const allActiveMinutes = document.querySelector("#allActiveMinutes");
+const activityChart = document.querySelector("#activityChart");
+const minutesActivityChart = document.querySelector("#minutesActivityChart");
+
+function renderActivity(activity) {
+  let today = getTodaysDate();
+  console.log(activity.filteredData)
+  latestSteps.innerText = activity.checkSteps(today);
+  todayActiveMinutes.innerText = activity.getDayActiveMins(today) + " minutes";
+  distanceWalked.innerText = activity.getMiles(today) + " miles";
+  flightsClimbed.innerText = activity.getStairs(today)
+  allLatestSteps.innerText = activity.checkSteps(today);
+  allActiveMinutes.innerText = activity.getAverageActivityByDate(today, "minutesActive") + " minutes";
+  allFlightsClimbed.innerText = (activity.getAverageActivityByDate(today, "flightsOfStairs"));
+  console.log(activity.getWeekRange(activity.filteredData, today));
+  const weekData = activity.getWeekRange(activity.filteredData, today);
+  const weekStairs = weekData.map(day => day.flightsOfStairs);
+  const weekActiveMinutes = weekData.map(day => day.minutesActive);
+  const weekDates = weekData.map(day => day.date);
+  // const weekSteps = weekData.map(day => day.flightsOfStairs);
+  console.log(weekStairs);
+  stepActivityDataChart = makeSingleChart(activityChart, 'Stairs Climbed', weekDates, weekStairs);
+  console.log(weekActiveMinutes)
+  minutesActivityDataChart = makeSingleChart(minutesActivityChart, 'Minutes Active', weekDates, weekActiveMinutes);
+}
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
 
@@ -15,13 +46,14 @@ import UserRepository from './UserRepository';
 import User from './User';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
+import Activity from './Activity';
 import { makeSingleChart, makeDoubleChart } from './charts.js';
 
 // Global
 let userId;
 let sleepDataChart;
 let hydrationDataChart;
-let activityDataChart;
+
 
 // let currentChart;
 const userGreeting = document.querySelector('#userGreeting');
@@ -172,6 +204,8 @@ function initializeData(data, idNumber) {
   const sleep = new Sleep(user.id, data[1]);
   calculateSleep(sleep);
   userId = user.id;
+  const activity = new Activity(user.id, data[2], data[0]);
+  renderActivity(activity);
 }
 
 function renderUser(user, userRepo) {

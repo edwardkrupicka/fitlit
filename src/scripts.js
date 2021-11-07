@@ -36,11 +36,13 @@ const hydrationOunces = document.querySelector('#hydrationOunces');
 const hydrationDate = document.querySelector('#hydrationDate');
 const hydrationResponse = document.querySelector('#hydrationResponse');
 const hydrationForm = document.querySelector('#hydrationForm');
+const swivelButton = document.querySelectorAll('.swivel-button');
 
 // event listeners
 window.addEventListener('load', displayData);
 sleepButton.addEventListener('click', checkForSleepInputs);
 hydrationButton.addEventListener('click', checkForHydrationInputs);
+swivelButton.forEach(button => button.addEventListener('click', domUpdates.toggleSwivel));
 
 // functions
 function displayData() {

@@ -17,6 +17,11 @@ const sleepChart = document.querySelector('#sleepChart');
 const hydrationChart = document.querySelector('#hydrationChart');
 // ~~~~~~~used to render hydration~~~~~~~~
 const dailyHydration = document.querySelector('#dailyHydration');
+// ~~~~~~~~swivel buttons~~~~~~~~~~~
+const stepCardInner = document.querySelector('#stepCardInner');
+const sleepCardInner = document.querySelector('#sleepCardInner');
+const hydrationCardInner = document.querySelector('#hydrationCardInner');
+// const swivelButton = document.querySelectorAll('.swivel-button');
 
 let domUpdates = {
   hideResponse(element, form) {
@@ -64,6 +69,16 @@ let domUpdates = {
     const weekOunces = weeklyOunces.map(day => day.numOunces);
     const weekDates = weeklyOunces.map(day => day.date);
     return makeSingleChart(hydrationChart, 'Daily Number of Ounces', weekDates, weekOunces);
+  },
+
+  toggleSwivel(event) {
+    if (event.target.classList.contains('sleep-button')) {
+      sleepCardInner.classList.toggle('swivel');
+    } else if (event.target.classList.contains('hydration-button')) {
+      hydrationCardInner.classList.toggle('swivel');
+    } else if (event.target.classList.contains('step-button')) {
+      stepCardInner.classList.toggle('swivel');
+    }
   }
 }
 

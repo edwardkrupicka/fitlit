@@ -179,15 +179,19 @@ figure {
   transform-style: preserve-3d;
 }
 
-.user-steps:hover .card-inner {
-  transform: rotateY(180deg);
+.swivel-button {
+  @include flex(center, center);
+  margin: 10px;
+  border-radius: 15px;
+  background: $gray;
+  color: $off-white;
 }
 
-.user-hydration:hover .card-inner {
-  transform: rotateY(180deg);
+.swivel-button:hover {
+  background-color: $orange;
 }
 
-.user-sleep:hover .card-inner {
+.swivel {
   transform: rotateY(180deg);
 }
 
@@ -206,6 +210,20 @@ figure {
   background-color: $gray;
   color: $white;
   transform: rotateY(180deg);
+}
+
+.error-modal {
+  position: fixed;
+  background-color: rgba(0, 0, 0, .7);
+  width:100vw;
+  height: 100vh;
+  z-index: 2;
+  @include flex(center, center);
+}
+
+.error-message {
+  font-size: 36px;
+  margin: 40px;
 }
 
 .hidden {

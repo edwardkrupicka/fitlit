@@ -179,15 +179,19 @@ figure {
   transform-style: preserve-3d;
 }
 
-.user-steps:hover .card-inner {
-  transform: rotateY(180deg);
+.swivel-button {
+  @include flex(center, center);
+  margin: 10px;
+  border-radius: 15px;
+  background: $gray;
+  color: $off-white;
 }
 
-.user-hydration:hover .card-inner {
-  transform: rotateY(180deg);
+.swivel-button:hover {
+  background-color: $orange;
 }
 
-.user-sleep:hover .card-inner {
+.swivel {
   transform: rotateY(180deg);
 }
 

@@ -51,12 +51,28 @@ const hydrationDate = document.querySelector('#hydrationDate');
 const hydrationResponse = document.querySelector('#hydrationResponse');
 const hydrationForm = document.querySelector('#hydrationForm');
 
+const stepCardInner = document.querySelector('#stepCardInner');
+const sleepCardInner = document.querySelector('#sleepCardInner');
+const hydrationCardInner = document.querySelector('#hydrationCardInner');
+const swivelButton = document.querySelectorAll('.swivel-button');
+
 // event listeners
 window.addEventListener('load', displayData);
 sleepButton.addEventListener('click', checkForSleepInputs);
 hydrationButton.addEventListener('click', checkForHydrationInputs);
+swivelButton.forEach(button => button.addEventListener('click', toggleSwivel));
 
 // functions
+function toggleSwivel(event) {
+  if (event.target.classList.contains('sleep-button')) {
+    sleepCardInner.classList.toggle('swivel');
+  } else if (event.target.classList.contains('hydration-button')) {
+    hydrationCardInner.classList.toggle('swivel');
+  } else if (event.target.classList.contains('step-button')) {
+    stepCardInner.classList.toggle('swivel');
+  }
+}
+
 function displayData() {
   const randomUserNum = Math.floor(Math.random() * 50);
   getAllData().then(data => {

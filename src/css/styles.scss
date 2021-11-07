@@ -212,6 +212,10 @@ figure {
   transform: rotateY(180deg);
 }
 
+.error-response {
+  color: rgb(187, 92, 255);
+}
+
 .error-modal {
   position: fixed;
   background-color: rgba(0, 0, 0, .7);

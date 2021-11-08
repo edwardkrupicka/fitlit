@@ -18,6 +18,7 @@ import Sleep from './Sleep';
 import domUpdates from './domUpdates'
 
 // Global
+let allFetchedData;
 let userId;
 let sleepDataChart;
 let hydrationDataChart;
@@ -48,6 +49,7 @@ swivelButton.forEach(button => button.addEventListener('click', domUpdates.toggl
 function displayData() {
   const randomUserNum = Math.floor(Math.random() * 50);
   getAllData().then(data => {
+    allFetchedData = data;
     initializeData(data, randomUserNum);
   });
 }
@@ -69,26 +71,34 @@ function addSleepData() {
   const sleepQual = parseFloat(sleepQuality.value);
   const sleepQuan = parseFloat(sleepQuantity.value);
   const date = sleepDate.value.split('-').join('/');
-
-  const userInput = { userID: userId, date , hoursSlept: sleepQuan , sleepQuality: sleepQual };
-
-  const postedData = postData('http://localhost:3001/api/v1/sleep', userInput);
-
-  postedData.then((data) => {
-    console.log(data);
-    sleepResponse.innerText = 'Your sleep data was successfully uploaded!';
+  // check for date already existing...
+  if (checkIfDataExits(userId, date, allFetchedData[1])) {
+    sleepResponse.innerText = `Data already exists for that date, please select a new date.`;
     sleepResponse.classList.remove('hidden');
-    sleepForm.classList.add('hidden');
     setTimeout(() => {
       domUpdates.hideResponse(sleepResponse, sleepForm);
-    }, 2500);
-  });
+    }, 2000);
+  } else {
+    const userInput = { userID: userId, date , hoursSlept: sleepQuan , sleepQuality: sleepQual };
 
-  getAllData().then(data => {
-    const sleep = new Sleep(userId, data[1]);
-    sleepDataChart.destroy();
-    calculateSleep(sleep);
-  });
+    const postedData = postData('http://localhost:3001/api/v1/sleep', userInput);
+
+    postedData.then((data) => {
+      console.log(data);
+      sleepResponse.innerText = 'Your sleep data was successfully uploaded!';
+      sleepResponse.classList.remove('hidden');
+      sleepForm.classList.add('hidden');
+      setTimeout(() => {
+        domUpdates.hideResponse(sleepResponse, sleepForm);
+      }, 2500);
+    });
+
+    getAllData().then(data => {
+      const sleep = new Sleep(userId, data[1]);
+      sleepDataChart.destroy();
+      calculateSleep(sleep);
+    });
+  }
 }
 
 function checkForHydrationInputs(event) {
@@ -107,28 +117,45 @@ function checkForHydrationInputs(event) {
 function addHydrationData() {
   const numOunces = parseFloat(hydrationOunces.value);
   const date = hydrationDate.value.split('-').join('/');
-
-  const userInput = { userID: userId, date, numOunces };
-
-  const postedData = postData('http://localhost:3001/api/v1/hydration', userInput);
-
-  postedData.then((data) => {
-    console.log(data);
-    hydrationResponse.innerText = 'Your hydration data was successfully uploaded!';
+  // check for date already existing...
+  if (checkIfDataExits(userId, date, allFetchedData[3])) {
+    hydrationResponse.innerText = `Data already exists for that date, please select a new date.`;
     hydrationResponse.classList.remove('hidden');
-    hydrationForm.classList.add('hidden');
     setTimeout(() => {
       domUpdates.hideResponse(hydrationResponse, hydrationForm);
-    }, 2500);
-  });
+    }, 2000);
+  } else {
+    const userInput = { userID: userId, date, numOunces };
 
-  getAllData().then(data => {
-    const hydration = new Hydration(userId, data[3]);
-    hydrationDataChart.destroy();
-    // assigning the value of hydration chart a 
-    // second time to be able to input data more than once
-    hydrationDataChart = domUpdates.renderHydration(hydration);
-  });
+    const postedData = postData('http://localhost:3001/api/v1/hydration', userInput);
+
+    postedData.then((data) => {
+      console.log(data);
+      hydrationResponse.innerText = 'Your hydration data was successfully uploaded!';
+      hydrationResponse.classList.remove('hidden');
+      hydrationForm.classList.add('hidden');
+      setTimeout(() => {
+        domUpdates.hideResponse(hydrationResponse, hydrationForm);
+      }, 2500);
+    });
+
+    getAllData().then(data => {
+      const hydration = new Hydration(userId, data[3]);
+      hydrationDataChart.destroy();
+      // assigning the value of hydration chart a
+      // second time to be able to input data more than once
+      hydrationDataChart = domUpdates.renderHydration(hydration);
+    });
+  }
+}
+
+function checkIfDataExits(id, date, dataArray) {
+  const matchedData = dataArray.filter(each => each.userID === id).filter(each => each.date === date);
+  if (!matchedData.length) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 function initializeData(data, idNumber) {

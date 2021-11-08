@@ -32,7 +32,6 @@ const allActiveMinutes = document.querySelector("#allActiveMinutes");
 const stairsActivityChart = document.querySelector("#stairsActivityChart");
 const stepsActivityChart = document.querySelector("#stepsActivityChart");
 const minutesActivityChart = document.querySelector("#minutesActivityChart");
-// const swivelButton = document.querySelectorAll('.swivel-button');
 
 let domUpdates = {
   hideResponse(element, form) {
@@ -110,16 +109,15 @@ let domUpdates = {
     latestSteps.innerText = activity.getSteps(today);
     allLatestSteps.innerText = allUsers.averageStepGoal();
     const weekData = activity.getWeekRange(activity.filteredData, today);
-    const weekStairs = weekData.map(day => day.flightsOfStairs);
-    const weekActiveMinutes = weekData.map(day => day.minutesActive);
+    const weekSteps = weekData.map(day => day.numSteps);
     const weekDates = weekData.map(day => day.date);
-    return makeSingleChart(stepsActivityChart, 'Steps', weekDates, weekStairs);
+    return makeSingleChart(stepsActivityChart, 'Steps', weekDates, weekSteps);
   },
 
   renderActivityStairs(activity) {
     let today = getTodaysDate();
-    // distanceWalked.innerText = activity.getMiles(today) + " miles";
-    flightsClimbed.innerText = activity.getStairs(today)
+    distanceWalked.innerText = activity.getMiles(today) + " miles";
+    flightsClimbed.innerText = activity.getStairs(today);
     allFlightsClimbed.innerText = (activity.getAverageActivityByDate(today, "flightsOfStairs"));
     const weekData = activity.getWeekRange(activity.filteredData, today);
     const weekStairs = weekData.map(day => day.flightsOfStairs);

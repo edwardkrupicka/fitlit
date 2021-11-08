@@ -21,6 +21,17 @@ const dailyHydration = document.querySelector('#dailyHydration');
 const stepCardInner = document.querySelector('#stepCardInner');
 const sleepCardInner = document.querySelector('#sleepCardInner');
 const hydrationCardInner = document.querySelector('#hydrationCardInner');
+const activityCardInner = document.querySelector('#activityCardInner');
+// ~~~~~~~~render Activity~~~~~~~~~~~
+const latestSteps = document.querySelector("#latestSteps");
+const todayActiveMinutes = document.querySelector("#todayActiveMinutes");
+const distanceWalked = document.querySelector("#distanceWalked");
+const flightsClimbed = document.querySelector("#flightsClimbed");
+const allLatestSteps = document.querySelector("#allLatestSteps");
+const allActiveMinutes = document.querySelector("#allActiveMinutes");
+const stairsActivityChart = document.querySelector("#stairsActivityChart");
+const stepsActivityChart = document.querySelector("#stepsActivityChart");
+const minutesActivityChart = document.querySelector("#minutesActivityChart");
 // const swivelButton = document.querySelectorAll('.swivel-button');
 
 let domUpdates = {
@@ -78,7 +89,42 @@ let domUpdates = {
       hydrationCardInner.classList.toggle('swivel');
     } else if (event.target.classList.contains('step-button')) {
       stepCardInner.classList.toggle('swivel');
+    } else if (event.target.classList.contains('activity-button')) {
+      activityCardInner.classList.toggle('swivel');
     }
+  },
+
+  renderActivityMinutes(activity) {
+    let today = getTodaysDate();
+    todayActiveMinutes.innerText = activity.getDayActiveMins(today) + " minutes";
+    allActiveMinutes.innerText = activity.getAverageActivityByDate(today, "minutesActive") + " minutes";
+    allFlightsClimbed.innerText = (activity.getAverageActivityByDate(today, "flightsOfStairs"));
+    const weekData = activity.getWeekRange(activity.filteredData, today);
+    const weekActiveMinutes = weekData.map(day => day.minutesActive);
+    const weekDates = weekData.map(day => day.date);
+    return makeSingleChart(minutesActivityChart, 'Active Minutes', weekDates, weekActiveMinutes);
+  },
+
+  renderActivitySteps(activity, allUsers) {
+    let today = getTodaysDate();
+    latestSteps.innerText = activity.getSteps(today);
+    allLatestSteps.innerText = allUsers.averageStepGoal();
+    const weekData = activity.getWeekRange(activity.filteredData, today);
+    const weekStairs = weekData.map(day => day.flightsOfStairs);
+    const weekActiveMinutes = weekData.map(day => day.minutesActive);
+    const weekDates = weekData.map(day => day.date);
+    return makeSingleChart(stepsActivityChart, 'Steps', weekDates, weekStairs);
+  },
+
+  renderActivityStairs(activity) {
+    let today = getTodaysDate();
+    // distanceWalked.innerText = activity.getMiles(today) + " miles";
+    flightsClimbed.innerText = activity.getStairs(today)
+    allFlightsClimbed.innerText = (activity.getAverageActivityByDate(today, "flightsOfStairs"));
+    const weekData = activity.getWeekRange(activity.filteredData, today);
+    const weekStairs = weekData.map(day => day.flightsOfStairs);
+    const weekDates = weekData.map(day => day.date);
+    return makeSingleChart(stairsActivityChart, 'Stairs Climbed', weekDates, weekStairs);
   }
 }
 

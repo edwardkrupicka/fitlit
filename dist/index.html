@@ -121,6 +121,57 @@
         <ul id="userFriends">
         </ul>
       </section>
+      <section class="content user-activity">
+        <div class="card-inner" id="activityCardInner">
+          <div class="card-front">
+            <h3>Activity</h3>
+            
+            <p>Latest Steps: <span id="latestSteps"></span></p>
+            <p>Distance Walked: <span id="distanceWalked"></span></p>
+            <p>All Users Latest Steps: <span id="allLatestSteps"></span></p>
+            <div class="graph">
+              <canvas id="stepsActivityChart" width="150" height="150"></canvas>
+            </div>
+            <p>Flights of Stairs: <span id="flightsClimbed"></span></p>
+            <p>All Users Flights Climbed: <span id="allFlightsClimbed"></span></p>
+            <div class="graph">
+              <canvas id="stairsActivityChart" width="150" height="150"></canvas>
+            </div>
+            
+            <p>Active Minutes: <span id="todayActiveMinutes"></span></p>
+            <p>All Users Active Minutes: <span id="allActiveMinutes"></span></p>
+            <div class="graph">
+              <canvas id="minutesActivityChart" width="150" height="150"></canvas>
+            </div>
+            <button class="swivel-button activity-button">Click To Add Activity</button>
+          </div>
+          <div class="card-back">
+            <button class="swivel-button activity-button">Return</button>
+            <h1>ACTIVITY</h1>
+            <form class="activity-form" id="activityForm">
+              <div>
+                <label for="numSteps">Submit your number of steps:</label>
+                <input type="number" id="numSteps" min="0" step="1">
+              </div>
+              <div>
+                <label for="minutesActive">Submit Your Active Minutes:</label>
+                <input type="number" id="minutesActive" min="0" step="1">
+              </div>
+              <div>
+                <label for="flightsOfStairs">Submit the Flights of Stairs you Climbed:</label>
+                <input type="number" id="flightsOfStairs" min="0" step="1">
+              </div>
+              <div>
+                <label for="activityDate">Start date:</label>
+                <input id="activityDate" type="date" min="2018-01-01">
+              </div>
+              <button id="activityButton">Submit</button>
+            </form>
+            <p class="hidden" id="activityResponse"></p>
+          </div>
+        </div>
+      </section>
+    </section>
     </section>
     </main>
 <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->

@@ -1,8 +1,5 @@
 # 🔥 FITLIT 🔥
 
-#### Deployed link
-- [Deployed link](https://raz-joan.github.io/fitlit/)
-
 #### A Front End Development Project by:
 - [Joan Rasmussen](https://github.com/raz-joan)
 - [John Kiernan](https://github.com/jkiernan12)
@@ -12,22 +9,23 @@
 #### Project Manager : Nik Seif 
 
 ### Description
-This application fetches data on 50 users and their daily metrics for hydration, steps, and sleep. This data is then displayed on the dashboard, where they can also see their friends' daily step goal.
+This application randomly fetches data on one of 50 users and their daily metrics for hydration, steps, sleep and miscellaneous activities. Daily and weekly data is then displayed on the dashboard, where they can also see their friends' daily step goal. Users can also post new data to their profile.
 
 ### Goals
 The goals of this project were to:
-- Implement ES6 classes that communicate to each other as needed.
+- Implement ES6 classes that communicate to each other as needed and utilize inheritance.
 - Use object and array prototype methods to perform data manipulation.
-- Create a dashboard that is easy to use and displays information in a clear way.
-- Write modular, reusable code that follows SRP (Single Responsibility Principle).
+- Create a dashboard that is easy to use and displays information in a clear and accessible way.
+- Write modular, reusable code that adheres to SRP (Single Responsibility Principle) and DRY (Don't Repeat Yourself).
 - Implement a robust testing suite using TDD.
-- Make network requests to retrieve data.
+- Make network requests to retrieve and post data.
 
 ### Running FITLIT
 - Clone the repo down to your machine. 
-- Open the root folder in your terminal and enter `npm install` to install the dependecies 
-- In your browser enter localhost:8080 in the search bar
-- In your terminal run `npm start`. Go back to your browser and FITLIT should appear.
+- Clone the server repo [here](https://github.com/turingschool-examples/fitlit-api).
+- Open the root folders for both repos in your terminal and enter `npm install` on both to install the dependencies.
+- In your terminal run `npm start` on both repos to initialize the server and webpage. 
+- Go back to your browser and enter https://localhost:8080 in the search bar to access the frontend of the application.
 
 ### Visual of Functionality:
 
@@ -40,24 +38,31 @@ The goals of this project were to:
 
 
 ### Challenges
- - Implementing fetch api
+ - Implementing fetch API
  - Using ES6 and iterator methods in our JS
  - Importing the fetched data to our JS file
+ - Error handling duplicate data for a specific date
 
  ### Wins!
- - All of the challenges were conquered!
- - The design of the website!
- - The team coming together and working smoothly!
- - Also the team finishing early!
- - Created Charts using Chart.js
+ - The design of the website
+ - The team coming together and working smoothly with GitHub tools
+ - Created responsive charts using Chart.js
+ - Implement sleek 'flip card' interface
+ - Class inheritance
 
 ### Technologies Used:
 - Javascript
-- HTML & CSS
-- Node & NPM
+- HTML, CSS and Sass
+- Node.js & NPM
 - Chart.js
+- Webpack
 
 ### Future Goals
-- Add some fancy CSS properties
+- DRY up some of the Javascript
+- Optimize code for faster load times and performance
+- Check some elements of accessibility, including testing with a screenreader
+- Flesh out sad path testing
+- Enable visiting other user pages 
+- Add login and authentication
 
-### Rubric: https://frontend.turing.edu/projects/Fitlit-part-one.html
+### Rubric: https://frontend.turing.edu/projects/Fitlit-part-two.html

@@ -78,7 +78,8 @@ figure {
 
 .step-graph,
 .sleep-graph,
-.hydration-graph {
+.hydration-graph,
+.activity-graph {
   background-color: $white;
   width: 30vw;
   height: 40vh;
@@ -93,6 +94,7 @@ figure {
 .user-steps,
 .user-sleep,
 .user-hydration,
+.user-activity,
 .user-friends {
   display: flex;
   flex-direction: column;
@@ -162,6 +164,11 @@ figure {
 
 .user-sleep {
   height: 80%;
+  background-color: transparent;
+}
+
+.user-activity {
+  height: 150%;
   background-color: transparent;
 }
 

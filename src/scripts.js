@@ -22,7 +22,7 @@ import domUpdates from './domUpdates'
 let userId;
 let sleepDataChart;
 let hydrationDataChart;
-let activityDataChart;
+let activityDataChartMins, activityDataChartSteps, activityDataChartStairs;
 
 const weeklyHydration = document.querySelector('#weeklyHydration');
 const lastWeekSleep = document.querySelector('#lastWeekSleep');
@@ -38,11 +38,19 @@ const hydrationDate = document.querySelector('#hydrationDate');
 const hydrationResponse = document.querySelector('#hydrationResponse');
 const hydrationForm = document.querySelector('#hydrationForm');
 const swivelButton = document.querySelectorAll('.swivel-button');
+const activityButton = document.querySelector('#activityButton');
+const numSteps = document.querySelector('#numSteps');
+const minutesActive = document.querySelector('#minutesActive');
+const flightsOfStairs = document.querySelector('#flightsOfStairs');
+const activityDate = document.querySelector('#activityDate');
+const activityResponse = document.querySelector('#activityResponse');
+const activityForm = document.querySelector('#activityForm');
 
 // event listeners
 window.addEventListener('load', displayData);
 sleepButton.addEventListener('click', checkForSleepInputs);
 hydrationButton.addEventListener('click', checkForHydrationInputs);
+activityButton.addEventListener('click', checkForActivityInputs);
 swivelButton.forEach(button => button.addEventListener('click', domUpdates.toggleSwivel));
 
 // functions
@@ -142,7 +150,9 @@ function initializeData(data, idNumber) {
   calculateSleep(sleep);
   userId = user.id;
   const activity = new Activity(user.id, data[2], data[0]);
-  renderActivity(activity);
+  activityDataChartStairs = domUpdates.renderActivityStairs(activity);
+  activityDataChartMins = domUpdates.renderActivityMinutes(activity);
+  activityDataChartSteps = domUpdates.renderActivitySteps(activity, userRepo);
 }
 
 function calculateSleep(data) {
@@ -155,6 +165,37 @@ function calculateSleep(data) {
   domUpdates.renderSleep(lastNightQuality, lastNightDuration, averageQuality, averageDuration);
   sleepDataChart = domUpdates.renderWeekSleep(lastWeekQuality, lastWeekDuration)
 }
+
+function checkForActivityInputs(event) {
+  event.preventDefault();
+  if (!numSteps.value || !flightsOfStairs.value || !activityDate.value || !minutesActive.value) {
+    activityResponse.innerText = `Please fill in the form correctly`;
+    activityResponse.classList.remove('hidden');
+    setTimeout(() => {
+      domUpdates.hideResponse(activityResponse, activityForm);
+    }, 1500);
+  } else {
+    addActivityData();
+  }
+}
+
+function addActivityData() {
+  const date = activityDate.value.split('-').join('/');
+  const userInput = { userID: userId, date, numSteps: Number(numSteps.value), minutesActive: Number(minutesActive.value), flightsOfStairs: Number(flightsOfStairs.value) };
+
+  const postedData = postData('http://localhost:3001/api/v1/activity', userInput);
+
+  postedData.then((data) => {
+    console.log(data);
+    activityResponse.innerText = 'Your activity data was successfully uploaded!';
+    activityResponse.classList.remove('hidden');
+    activityForm.classList.add('hidden');
+    setTimeout(() => {
+      domUpdates.hideResponse(activityResponse, activityForm);
+    }, 2500);
+  });
+}
+
 function getTodaysDate() {
   return new Date().toISOString().slice(0, 10).replaceAll("-", "/").replaceAll("2021", "2019");
 }

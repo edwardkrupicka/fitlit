@@ -50,5 +50,9 @@ class Activity extends UserStats {
   getStairs(date) {
     return this.getDayData(this.filteredData, date).flightsOfStairs;
   }
+
+  getSteps(date) {
+    return this.getDayData(this.filteredData, date).numSteps;
+  }
 }
   export default Activity;

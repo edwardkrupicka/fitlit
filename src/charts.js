@@ -7,13 +7,15 @@ var myChart = new Chart(htmlElement, {
         labels: xLabels,
         datasets: [{
             label: chartName,
-            data: data,
+            data,
             backgroundColor: 'rgb(187, 92, 255)',
             borderColor: 'rgb(232, 232, 232)',
             borderWidth: 2
         }]
     },
     options: {
+      maintainAspectRatio: false,
+      responsive: true,
       plugins: {
         legend: {
           labels: {
@@ -63,6 +65,8 @@ var otherChart = new Chart(htmlElement, {
         labels: xLabels
     },
     options: {
+      maintainAspectRatio: false,
+      responsive: true,
       plugins: {
         legend: {
           labels: {

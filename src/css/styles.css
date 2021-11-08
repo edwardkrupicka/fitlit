@@ -3,7 +3,8 @@ body, html {
   height: 100vh;
   width: 100%;
   background: rgb(131,58,180);
-  background: linear-gradient(146deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+  background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(88,9,121,1) 56%, rgba(224,0,0,1) 98%);
+  background-repeat: no-repeat;
   background-attachment: fixed;
   font-family: 'Bebas Neue', cursive;
 }
@@ -96,7 +97,7 @@ figure {
 }
 
 .graph {
-  height: 90%;
+  height: 75%;
   width: 80%;
 }
 
@@ -123,7 +124,6 @@ figure {
 
 .weekly-hydration {
   list-style-type: none;
-  /* margin-right: 4vw; */
 }
 
 .orange {

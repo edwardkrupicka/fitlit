@@ -6,7 +6,9 @@ body, html {
   height: 100vh;
   width: 100%;
   background: rgb(131,58,180);
-  background: linear-gradient(146deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+  background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(88,9,121,1) 56%, rgba(224,0,0,1) 98%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   background-attachment: fixed;
   font-family: 'Bebas Neue', cursive;
 }
@@ -56,7 +58,6 @@ h2 {
   @include flex(center, center);
   margin: 25px;
   border-radius: 15px;
-  background: $gray;
   color: $off-white;
   font-size: 1.5em;
   perspective: 1000px;
@@ -64,6 +65,12 @@ h2 {
 
 .user-img {
   width: 12vw;
+}
+
+.user-profile,
+.user-friends {
+  background: rgb(77,77,77);
+  background: radial-gradient(circle, rgba(77,77,77,1) 0%, rgba(40,40,40,1) 100%);
 }
 
 .friend-img {
@@ -87,7 +94,7 @@ figure {
 }
 
 .graph {
-  height: 90%;
+  height: 75%;
   width: 80%;
 }
 
@@ -115,7 +122,6 @@ figure {
 
 .weekly-hydration {
   list-style-type: none;
-  /* margin-right: 4vw; */
 }
 
 .orange {
@@ -210,13 +216,22 @@ figure {
   backface-visibility: hidden;
   border-radius: 15px;
   @include flex(center, center, column);
-  background-color: $gray;
+  background: rgb(77,77,77);
+  background: radial-gradient(circle, rgba(77,77,77,1) 0%, rgba(40,40,40,1) 100%);
 }
 
 .card-back {
-  background-color: $gray;
   color: $white;
   transform: rotateY(180deg);
+}
+
+.error-response {
+  color: rgb(187, 92, 255);
+}
+
+.return-button-container {
+  display: flex;
+  justify-content: center;
 }
 
 .error-modal {

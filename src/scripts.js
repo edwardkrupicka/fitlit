@@ -80,7 +80,6 @@ function addSleepData() {
   const sleepQual = parseFloat(sleepQuality.value);
   const sleepQuan = parseFloat(sleepQuantity.value);
   const date = sleepDate.value.split('-').join('/');
-  // check for date already existing...
   if (checkIfDataExits(userId, date, allFetchedData[1])) {
     sleepResponse.innerText = `Data already exists for that date, please select a new date.`;
     sleepResponse.classList.remove('hidden');
@@ -126,7 +125,6 @@ function checkForHydrationInputs(event) {
 function addHydrationData() {
   const numOunces = parseFloat(hydrationOunces.value);
   const date = hydrationDate.value.split('-').join('/');
-  // check for date already existing...
   if (checkIfDataExits(userId, date, allFetchedData[3])) {
     hydrationResponse.innerText = `Data already exists for that date, please select a new date.`;
     hydrationResponse.classList.remove('hidden');
@@ -151,8 +149,6 @@ function addHydrationData() {
     getAllData().then(data => {
       const hydration = new Hydration(userId, data[3]);
       hydrationDataChart.destroy();
-      // assigning the value of hydration chart a
-      // second time to be able to input data more than once
       hydrationDataChart = domUpdates.renderHydration(hydration);
     });
   }
@@ -210,6 +206,13 @@ function addActivityData() {
   const date = activityDate.value.split('-').join('/');
   const userInput = { userID: userId, date, numSteps: Number(numSteps.value), minutesActive: Number(minutesActive.value), flightsOfStairs: Number(flightsOfStairs.value) };
 
+  if (checkIfDataExits(userId, date, allFetchedData[2])) {
+    activityResponse.innerText = `Data already exists for that date, please select a new date.`;
+    activityResponse.classList.remove('hidden');
+    setTimeout(() => {
+      domUpdates.hideResponse(activityResponse, activityForm);
+    }, 2000);
+  } else {
   const postedData = postData('http://localhost:3001/api/v1/activity', userInput);
 
   postedData.then((data) => {
@@ -221,6 +224,7 @@ function addActivityData() {
       domUpdates.hideResponse(activityResponse, activityForm);
     }, 2500);
   });
+}
 }
 
 function getTodaysDate() {

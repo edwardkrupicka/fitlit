@@ -85,8 +85,7 @@ figure {
 
 .step-graph,
 .sleep-graph,
-.hydration-graph,
-.activity-graph {
+.hydration-graph {
   background-color: $white;
   width: 30vw;
   height: 40vh;
@@ -96,6 +95,11 @@ figure {
 .graph {
   height: 75%;
   width: 80%;
+}
+
+.activity-graph {
+  width: 90%;
+  height: 30%;
 }
 
 .user-steps,
@@ -169,17 +173,17 @@ figure {
 }
 
 .user-sleep {
-  height: 80%;
+  height: 50vh;
   background-color: transparent;
 }
 
 .user-activity {
-  height: 150%;
+  height: 140vh;
   background-color: transparent;
 }
 
 .user-steps {
-  height: 30%;
+  height: 30vh;
   background-color: transparent;
 }
 

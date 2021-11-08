@@ -129,24 +129,23 @@
             <p>Latest Steps: <span id="latestSteps"></span></p>
             <p>Distance Walked: <span id="distanceWalked"></span></p>
             <p>All Users Latest Steps: <span id="allLatestSteps"></span></p>
-            <div class="graph">
+            <div class="activity-graph">
               <canvas id="stepsActivityChart" width="150" height="150"></canvas>
             </div>
             <p>Flights of Stairs: <span id="flightsClimbed"></span></p>
             <p>All Users Flights Climbed: <span id="allFlightsClimbed"></span></p>
-            <div class="graph">
+            <div class="activity-graph">
               <canvas id="stairsActivityChart" width="150" height="150"></canvas>
             </div>
             
             <p>Active Minutes: <span id="todayActiveMinutes"></span></p>
             <p>All Users Active Minutes: <span id="allActiveMinutes"></span></p>
-            <div class="graph">
+            <div class="activity-graph">
               <canvas id="minutesActivityChart" width="150" height="150"></canvas>
             </div>
             <button class="swivel-button activity-button">Click To Add Activity</button>
           </div>
           <div class="card-back">
-            <button class="swivel-button activity-button">Return</button>
             <h1>ACTIVITY</h1>
             <form class="activity-form" id="activityForm">
               <div>
@@ -167,6 +166,9 @@
               </div>
               <button id="activityButton">Submit</button>
             </form>
+            <div class="return-button-container">
+              <button class="swivel-button activity-button">Return</button>
+            </div>
             <p class="hidden" id="activityResponse"></p>
           </div>
         </div>
